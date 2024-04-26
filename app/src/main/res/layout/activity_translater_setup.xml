@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".V.activity.TranslaterSetup">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/main_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:id="@+id/imgBack"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_gravity="start"
+            android:background="?actionBarItemBackground"
+            android:padding="5dp"
+            android:tint="@color/white"
+            android:src="@drawable/baseline_arrow_back_ios_24">
+
+        </androidx.constraintlayout.utils.widget.ImageFilterButton>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="25dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Translater Setup"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/setup"
+                android:tint="@color/black">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Translater Setup"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/corner"
+            android:backgroundTint="#377DFF"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Help"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="12sp">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/corner">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/calander">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_height="wrap_content">
+
+                </androidx.appcompat.widget.SwitchCompat>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

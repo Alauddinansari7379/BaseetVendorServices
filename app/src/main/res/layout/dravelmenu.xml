@@ -1,0 +1,1472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawelTest"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@color/main_color"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="120dp"
+                android:background="#75043B"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                 >
+
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="Lorum ipsum"
+                    android:textColor="@color/white"
+                    android:textSize="14sp">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tvDashboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/dashboard"
+                    android:backgroundTint="@color/white">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:fontFamily="@font/poppins_regular"
+                    android:foregroundGravity="bottom"
+                    android:padding="5dp"
+                    android:text="Dashboard"
+                    android:textColor="@color/white"
+                    android:textSize="14sp">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/Order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/DoctorIconPS"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/order_new"
+                    android:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/DoctorIconPS"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Order"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/order_arrow_ps"
+                    android:layout_width="14sp"
+                    android:layout_height="14sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/baseline_add_24"
+                    android:tint="@color/white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/order_list_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/layoutServiceRequest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/corner"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Service Request"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                     </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutConfirmed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/corner"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Confirmed"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layoutCompleted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/corner"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Completed"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                        <LinearLayout
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:background="@drawable/corner">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvComCount"
+                                 android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="0"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="9sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layoutCanceled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/corner"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Canceled"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                        <LinearLayout
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:background="@drawable/corner">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvCanCount"
+                                 android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="0"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="9sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layoutRefunded"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/corner"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Refunded"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                        <LinearLayout
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:background="@drawable/corner">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvRefundCount"
+                                 android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="0"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="9sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layoutAll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/corner"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="All"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                        <LinearLayout
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:background="@drawable/corner">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvAllCount"
+                                 android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="0"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="9sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/TrasnlatorService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportIconPS"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/service"
+                    android:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/reportIconPS"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Translator Service"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportArrowPS"
+                    android:layout_width="14sp"
+                    android:layout_height="14sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/baseline_add_24"
+                    android:tint="@color/white" />
+
+            </RelativeLayout>
+
+             <LinearLayout
+                android:id="@+id/PreventiveSLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/layoutAddNew"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/corner_new"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Add New"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/StudentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                  >
+
+                    <LinearLayout
+                        android:id="@+id/layoutList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="5dp"
+                                android:layout_height="5dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="25dp"
+                                android:background="@drawable/corner_new"
+                                android:backgroundTint="@color/white">
+
+                            </androidx.appcompat.widget.AppCompatImageView>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7dp"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:fontFamily="@font/poppins_regular"
+                                android:padding="5dp"
+                                android:text="List"
+                                android:textColor="@color/white"
+                                android:textSize="12sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                 </LinearLayout>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/transalaterConfig"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportIconCM"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/config"
+                    android:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvConfig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/reportIconCM"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Translator Config"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportArrowCM"
+                    android:layout_width="14sp"
+                    android:layout_height="14sp"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/baseline_add_24"
+                    android:tint="@color/white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ClinicalMLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/newAppointmentlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/add"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Clinical Evaluation Request"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/consultationRequestlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Consultation Request"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/todayAppointmentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Today's Appointments"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutPrevious"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Previous Appointments"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutPrescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Prescription"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/myTranslator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportIconRAFU"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/deal"
+                    android:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/reportIconRAFU"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="My Translator"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportArrowRAFU"
+                    android:layout_width="14sp"
+                    android:layout_height="14sp"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/baseline_add_24"
+                    android:tint="@color/white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/RefferalsAFULayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/layoutFollowUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="FollowUp Prescription"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutReferrals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Referrals"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutReferralsFollow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Referrals-Follow-Ups"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutReferralDischarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Referral-Discharge History"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutReferralDoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Referral-Doc History"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutDaliVital"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Daily Vital Updates"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/bankInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportIconLabR"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/bank"
+                    android:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/reportIconLabR"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Bank Info"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportArrowLabR"
+                    android:layout_width="14sp"
+                    android:layout_height="14sp"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/baseline_add_24"
+                    android:tint="@color/white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/LabReportsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/layoutAdvisedLabIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Advised Lab Investigations"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutAdvisedAttach"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Advised Lab Investigations \nAttachment"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/myWallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportIconLabT"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/wallet"
+                    android:tint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/reportIconLabT"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="My Wallet"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/reportArrowLabT"
+                    android:layout_width="14sp"
+                    android:layout_height="14sp"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/baseline_add_24"
+                    android:tint="@color/white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/LabTestsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/layoutLabReport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/user"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Lab Report"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutAddLabReport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/add"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Add Lab Report"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Templeted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="25dp"
+                            android:background="@drawable/add"
+                            android:backgroundTint="@color/white">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:fontFamily="@font/poppins_regular"
+                            android:padding="5dp"
+                            android:text="Template"
+                            android:textColor="@color/white"
+                            android:textSize="12sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Reviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/review"
+                    android:backgroundTint="@color/white">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:fontFamily="@font/poppins_regular"
+                    android:foregroundGravity="bottom"
+                    android:padding="5dp"
+                    android:text="Reviews"
+                    android:textColor="@color/white"
+                    android:textSize="14sp">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tvLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/baseline_logout_24"
+                    android:backgroundTint="@color/white">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:fontFamily="@font/poppins_regular"
+                    android:foregroundGravity="bottom"
+                    android:padding="5dp"
+                    android:text="Logout"
+                    android:textColor="@color/white"
+                    android:textSize="14sp">
+
+                </androidx.appcompat.widget.AppCompatTextView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
+

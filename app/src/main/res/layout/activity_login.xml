@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_color"
+    tools:context=".V.Login.activity.Login">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/logo">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Sign In">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Want to login your admin account? Admin Login In"
+        android:textSize="12sp">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:layout_marginStart="30dp"
+                android:background="#7B043E">
+
+            </androidx.viewpager.widget.ViewPager>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Vendor Login Form"
+                android:textSize="12sp">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="30dp"
+                android:background="#7B043E">
+            </androidx.viewpager.widget.ViewPager>
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+      >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                 android:layout_marginTop="60dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Your Email"
+                android:textSize="12sp">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+         android:layout_marginRight="10dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/corner"
+            android:hint="Enter Email Address"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textSize="14sp">
+
+        </androidx.appcompat.widget.AppCompatEditText>
+
+    </LinearLayout>  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+      >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                 android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Password"
+                android:textSize="12sp">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+         android:layout_marginRight="10dp">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/corner"
+            android:hint="Enter Your Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textSize="14sp">
+
+        </androidx.appcompat.widget.AppCompatEditText>
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                 android:buttonTint="@color/white"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Remember me">
+
+            </CheckBox>
+
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/corner"
+            android:backgroundTint="@color/yellow"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+              android:text="Sign In"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textColor="@color/main_color"
+            android:textSize="14sp">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+    </LinearLayout>
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

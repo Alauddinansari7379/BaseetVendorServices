@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".V.activity.TranslatorBankInfo">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/main_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:id="@+id/imgBack"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_gravity="start"
+            android:background="?actionBarItemBackground"
+            android:padding="5dp"
+            android:tint="@color/white"
+            android:src="@drawable/baseline_arrow_back_ios_24">
+
+        </androidx.constraintlayout.utils.widget.ImageFilterButton>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="25dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Translater Bank Info"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/bank"
+                android:tint="@color/black">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="My Bank Info"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/edit_info"
+            android:layout_marginEnd="80dp"
+            android:tint="@color/black">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginEnd="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="Bank Name : SBI"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="Branch : Malakpet"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="Holder Name : 657576575775"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:text="Hyderabad,India"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold">
+
+        </androidx.appcompat.widget.AppCompatTextView>
+
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
