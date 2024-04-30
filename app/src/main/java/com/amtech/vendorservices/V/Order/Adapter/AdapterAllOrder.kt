@@ -35,7 +35,8 @@ class AdapterAllOrder(
             with(holder) {
                 with(list[position]) {
                     binding.tvSrn.text = id.toString()
-                    binding.tvName.text = delivery_address.contact_person_name
+                  //  binding.tvName.text = delivery_address.contact_person_name
+                    binding.tvName.text =customer.f_name+" "+customer.l_name
                     binding.tvOrderType.text = order_type
                     binding.tvDate.text = created_at.subSequence(0, 11)
                     binding.tvOrderStatus.text = order_status

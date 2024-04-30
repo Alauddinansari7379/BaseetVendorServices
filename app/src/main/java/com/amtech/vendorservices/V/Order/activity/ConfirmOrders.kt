@@ -2,6 +2,7 @@ package com.amtech.vendorservices.V.Order.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.amtech.vendorservices.V.Helper.AppProgressBar
@@ -20,6 +21,7 @@ class ConfirmOrders : AppCompatActivity() {
     private val binding by lazy {
         ActivityConfirmOrdersBinding.inflate(layoutInflater)
     }
+    var count=0
     val context=this@ConfirmOrders
     private lateinit var sessionManager: SessionManager
     private lateinit var mainData: ArrayList<DataX>
@@ -85,16 +87,16 @@ class ConfirmOrders : AppCompatActivity() {
                 override fun onFailure(call: Call<ModelComplete>, t: Throwable) {
                     myToast(context, "Something went wrong")
                     AppProgressBar.hideLoaderDialog()
-//                    count++
-//                    if (count <= 3) {
-//                        Log.e("count", count.toString())
-//                        apiCallAppointmentList(status)
-//                    } else {
-//                        myToast(this@ConsaltationRequest, t.message.toString())
-//                        AppProgressBar.hideLoaderDialog()
-//
-//                    }
-//                    AppProgressBar.hideLoaderDialog()
+                    count++
+                    if (count <= 3) {
+                        Log.e("count", count.toString())
+                        apiCallCompleteOrder()
+                    } else {
+                        myToast(this@ConfirmOrders, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                    AppProgressBar.hideLoaderDialog()
                 }
 
             })

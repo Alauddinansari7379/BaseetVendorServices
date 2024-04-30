@@ -2,6 +2,7 @@ package com.amtech.vendorservices.V.Order.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.amtech.vendorservices.V.Helper.AppProgressBar
@@ -21,6 +22,7 @@ class AllOrders : AppCompatActivity() {
     private val binding by lazy {
         ActivityAllOrdersBinding.inflate(layoutInflater)
     }
+    var count=0
     val context=this@AllOrders
     private lateinit var mainData: ArrayList<ModelAllOrderItem>
 
@@ -85,16 +87,16 @@ class AllOrders : AppCompatActivity() {
                 override fun onFailure(call: Call<ModelAllOrder>, t: Throwable) {
                     myToast(context, t.message.toString())
                     AppProgressBar.hideLoaderDialog()
-//                    count++
-//                    if (count <= 3) {
-//                        Log.e("count", count.toString())
-//                        apiCallAppointmentList(status)
-//                    } else {
-//                        myToast(this@ConsaltationRequest, t.message.toString())
-//                        AppProgressBar.hideLoaderDialog()
-//
-//                    }
-//                    AppProgressBar.hideLoaderDialog()
+                    count++
+                    if (count <= 3) {
+                        Log.e("count", count.toString())
+                        apiCallAllOrder()
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                    AppProgressBar.hideLoaderDialog()
                 }
 
             })

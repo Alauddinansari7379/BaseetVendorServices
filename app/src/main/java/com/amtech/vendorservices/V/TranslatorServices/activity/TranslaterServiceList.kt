@@ -48,19 +48,18 @@ class TranslaterServiceList : AppCompatActivity() {
                 apiCallServiceListCar()
             }else{
                 apiCallServiceList()
-
             }
 
 
             when (sessionManager.usertype) {
                 "car" -> {
-                    binding.tvTitle.text = "Car List"
+                    binding.tvTitle.text = "Car Rental List"
                     binding.btnAddNew.text = "Add New Item"
                     binding.tvList.text = "Item List"
                 }
 
                 "home" -> {
-                    binding.tvTitle.text = "Car List"
+                    binding.tvTitle.text = "Home Rental List"
                     binding.btnAddNew.text = "Add New Item"
                     binding.tvList.text = "Item List"
                 }

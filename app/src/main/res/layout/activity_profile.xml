@@ -106,125 +106,141 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:gravity="center"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgProfile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgCover"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:scaleType="centerCrop"
-             >
+           >
 
-        </de.hdodenhof.circleimageview.CircleImageView>
+        </androidx.appcompat.widget.AppCompatImageView>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/poppins_regular"
+            android:layout_marginTop="-60dp"
             android:gravity="center"
-            android:text="Name : "
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold">
+            android:orientation="vertical">
 
-        </androidx.appcompat.widget.AppCompatTextView>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:text="Phone :"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold">
+            </de.hdodenhof.circleimageview.CircleImageView>
 
-        </androidx.appcompat.widget.AppCompatTextView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Name : "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:text="Address :"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold">
+            </androidx.appcompat.widget.AppCompatTextView>
 
-        </androidx.appcompat.widget.AppCompatTextView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Phone :"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvCommission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:text="Admin commission : "
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold">
+            </androidx.appcompat.widget.AppCompatTextView>
 
-        </androidx.appcompat.widget.AppCompatTextView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Address :"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvDiscount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:text="Discount : "
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold">
+            </androidx.appcompat.widget.AppCompatTextView>
 
-        </androidx.appcompat.widget.AppCompatTextView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCommission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Admin commission : "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="2dp"
-            android:background="@drawable/corner"
-            android:backgroundTint="#377DFF"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="Edit"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp">
+            </androidx.appcompat.widget.AppCompatTextView>
 
-        </androidx.appcompat.widget.AppCompatButton>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Discount : "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/corner"
+                android:backgroundTint="#377DFF"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Edit"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp">
+
+            </androidx.appcompat.widget.AppCompatButton>
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

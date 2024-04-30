@@ -81,6 +81,20 @@ interface ApiInterface {
         @Query("type") type:String,
         @Query("price") price:String,
     ): Call<ModelServiceRet>
+    @GET("vendor/service-related")
+    fun getRelatedServiceCar(
+        @Header("Authorization") authorization: String,
+        @Query("driv_type") driv_type:String,
+        @Query("car_type") car_type:String,
+         @Query("price") price:String,
+    ): Call<ModelServiceRet>
+
+    @GET("vendor/service-related")
+    fun getRelatedServiceHome(
+        @Header("Authorization") authorization: String,
+        @Query("hometype") hometype:String,
+          @Query("price") price:String,
+    ): Call<ModelServiceRet>
 
     @GET("vendor/sendservice")
     fun sendService(
@@ -146,6 +160,26 @@ interface ApiInterface {
         @Query("zone_id") zone_id: String,
         @Query("driv_type") driv_type: String,
       //  @Query("ammenties[]") ammenties: String,
+        @Part image: MultipartBody.Part,
+    ): Call<ModelServiceList>
+
+    @POST("vendor/product/store")
+    @Multipart
+    fun addHome(
+        @Header("Authorization") authorization: String,
+        @Query("food_type") food_type: String,
+        @Query("price") price: String,
+         @Query("home_days") home_days: String,
+        @Query("name") name: String,
+        @Query("description") description: String,
+         @Query("available_time_starts") available_time_starts: String,
+        @Query("available_time_ends") available_time_ends: String,
+        @Query("car_type") car_type: String,
+        @Query("longitude") longitude: String,
+        @Query("latitude") latitude: String,
+        @Query("zone_id") zone_id: String,
+         @Query("ammenties[]") ammenties: List<String>,
+         @Query("ammenties[]") ammenties1: List<String>,
         @Part image: MultipartBody.Part,
     ): Call<ModelServiceList>
 //

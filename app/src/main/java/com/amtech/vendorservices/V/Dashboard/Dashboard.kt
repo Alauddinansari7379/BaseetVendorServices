@@ -77,6 +77,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
     private lateinit var lm: LocationManager
     private val REQUEST_CODE = 100
     private var count = 1
+    private var count1 = 1
     private var currentAddress = ""
     private var postalCodeNew = ""
      val commission = ArrayList<Int>()
@@ -739,16 +740,16 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
 
             override fun onFailure(call: Call<ModelDashboard>, t: Throwable) {
                 myToast(context, t.message.toString())
-//                AppProgressBar.hideLoaderDialog()
-//                count++
-//                if (count<= 3) {
-//                    Log.e("count", count.toString())
-//                    apiCallDashboard()
-//                 } else {
-//                    AppProgressBar.hideLoaderDialog()
-//
-//                }
-//                AppProgressBar.hideLoaderDialog()
+                AppProgressBar.hideLoaderDialog()
+                count1++
+                if (count1<= 3) {
+                    Log.e("count", count1.toString())
+                    apiCallDashboard()
+                 } else {
+                    AppProgressBar.hideLoaderDialog()
+
+                }
+                AppProgressBar.hideLoaderDialog()
             }
 
         })

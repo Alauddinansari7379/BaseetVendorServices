@@ -125,8 +125,11 @@ dependencies {
 //    implementation ("androidx.startup:startup-runtime:1.1.1")
 
     //Multiple Date Picker
-//    implementation ("com.aminography:primedatepicker:3.6.0")
-//    implementation ("com.aminography:primecalendar:1.7.0")
+    implementation ("com.aminography:primedatepicker:3.6.0")
+    implementation ("com.aminography:primecalendar:1.7.0")
+    //Multiselection Spinner
+    implementation ("com.github.AnuraganuPunalur:Multi-Selection-Spinner-Android:1.0")
+    implementation ("com.github.telichada:SearchableMultiSelectSpinner:2.0")
   }
 
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-     android:orientation="vertical"
+    android:orientation="vertical"
     tools:context=".V.TranslatorServices.activity.AddNewTranslatorServices">
 
     <androidx.appcompat.widget.Toolbar
@@ -23,8 +23,8 @@
             android:layout_gravity="start"
             android:background="?actionBarItemBackground"
             android:padding="5dp"
-            android:tint="@color/white"
-            android:src="@drawable/baseline_arrow_back_ios_24">
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            android:tint="@color/white">
 
         </androidx.constraintlayout.utils.widget.ImageFilterButton>
 
@@ -189,8 +189,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvName"
@@ -202,11 +202,12 @@
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvSerNameEn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/poppins_regular"
                         android:text=" (EN)"
                         android:textSize="14sp">
 
@@ -228,9 +229,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginEnd="5dp"
-                     android:background="@drawable/corner"
-                    android:hint="Name"
+                    android:background="@drawable/corner"
                     android:fontFamily="@font/poppins_regular"
+                    android:hint="Name"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="14sp">
@@ -260,11 +261,12 @@
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvDescEn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                         android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/poppins_regular"
                         android:text=" (EN)"
                         android:textSize="14sp">
 
@@ -286,78 +288,367 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginEnd="5dp"
-                     android:background="@drawable/corner"
-                    android:hint="Description"
+                    android:background="@drawable/corner"
                     android:fontFamily="@font/poppins_regular"
-                     android:inputType="text"
+                    android:hint="Description"
+                    android:inputType="text"
                     android:padding="10dp"
                     android:textSize="14sp">
 
                 </androidx.appcompat.widget.AppCompatEditText>
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layoutZone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Zone"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:background="@drawable/corner">
+
+                        <Spinner
+                            android:id="@+id/spinnerZone"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:hint="Blood Group"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:textSize="15dp">
+
+                        </Spinner>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutHomeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Zone"
+                        android:text="Scenic views"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold">
 
                     </androidx.appcompat.widget.AppCompatTextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/corner">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/spinnerScenic"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:hint="Select Scenic views"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textSize="14sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
                 </LinearLayout>
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:background="@drawable/corner">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
 
-                    <Spinner
-                        android:id="@+id/spinnerZone"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Bathroom"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:hint="Blood Group"
-                        android:inputType="textEmailAddress"
-                        android:padding="10dp"
-                        android:textSize="15dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                    </Spinner>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/corner">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/spinnerBathroom"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:hint="Select Bathroom"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textSize="14sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Essentials"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/corner">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/spinnerEssentials"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:hint="Select Essentials"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textSize="14sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+                    </LinearLayout>
 
 
-            </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Clothes storage"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/corner">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/spinnerClothesstorage"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:hint="Select Clothes storage"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textSize="14sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Private BBQ grill"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/corner">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/spinnerPrivateBBQgrill"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:hint="Select Private BBQ grill"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textSize="14sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Utilities"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/corner">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/spinnerUtilities"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                                android:fontFamily="@font/poppins_regular"
+                                android:hint="Select Utilities"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textSize="14sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -366,7 +657,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+              >
 
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:id="@+id/radioOnCall"
@@ -401,11 +693,14 @@
 
                 </androidx.appcompat.widget.AppCompatRadioButton>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layoutDrivingType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -433,39 +728,40 @@
 
                 </LinearLayout>
 
-            <LinearLayout
-                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/radioSelf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:buttonTint="#377DFF"
-                    android:checked="true"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="Self-Driving">
-
-                </androidx.appcompat.widget.AppCompatRadioButton>
-
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/radioDriver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:buttonTint="#377DFF"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="Driver">
-
-                </androidx.appcompat.widget.AppCompatRadioButton>
-
-             </LinearLayout>
                 <LinearLayout
-                     android:layout_width="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioSelf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:buttonTint="#377DFF"
+                        android:checked="true"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Self-Driving">
+
+                    </androidx.appcompat.widget.AppCompatRadioButton>
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioDriver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:buttonTint="#377DFF"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Driver">
+
+                    </androidx.appcompat.widget.AppCompatRadioButton>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -526,8 +822,9 @@
 
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
-                     android:layout_width="match_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -588,8 +885,9 @@
 
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
-                     android:layout_width="match_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -657,101 +955,102 @@
                 android:id="@+id/layoutTrasanlotor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="Translation from "
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold">
-
-                    </androidx.appcompat.widget.AppCompatTextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:weightSum="1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="Translation to "
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold">
-
-                    </androidx.appcompat.widget.AppCompatTextView>
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:background="@drawable/corner">
-
-                    <Spinner
-                        android:id="@+id/spinnerFrom"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:hint="Blood Group"
-                        android:inputType="textEmailAddress"
-                        android:padding="10dp"
-                        android:textSize="15dp">
-
-                    </Spinner>
-
-                </LinearLayout>
+                android:orientation="vertical"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_weight="1.5"
-                    android:background="@drawable/corner">
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/spinnerTo"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:hint="Blood Group"
-                        android:inputType="textEmailAddress"
-                        android:padding="10dp"
-                        android:textSize="15dp">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
 
-                    </Spinner>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Translation from "
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Translation to "
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:background="@drawable/corner">
+
+                        <Spinner
+                            android:id="@+id/spinnerFrom"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:hint="Blood Group"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:textSize="15dp">
+
+                        </Spinner>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.5"
+                        android:background="@drawable/corner">
+
+                        <Spinner
+                            android:id="@+id/spinnerTo"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:hint="Blood Group"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:textSize="15dp">
+
+                        </Spinner>
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -759,153 +1058,292 @@
                 android:id="@+id/layoutServiceDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="Service date"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold">
-
-                    </androidx.appcompat.widget.AppCompatTextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:weightSum="1">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvHoure"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="Service Hour"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold">
-
-                    </androidx.appcompat.widget.AppCompatTextView>
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:orientation="vertical"
-                    android:background="@drawable/corner">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/ServiceDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                         android:inputType="textEmailAddress"
-                        android:padding="10dp"
-                        android:text=""
-                        android:fontFamily="@font/poppins_regular"
-                        android:drawableStart="@drawable/baseline_article_24"
-                         android:textSize="14sp">
-
-                    </androidx.appcompat.widget.AppCompatTextView>
-
-                </LinearLayout>
+                android:orientation="vertical"
+             >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_weight="1.5"
-                    android:background="@drawable/corner">
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/spinnerServiceH"
+                    <LinearLayout
+                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Service date"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:hint="Blood Group"
-                        android:inputType="textEmailAddress"
-                        android:padding="10dp"
-                        android:textSize="15dp">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:weightSum="1">
 
-                    </Spinner>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvHoure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Service Hour"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="Portfolio Video"
-                        android:textSize="14sp">
+                        android:layout_weight="1.5"
+                        android:background="@drawable/corner"
+                        android:orientation="vertical">
 
-                    </androidx.appcompat.widget.AppCompatTextView>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/ServiceDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:drawableStart="@drawable/baseline_article_24"
+                            android:fontFamily="@font/poppins_regular"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:text=""
+                            android:textSize="14sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.5"
+                        android:background="@drawable/corner">
+
+                        <Spinner
+                            android:id="@+id/spinnerServiceH"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:hint="Blood Group"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:textSize="15dp">
+
+                        </Spinner>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutServiceDateHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:orientation="vertical"
+             >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                         android:layout_weight="1"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDays"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Days"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
 
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                     android:layout_marginRight="10dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.5"
+                        android:background="@drawable/corner">
+
+                        <Spinner
+                            android:id="@+id/spinnerDays"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:hint="Blood Group"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:textSize="15dp">
+
+                        </Spinner>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutHomeType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:orientation="vertical"
+             >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                         android:layout_weight="1"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Home Type (EN)"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                     android:layout_marginRight="10dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.5"
+                        android:background="@drawable/corner">
+
+                        <Spinner
+                            android:id="@+id/spinnerHomeType"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:hint="Blood Group"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:textSize="15dp">
+
+                        </Spinner>
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutVideo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+              >
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edtVideo"
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginEnd="5dp"
-                     android:background="@drawable/corner"
-                    android:hint="Portfolio Video"
-                    android:fontFamily="@font/poppins_regular"
-                    android:inputType="text"
-                    android:padding="10dp"
-                    android:textSize="14sp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
 
-                </androidx.appcompat.widget.AppCompatEditText>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="Portfolio Video"
+                            android:textSize="14sp">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtVideo"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/corner"
+                        android:fontFamily="@font/poppins_regular"
+                        android:hint="Portfolio Video"
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:textSize="14sp">
+
+                    </androidx.appcompat.widget.AppCompatEditText>
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -944,11 +1382,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginEnd="5dp"
-                     android:background="@drawable/corner"
+                    android:background="@drawable/corner"
+                    android:fontFamily="@font/poppins_regular"
                     android:hint="Price"
                     android:inputType="numberDecimal"
                     android:padding="10dp"
-                    android:fontFamily="@font/poppins_regular"
                     android:textSize="14sp">
 
                 </androidx.appcompat.widget.AppCompatEditText>
@@ -994,14 +1432,54 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/corner"
+                    android:fontFamily="@font/poppins_regular"
                     android:hint="Choose Image"
                     android:inputType="text"
                     android:padding="10dp"
-                    android:fontFamily="@font/poppins_regular"
                     android:textSize="14sp">
 
                 </androidx.appcompat.widget.AppCompatTextView>
 
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutMainEntrance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                >
+
+
+
+                <LinearLayout
+                    android:id="@+id/layoutMainaentrance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginRight="10dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1.5"
+                        android:background="@drawable/corner">
+
+                        <Spinner
+                            android:id="@+id/spinnerMainEntrance"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:hint="Blood Group"
+                            android:inputType="textEmailAddress"
+                            android:padding="10dp"
+                            android:textSize="15dp">
+
+                        </Spinner>
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -1017,12 +1495,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imageView"
                         android:layout_width="55dp"
                         android:layout_height="75dp"
-                        android:layout_gravity="start"
-                         >
+                        android:layout_gravity="start">
 
                     </androidx.appcompat.widget.AppCompatImageView>
 
@@ -1035,9 +1513,9 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@drawable/corner"
                     android:backgroundTint="#F1F1F1"
-                    android:layout_marginBottom="5dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
                     android:paddingStart="10dp"
@@ -1050,6 +1528,7 @@
                 </androidx.appcompat.widget.AppCompatButton>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1069,11 +1548,11 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@drawable/corner"
                     android:backgroundTint="#377DFF"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
-                    android:layout_marginBottom="5dp"
                     android:text="Submit"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

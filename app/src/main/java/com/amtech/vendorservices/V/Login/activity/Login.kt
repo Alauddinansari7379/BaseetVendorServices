@@ -1,7 +1,9 @@
 package com.amtech.vendorservices.V.Login.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -29,22 +31,21 @@ class Login : AppCompatActivity() {
     var count = 0
     var countlogin = 0
     lateinit var sessionManager: SessionManager
+    private val PREF_NAME = "MyPrefs"
+    private val PREF_USERNAME = "username"
+    private val PREF_PASSWORD = "password"
 
-    //    private lateinit var sessionManagerNew: SessionManagerNew
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private lateinit var sharedPreferences: SharedPreferences
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
-        //  sessionManagerNew=SessionManagerNew(context)
 
         if (sessionManager.isLogin) {
             startActivity(Intent(context, Dashboard::class.java))
             finish()
         }
-//         if (sessionManagerNew.email!!.isNotEmpty()){
-//             binding.edtEmail.setText(sessionManagerNew.email.toString())
-//             binding.edtPassword.setText(sessionManagerNew.password.toString())
-//         }
+
 //         Log.e("LoginEmail",sessionManagerNew.email.toString())
 //         Log.e("LoginEmail",sessionManagerNew.password.toString())
         with(binding) {
@@ -66,7 +67,27 @@ class Login : AppCompatActivity() {
                 apiCallLogin()
             }
 
-            checkBox.setOnClickListener {
+            sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+            val savedUsername = sharedPreferences.getString(PREF_USERNAME, "")
+            val savedPassword = sharedPreferences.getString(PREF_PASSWORD, "")
+            if (savedUsername!!.isNotEmpty()){
+                binding.edtEmail.setText(savedUsername.toString())
+                binding.edtPassword.setText(savedPassword.toString())
+               // checkBox.isChecked=true
+            }
+
+
+                // Set saved username and password if they exist
+                edtEmail.setText(savedUsername)
+                edtPassword.setText(savedPassword)
+
+                checkBox.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        // Save username and password when checkbox is checked
+                        saveCredentials(
+                            edtEmail.text.toString(),
+                            edtPassword.text.toString())
+                     }
 //                if (checkBox.isChecked){
 //                    sessionManagerNew.email=edtEmail.text.toString().trim()
 //                    sessionManagerNew.password=edtPassword.text.toString().trim()
@@ -199,6 +220,13 @@ class Login : AppCompatActivity() {
 
     }
 
+
+private fun saveCredentials(username: String, password: String) {
+    val editor = sharedPreferences.edit()
+    editor.putString(PREF_USERNAME, username)
+    editor.putString(PREF_PASSWORD, password)
+    editor.apply()
+}
 
     override fun onStart() {
         super.onStart()

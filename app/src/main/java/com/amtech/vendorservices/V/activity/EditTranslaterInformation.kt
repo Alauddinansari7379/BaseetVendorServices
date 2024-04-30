@@ -20,13 +20,10 @@ class EditTranslaterInformation : AppCompatActivity() {
             "car" -> {
                 binding.tvTitle.text = "Edit Car Rental Information"
                 binding.tvName.text = "Car Rental Name"
-
             }
             "home" -> {
                 binding.tvTitle.text = "Edit Home Rental Information"
                 binding.tvName.text = "Home Rental Name"
-
-
             }
             else -> {
 

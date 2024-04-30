@@ -101,6 +101,7 @@
             android:drawablePadding="5dp"
             android:hint="Search by Order"
             android:padding="10dp"
+            android:imeOptions="actionDone"
             android:textSize="14sp">
 
         </androidx.appcompat.widget.AppCompatEditText>

@@ -12,6 +12,7 @@ data class ModelMyTra(
     val device_type: Any,
     val email: String,
     val applogo: String,
+    val appcoverlogo: String,
     val email_verified_at: Any,
     val name: String,
     val type: String,

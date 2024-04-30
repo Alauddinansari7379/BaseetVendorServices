@@ -35,6 +35,7 @@ class OrderDetails : AppCompatActivity() {
     var date = ""
     var currentdate = ""
     var count = 0
+    var count1 = 0
     var dateNew: LocalDateTime? =null
     var currentDateNew: LocalDateTime? =null
     private val context = this@OrderDetails
@@ -268,16 +269,16 @@ class OrderDetails : AppCompatActivity() {
                 override fun onFailure(call: Call<ModelSendSer>, t: Throwable) {
                     myToast(context, t.message.toString())
                     AppProgressBar.hideLoaderDialog()
-//                    count++
-//                    if (count <= 3) {
-//                        Log.e("count", count.toString())
-//                        apiCallAppointmentList(status)
-//                    } else {
-//                        myToast(this@ConsaltationRequest, t.message.toString())
-//                        AppProgressBar.hideLoaderDialog()
-//
-//                    }
-//                    AppProgressBar.hideLoaderDialog()
+                    count1++
+                    if (count1 <= 3) {
+                        Log.e("count", count1.toString())
+                        apiCallStatuesChange(orderId,staues)
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                    AppProgressBar.hideLoaderDialog()
                 }
 
             })

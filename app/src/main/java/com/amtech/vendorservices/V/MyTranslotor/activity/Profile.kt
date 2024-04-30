@@ -3,6 +3,7 @@ package com.amtech.vendorservices.V.MyTranslotor.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Helper.AppProgressBar
@@ -25,6 +26,7 @@ class Profile : AppCompatActivity() {
     }
     lateinit var sessionManager: SessionManager
     private val context = this@Profile
+    var count=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +107,14 @@ class Profile : AppCompatActivity() {
                                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                                 .into(binding.imgProfile)
                         }
+
+                        if (response.body()!!.applogo != null) {
+                            Picasso.get().load(response.body()!!.appcoverlogo.replace("http","https"))
+                                .placeholder(R.drawable.user)
+                                .error(R.drawable.error_placeholder)
+                                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .into(binding.imgCover)
+                        }
 //                        for (i in response.body()!!.earning.3){
 //                            earning.add(i)
 //                        }
@@ -124,16 +134,16 @@ class Profile : AppCompatActivity() {
             override fun onFailure(call: Call<ModelMyTra>, t: Throwable) {
                 myToast(context, "Something went wrong")
                 AppProgressBar.hideLoaderDialog()
-                /*   count++
+                   count++
                    if (count<= 3) {
                        Log.e("count", count.toString())
-                       apiCallDashboard()
+                       apiCallGetProfile()
                    } else {
                        myToast(context, t.message.toString())
                        AppProgressBar.hideLoaderDialog()
 
                    }
-                   AppProgressBar.hideLoaderDialog()*/
+                   AppProgressBar.hideLoaderDialog()
             }
 
         })

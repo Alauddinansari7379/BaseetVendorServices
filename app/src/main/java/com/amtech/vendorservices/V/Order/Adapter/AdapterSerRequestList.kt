@@ -50,7 +50,11 @@ class AdapterSerRequestList(
 
                     if (sessionManager.usertype == "car") {
                         binding.layoutDrivingType.visibility = View.VISIBLE
-                    } else {
+                    } else if (sessionManager.usertype == "home"){
+                        binding.tvTypeTv.text="Home Type : "
+                        binding.layoutDrivingType.visibility = View.GONE
+
+                    }else{
                         binding.layoutDrivingType.visibility = View.GONE
 
                     }
@@ -74,7 +78,14 @@ class AdapterSerRequestList(
                                 type!!
                             )
                         } else if (sessionManager.usertype == "home") {
-
+                            accept.accept(
+                                id.toString(),
+                                name!!,
+                                price!!,
+                                "driv_type"!!,
+                                trperson!!,
+                                type!!
+                            )
                         } else {
                             accept.accept(
                                 id.toString(),

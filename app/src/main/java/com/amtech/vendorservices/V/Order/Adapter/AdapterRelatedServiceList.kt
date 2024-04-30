@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -39,14 +40,50 @@ class AdapterRelatedServiceList(
         sessionManager= SessionManager(context)
         with(holder){
             with(list[position]){
-                 binding.name.text = name
-                binding.price.text = "$price$"
-                binding.serviceDate.text = dates
-                binding.serviceHour.text = ser_hour.toString()
-                binding.serviceType.text = drone
-                binding.toLan.text = tr_to
-                binding.fromLan.text = tr_from
-                binding.description.text = description
+                when (sessionManager.usertype) {
+                    "car" -> {
+                        binding.tvDrivingType.text="Driving Type : "
+                        binding.tvCarType.text="Car Type : "
+                        binding.tvTravlingPer.text="Travelling Person : "
+                        binding.tvServiceH.text="Days : "
+
+                        binding.name.text = name
+                        binding.price.text = "$price$"
+                        binding.serviceDate.text = servicesdates
+                        binding.serviceHour.text = days
+                        binding.serviceType.text = trperson
+                        binding.toLan.text = car_type
+                        binding.fromLan.text = driv_type
+                        binding.description.text = description
+                    }
+                    "home" -> {
+                        binding.tvCarType.text="Home Type : "
+                        binding.name.text = name
+                        binding.price.text = "$price$"
+                        binding.description.text = description
+                        binding.toLan.text = home_type
+
+                        binding.layoutDate.visibility=View.GONE
+                        binding.layoutServiceType.visibility=View.GONE
+                        binding.layoutTrasanlotorFrom.visibility=View.GONE
+                        binding.layoutVideo.visibility=View.GONE
+                        if (days!=null){
+                            binding.serviceHour.text = days
+                        }
+
+                    }
+                    else -> {
+                        binding.name.text = name
+                        binding.price.text = "$price$"
+                        binding.serviceDate.text = dates
+                        binding.serviceHour.text = ser_hour.toString()
+                        binding.serviceType.text = drone
+                        binding.toLan.text = tr_to
+                        binding.fromLan.text = tr_from
+                        binding.description.text = description
+                    }
+                }
+
 
 
                 binding.btnSendService.setOnClickListener {

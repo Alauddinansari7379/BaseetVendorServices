@@ -3,6 +3,7 @@ package com.amtech.vendorservices.V.Order.activity
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.widget.addTextChangedListener
 import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Helper.AppProgressBar
@@ -24,6 +25,7 @@ class DeliveredOrders : AppCompatActivity() {
     private val binding by lazy {
         ActivityDeliveredOrdersBinding.inflate(layoutInflater)
     }
+    var count=0
     private val context=this@DeliveredOrders
     private lateinit var sessionManager: SessionManager
     private lateinit var mainData: ArrayList<DataX>
@@ -90,16 +92,16 @@ class DeliveredOrders : AppCompatActivity() {
                 override fun onFailure(call: Call<ModelComplete>, t: Throwable) {
                     myToast(context, "Something went wrong")
                     AppProgressBar.hideLoaderDialog()
-//                    count++
-//                    if (count <= 3) {
-//                        Log.e("count", count.toString())
-//                        apiCallAppointmentList(status)
-//                    } else {
-//                        myToast(this@ConsaltationRequest, t.message.toString())
-//                        AppProgressBar.hideLoaderDialog()
-//
-//                    }
-//                    AppProgressBar.hideLoaderDialog()
+                    count++
+                    if (count <= 3) {
+                        Log.e("count", count.toString())
+                        apiCallCompleteOrder()
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                    AppProgressBar.hideLoaderDialog()
                 }
 
             })
