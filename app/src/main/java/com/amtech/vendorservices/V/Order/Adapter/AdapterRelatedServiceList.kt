@@ -55,6 +55,7 @@ class AdapterRelatedServiceList(
                         binding.toLan.text = car_type
                         binding.fromLan.text = driv_type
                         binding.description.text = description
+                        binding.edtUpdatePrice.setText(price)
                     }
                     "home" -> {
                         binding.tvCarType.text="Home Type : "
@@ -62,6 +63,7 @@ class AdapterRelatedServiceList(
                         binding.price.text = "$price$"
                         binding.description.text = description
                         binding.toLan.text = home_type
+                        binding.edtUpdatePrice.setText(price)
 
                         binding.layoutDate.visibility=View.GONE
                         binding.layoutServiceType.visibility=View.GONE
@@ -81,6 +83,8 @@ class AdapterRelatedServiceList(
                         binding.toLan.text = tr_to
                         binding.fromLan.text = tr_from
                         binding.description.text = description
+                        binding.edtUpdatePrice.setText(price)
+
                     }
                 }
 
@@ -88,6 +92,10 @@ class AdapterRelatedServiceList(
 
                 binding.btnSendService.setOnClickListener {
                     sendRequest.sendRequest(foodid.toString())
+                }
+
+                binding.btnUpdatePrice.setOnClickListener {
+                    sendRequest.updatePrice(foodid.toString(),binding.edtUpdatePrice.text.toString())
                 }
 
                 binding.tvPortfolio.setOnClickListener {
@@ -110,5 +118,6 @@ class AdapterRelatedServiceList(
     }
     interface SendRequest{
         fun sendRequest(id: String,)
+        fun updatePrice(id: String,price:String)
     }
 }

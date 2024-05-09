@@ -39,7 +39,13 @@ fun myToast(activity: Activity, message: String) {
     myToast.view = layout //setting the view of custom toast layout
     myToast.show()
 }
+ fun pmFormate(date: String): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    val date = dateFormat.parse(date)
 
+    val pmFormat = SimpleDateFormat("dd MMM yyyy hh:mm aaa", Locale.getDefault())
+    return pmFormat.format(date)
+}
 
 fun progrossDilog(context: Context){
 

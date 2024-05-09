@@ -23,5 +23,10 @@ data class Data(
     val total_add_on_price: Int,
     val updated_at: String,
     val variant: String,
+    val car_type: String,
+    val driv_type: String,
+    val rent_typ: String,
+    val trperson: String,
+    val amenities: String,
     val variation: List<Any>
 )

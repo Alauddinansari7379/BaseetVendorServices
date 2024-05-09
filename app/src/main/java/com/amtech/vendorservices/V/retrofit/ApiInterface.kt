@@ -4,6 +4,7 @@ import com.amtech.vendorservices.V.Dashboard.model.ModelDashboard
 import com.amtech.vendorservices.V.Login.model.ModelLogin
 import com.amtech.vendorservices.V.MyTranslotor.Model.ModelMyTra
 import com.amtech.vendorservices.V.Order.Model.MAllOrder.ModelAllOrder
+import com.amtech.vendorservices.V.Order.Model.ModeUpdatePrice.ModelUpdatePrice
 import com.amtech.vendorservices.V.Order.Model.ModelComplete
 import com.amtech.vendorservices.V.Order.Model.ModelOrderDet.ModelOrderDet
 import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
@@ -116,6 +117,13 @@ interface ApiInterface {
          @Query("order_id") order_id:String,
     ): Call<ModelOrderDet>
 
+    @POST("vendor/update-price")
+    fun updatePrice(
+        @Header("Authorization") authorization: String,
+         @Query("food_id") food_id:String,
+         @Query("price") price:String,
+    ): Call<ModelUpdatePrice>
+
     @Multipart
     @POST("vendor/product/store")
     fun addNewService(
@@ -127,6 +135,7 @@ interface ApiInterface {
         @Query("ser_hour") ser_hour: String,
         @Query("name") name: String,
         @Query("description") description: String,
+        @Query("dates") dates: String,
         @Query("available_time_starts") available_time_starts: String,
         @Query("available_time_ends") available_time_ends: String,
         @Query("tr_to") tr_to: String,
@@ -172,10 +181,11 @@ interface ApiInterface {
          @Query("home_days") home_days: String,
         @Query("name") name: String,
         @Query("description") description: String,
-         @Query("available_time_starts") available_time_starts: String,
+        @Query("dates") dates: String,
+        @Query("available_time_starts") available_time_starts: String,
         @Query("available_time_ends") available_time_ends: String,
         @Query("car_type") car_type: String,
-        @Query("longitude") longitude: String,
+         @Query("longitude") longitude: String,
         @Query("latitude") latitude: String,
         @Query("zone_id") zone_id: String,
          @Query("ammenties[]") ammenties: List<String>,

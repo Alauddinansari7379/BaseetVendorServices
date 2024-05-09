@@ -15,6 +15,7 @@ import com.amtech.vendorservices.V.Helper.myToast
 import com.amtech.vendorservices.V.Order.Adapter.AdapterRelatedServiceList
 import com.amtech.vendorservices.V.Order.Adapter.AdapterSerRequestList
 import com.amtech.vendorservices.V.Order.Model.Data
+import com.amtech.vendorservices.V.Order.Model.ModeUpdatePrice.ModelUpdatePrice
 import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
 import com.amtech.vendorservices.V.Order.Model.ModelSendSer.ModelSendSer
 import com.amtech.vendorservices.V.Order.Model.ModelServiceReq
@@ -549,6 +550,61 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
             })
 
+    }   private fun apiCallUpdatePrice(
+        foodId: String,
+        price: String,
+     ) {
+        AppProgressBar.showLoaderDialog(context)
+        ApiClient.apiService.updatePrice(
+            sessionManager.idToken.toString(),
+            foodId,
+            price
+        )
+            .enqueue(object : Callback<ModelUpdatePrice> {
+                @SuppressLint("LogNotTimber", "SetTextI18n")
+                override fun onResponse(
+                    call: Call<ModelUpdatePrice>, response: Response<ModelUpdatePrice>
+                ) {
+                    try {
+                        if (response.code() == 404) {
+                            myToast(context, "Something went wrong")
+
+                        } else if (response.code() == 500) {
+                            myToast(context, "Server Error")
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else {
+                            myToast(context,response.body()!!.message)
+                            AppProgressBar.hideLoaderDialog()
+                            dialog?.dismiss()
+                            refresh()
+                        }
+                    } catch (e: Exception) {
+                        myToast(context, "Something went wrong")
+                        e.printStackTrace()
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                }
+
+
+                override fun onFailure(call: Call<ModelUpdatePrice>, t: Throwable) {
+                      myToast(context, t.message.toString())
+                    AppProgressBar.hideLoaderDialog()
+                    count4++
+                    if (count4 <= 3) {
+                        Log.e("count", count4.toString())
+                        apiCallSendService(foodId)
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                    AppProgressBar.hideLoaderDialog()
+                }
+
+            })
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -582,6 +638,12 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
     override fun sendRequest(foodId: String) {
         apiCallSendService(foodId.toString())
      }
+
+    override fun updatePrice(foodId: String,price:String) {
+         apiCallUpdatePrice(foodId,price)
+
+    }
+
     fun refresh() {
         overridePendingTransition(0, 0)
         finish()

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.amtech.vendorservices.V.Helper.pmFormate
 import com.amtech.vendorservices.V.Order.Model.DataX
 import com.amtech.vendorservices.V.Order.activity.OrderDetails
 import com.amtech.vendorservices.databinding.SingleRowCompleteOrderListBinding
@@ -36,7 +37,7 @@ class AdapterCompleteOrder(
                 with(list[position]) {
                     binding.tvSrn.text = id.toString()
                     binding.tvName.text = delivery_address.contact_person_name
-                    binding.tvOrderType.text = order_type
+                    binding.tvServiceDate.text = pmFormate(schedule_at)
                     binding.tvDate.text = created_at.subSequence(0, 11)
                     binding.tvOrderStatus.text = order_status
                     binding.tvPaymentStatus.text = payment_status

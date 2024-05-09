@@ -223,12 +223,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+
             android:orientation="vertical">
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -324,6 +326,17 @@
                                     android:layout_weight="1"
                                     android:gravity="end">
 
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                         android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/poppins_bold"
+                                        android:text="Service Date: "
+                                        android:layout_marginEnd="10dp"
+                                        android:textColor="@color/text_color"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
                                     <androidx.appcompat.widget.AppCompatTextView
                                         android:id="@+id/date"
                                         android:layout_width="wrap_content"
@@ -424,6 +437,28 @@
 
                             </LinearLayout>
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:text=""
+                                    android:textColor="@color/text_color"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold">
+
+                                </androidx.appcompat.widget.AppCompatTextView>
+
+
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -461,24 +496,274 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:gravity="center"
                                 android:orientation="horizontal">
 
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/name"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:text=""
-                                    android:textColor="@color/text_color"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold">
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
 
-                                </androidx.appcompat.widget.AppCompatTextView>
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="50dp"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="Car Type :"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvCarType"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="car type"
+                                        android:textColor="@color/text_color"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+                                </LinearLayout>
 
 
                             </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="50dp"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="Traveling Persons :"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvTravelingPersons"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="tr Person"
+                                        android:textColor="@color/text_color"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="50dp"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="Driving Type :"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvDrivingType"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="Driving Type"
+                                        android:textColor="@color/text_color"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="50dp"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="Rent Type :"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvRentType"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="Rent Type"
+                                        android:textColor="@color/text_color"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="end"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="50dp"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="Amenities :"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:layout_weight="1"
+                                    android:gravity="end">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvAmenities"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:text="Driving Type"
+                                        android:textColor="@color/text_color"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold">
+
+                                    </androidx.appcompat.widget.AppCompatTextView>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
                         </LinearLayout>
 
                     </LinearLayout>
@@ -564,6 +849,7 @@
                         android:layout_height=".5dp"
                         android:layout_marginTop="40dp"
                         android:layout_marginEnd="10dp"
+                        android:visibility="gone"
                         android:background="@color/text_color">
 
                     </androidx.viewpager.widget.ViewPager>
@@ -572,6 +858,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -611,7 +898,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="100 $"
+                                android:text="00 $"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -627,6 +914,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -683,6 +971,7 @@
                         android:layout_marginStart="150dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="10dp"
+                        android:visibility="gone"
                         android:background="@color/text_color">
 
                     </androidx.viewpager.widget.ViewPager>
@@ -691,6 +980,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -760,7 +1050,62 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="50dp"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Discount:"
+                                android:text="Discount :"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_weight="1"
+                            android:gravity="end">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvDiscount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="- 0 $"
+                                android:textColor="@color/text_color"
+                                android:textSize="12sp"
+                                android:textStyle="bold">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="50dp"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Coupon Discount :"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -814,61 +1159,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="50dp"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Coupon Discount:"
-                                android:textColor="@color/black"
-                                android:textSize="12sp"
-                                android:textStyle="bold">
-
-                            </androidx.appcompat.widget.AppCompatTextView>
-
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="15dp"
-                            android:layout_weight="1"
-                            android:gravity="end">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
-                                android:text="- 0 $"
-                                android:textColor="@color/text_color"
-                                android:textSize="12sp"
-                                android:textStyle="bold">
-
-                            </androidx.appcompat.widget.AppCompatTextView>
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:orientation="horizontal">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="50dp"
-                                android:fontFamily="@font/poppins_regular"
-                                android:text="VAT/TAX:"
+                                android:text="VAT/TAX :"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -922,7 +1213,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="50dp"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Delivery Fee:"
+                                android:text="Delivery Fee :"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -987,7 +1278,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="50dp"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Total:"
+                                android:text="Total :"
                                 android:textColor="@color/black"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -1033,9 +1324,10 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
+                 android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp">
 
 
@@ -1116,6 +1408,7 @@
                         android:layout_height=".5dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="10dp"
+                        android:visibility="gone"
                         android:background="@color/text_color">
 
                     </androidx.viewpager.widget.ViewPager>
@@ -1123,6 +1416,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <LinearLayout

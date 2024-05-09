@@ -120,18 +120,14 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     binding.layoutTrasanlotor.visibility = View.GONE
                     binding.layoutDrivingType.visibility = View.GONE
                     binding.layoutVideo.visibility = View.GONE
-                    binding.layoutServiceDate.visibility = View.GONE
-
-
+                    //binding.layoutServiceDate.visibility = View.GONE
                 }
-
                 else -> {
                     binding.layoutZone.visibility = View.GONE
                     binding.layoutDrivingType.visibility = View.GONE
                     binding.layoutHomeSpinner.visibility = View.GONE
                     binding.layoutServiceDateHome.visibility = View.GONE
                     binding.layoutHomeType.visibility = View.GONE
-
                 }
 
             }
@@ -911,6 +907,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
             serviceHourNew,
             binding.edtName.text.toString().trim(),
             binding.edtDescription.text.toString().trim(),
+            multipleSelectedDate.toString(),
             "",
             "",
             translationTo,
@@ -1083,6 +1080,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
             serviceHourNew,
             binding.edtName.text.toString().trim(),
             binding.edtDescription.text.toString().trim(),
+            multipleSelectedDate.toString(),
             "",
             "",
             homeType,

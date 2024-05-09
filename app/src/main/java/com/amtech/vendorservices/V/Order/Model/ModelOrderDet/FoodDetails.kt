@@ -20,7 +20,7 @@ data class FoodDetails(
     val created_at: String,
     val dates: String,
     val description: String,
-    val discount: Any,
+    val discount: String,
     val discount_type: Any,
     val driv_type: Any,
     val drone: String,

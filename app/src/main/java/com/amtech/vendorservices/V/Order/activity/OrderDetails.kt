@@ -12,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.myToast
+import com.amtech.vendorservices.V.Order.Model.DeliveryAddress
 import com.amtech.vendorservices.V.Order.Model.ModelOrderDet.ModelOrderDet
 import com.amtech.vendorservices.V.Order.Model.ModelSendSer.ModelSendSer
 import com.amtech.vendorservices.V.retrofit.ApiClient
 import com.amtech.vendorservices.databinding.ActivityOrderDetailsBinding
 import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -124,15 +126,29 @@ class OrderDetails : AppCompatActivity() {
                                 binding.tvPrice1.text = i.food_details.price.toString() + " $"
                                 binding.tvSubtotal.text = i.food_details.price.toString() + " $"
                                 binding.tvTotal.text = i.food_details.price.toString() + " $"
+                                binding.tvCarType.text = i.food_details.car_type.toString()
+                                binding.tvTravelingPersons.text = i.food_details.trperson.toString()
+                                binding.tvDrivingType.text = i.food_details.driv_type.toString()
+                                binding.tvRentType.text = i.food_details.rent_typ.toString()
+                                binding.tvAmenities.text = i.food_details.amenities.toString()
+                                if (i.food_details.discount!=null){
+                                    binding.tvDiscount.text = i.food_details.discount
+                                }
+
                             }
 
                             binding.tvCusName.text =
                                 response.body()!!.customer.f_name + " " + response.body()!!.customer.l_name
                             binding.tvEmail.text = response.body()!!.customer.email
                             binding.tvNumber.text = response.body()!!.customer.phone
-                            binding.tvDelName.text =
-                                response.body()!!.customer.f_name + " " + response.body()!!.customer.l_name
-                            binding.tvDelNumber.text = response.body()!!.customer.phone
+                            val jsonString = response.body()!!.delivery_address
+
+
+                            val deliveryAddress = Gson().fromJson(jsonString, DeliveryAddress::class.java)
+                                 binding.tvDelName.text =deliveryAddress.contact_person_name
+                                 binding.tvDelNumber.text =deliveryAddress.contact_person_number
+
+
 
                             AppProgressBar.hideLoaderDialog()
                             when (orderStatus) {
@@ -178,6 +194,7 @@ class OrderDetails : AppCompatActivity() {
 
                              dateNew = LocalDateTime.parse(date, formatter)
                              currentDateNew = LocalDateTime.parse(currentDate, formatter)
+
                             if (currentDateNew!! <= dateNew) {
                                 binding.btnDeleverdDesable.visibility=View.VISIBLE
                                 binding.btnDeleverd.visibility=View.GONE
