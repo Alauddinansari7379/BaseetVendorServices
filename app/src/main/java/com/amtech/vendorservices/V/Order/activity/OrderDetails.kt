@@ -1,15 +1,12 @@
 package com.amtech.vendorservices.V.Order.activity
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.myToast
 import com.amtech.vendorservices.V.Order.Model.DeliveryAddress
@@ -38,15 +35,38 @@ class OrderDetails : AppCompatActivity() {
     var currentdate = ""
     var count = 0
     var count1 = 0
-    var dateNew: LocalDateTime? =null
-    var currentDateNew: LocalDateTime? =null
+    var dateNew: LocalDateTime? = null
+    var currentDateNew: LocalDateTime? = null
     private val context = this@OrderDetails
     lateinit var sessionManager: SessionManager
+
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
+        when (sessionManager.usertype) {
+            "car" -> {
+                binding.tvCarTypeH.text = "Car Type: "
+            }
+
+            "home" -> {
+                binding.tvCarTypeH.text = "Home Type: "
+                binding.tvTravelingPersonsH.text = "Persons : "
+                binding.tvDrivingTypeH.text = "Type : "
+            }
+
+            else -> {
+                binding.tvCarTypeH.text = "Translotor Type: "
+                binding.tvTravelingPersonsH.text = "Persons : "
+                binding.tvDrivingTypeH.text = "Type : "
+
+
+            }
+        }
+
         orderId = intent.getStringExtra("orderId").toString()
         orderStatus = intent.getStringExtra("orderStatus").toString()
         when (orderStatus) {
@@ -61,7 +81,9 @@ class OrderDetails : AppCompatActivity() {
 
             "precessing" -> {
                 binding.btnDeleverd.visibility = View.VISIBLE
-            }else->{
+            }
+
+            else -> {
 
             }
         }
@@ -80,7 +102,7 @@ class OrderDetails : AppCompatActivity() {
         }
 
         binding.btnDeleverd.setOnClickListener {
-                apiCallStatuesChange(orderId, "delivered")
+            apiCallStatuesChange(orderId, "delivered")
 
         }
     }
@@ -126,12 +148,14 @@ class OrderDetails : AppCompatActivity() {
                                 binding.tvPrice1.text = i.food_details.price.toString() + " $"
                                 binding.tvSubtotal.text = i.food_details.price.toString() + " $"
                                 binding.tvTotal.text = i.food_details.price.toString() + " $"
+
                                 binding.tvCarType.text = i.food_details.car_type.toString()
                                 binding.tvTravelingPersons.text = i.food_details.trperson.toString()
                                 binding.tvDrivingType.text = i.food_details.driv_type.toString()
                                 binding.tvRentType.text = i.food_details.rent_typ.toString()
                                 binding.tvAmenities.text = i.food_details.amenities.toString()
-                                if (i.food_details.discount!=null){
+
+                                if (i.food_details.discount != null) {
                                     binding.tvDiscount.text = i.food_details.discount
                                 }
 
@@ -144,9 +168,10 @@ class OrderDetails : AppCompatActivity() {
                             val jsonString = response.body()!!.delivery_address
 
 
-                            val deliveryAddress = Gson().fromJson(jsonString, DeliveryAddress::class.java)
-                                 binding.tvDelName.text =deliveryAddress.contact_person_name
-                                 binding.tvDelNumber.text =deliveryAddress.contact_person_number
+                            val deliveryAddress =
+                                Gson().fromJson(jsonString, DeliveryAddress::class.java)
+                            binding.tvDelName.text = deliveryAddress.contact_person_name
+                            binding.tvDelNumber.text = deliveryAddress.contact_person_number
 
 
 
@@ -162,14 +187,14 @@ class OrderDetails : AppCompatActivity() {
                                     binding.btnDeleverd.visibility = View.GONE
                                     binding.btnConfirm.visibility = View.GONE
                                     binding.btnCancel.visibility = View.GONE
-                                    binding.btnDeleverdDesable.visibility=View.GONE
-                                    binding.btnDeleverd.visibility=View.GONE
+                                    binding.btnDeleverdDesable.visibility = View.GONE
+                                    binding.btnDeleverd.visibility = View.GONE
                                 }
 
                                 "pending" -> {
                                     binding.btnConfirm.visibility = View.VISIBLE
                                     binding.btnCancel.visibility = View.VISIBLE
-                                    binding.btnDeleverdDesable.visibility=View.GONE
+                                    binding.btnDeleverdDesable.visibility = View.GONE
 
                                 }
 
@@ -181,32 +206,37 @@ class OrderDetails : AppCompatActivity() {
                                     binding.btnDeleverd.visibility = View.GONE
                                     binding.btnConfirm.visibility = View.GONE
                                     binding.btnCancel.visibility = View.GONE
-                                    binding.btnDeleverdDesable.visibility=View.GONE
+                                    binding.btnDeleverdDesable.visibility = View.GONE
 
-                                }else->{
+                                }
+
+                                else -> {
+
+                                }
 
                             }
-
-                            }
-                            val currentDate: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                            val currentDate: String =
+                                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(
+                                    Date()
+                                )
 
                             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
-                             dateNew = LocalDateTime.parse(date, formatter)
-                             currentDateNew = LocalDateTime.parse(currentDate, formatter)
+                            dateNew = LocalDateTime.parse(date, formatter)
+                            currentDateNew = LocalDateTime.parse(currentDate, formatter)
 
                             if (currentDateNew!! <= dateNew) {
-                                binding.btnDeleverdDesable.visibility=View.VISIBLE
-                                binding.btnDeleverd.visibility=View.GONE
+                                binding.btnDeleverdDesable.visibility = View.VISIBLE
+                                binding.btnDeleverd.visibility = View.GONE
 
-                            }else{
-                                if (orderStatus=="delivered" ||orderStatus=="canceled" ){
-                                    binding.btnDeleverd.visibility=View.GONE
-                                }else{
-                                    if (orderStatus=="pending"){
-                                        binding.btnDeleverd.visibility=View.GONE
-                                    }else
-                                    binding.btnDeleverd.visibility=View.VISIBLE
+                            } else {
+                                if (orderStatus == "delivered" || orderStatus == "canceled") {
+                                    binding.btnDeleverd.visibility = View.GONE
+                                } else {
+                                    if (orderStatus == "pending") {
+                                        binding.btnDeleverd.visibility = View.GONE
+                                    } else
+                                        binding.btnDeleverd.visibility = View.VISIBLE
 
                                 }
                             }
@@ -268,7 +298,7 @@ class OrderDetails : AppCompatActivity() {
 
                         } else {
 
-                          //  apiCallOrderDet(orderId)
+                            //  apiCallOrderDet(orderId)
 
                             AppProgressBar.hideLoaderDialog()
 
@@ -289,7 +319,7 @@ class OrderDetails : AppCompatActivity() {
                     count1++
                     if (count1 <= 3) {
                         Log.e("count", count1.toString())
-                        apiCallStatuesChange(orderId,staues)
+                        apiCallStatuesChange(orderId, staues)
                     } else {
                         myToast(context, t.message.toString())
                         AppProgressBar.hideLoaderDialog()
@@ -305,11 +335,13 @@ class OrderDetails : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
-        back=true
-     }
-    companion object{
-        var back=false
+        back = true
     }
+
+    companion object {
+        var back = false
+    }
+
     private fun pmFormate(date: String): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val date = dateFormat.parse(date)

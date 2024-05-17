@@ -550,7 +550,9 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
             })
 
-    }   private fun apiCallUpdatePrice(
+    }
+
+    private fun apiCallUpdatePrice(
         foodId: String,
         price: String,
      ) {

@@ -506,6 +506,7 @@
                                     android:orientation="horizontal">
 
                                     <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvCarTypeH"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="50dp"
@@ -560,6 +561,7 @@
                                     android:orientation="horizontal">
 
                                     <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvTravelingPersonsH"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="50dp"
@@ -614,6 +616,7 @@
                                     android:orientation="horizontal">
 
                                     <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvDrivingTypeH"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="50dp"
@@ -668,6 +671,7 @@
                                     android:orientation="horizontal">
 
                                     <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvRentTypeH"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="50dp"
@@ -722,6 +726,7 @@
                                     android:orientation="horizontal">
 
                                     <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvAmenitiesH"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="50dp"
