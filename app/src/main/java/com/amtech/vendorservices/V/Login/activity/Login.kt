@@ -17,7 +17,7 @@ import com.amtech.vendorservices.V.Login.model.ModelLogin
 import com.amtech.vendorservices.V.MyTranslotor.Model.ModelMyTra
 import com.amtech.vendorservices.V.retrofit.ApiClient
 import com.amtech.vendorservices.databinding.ActivityLoginBinding
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

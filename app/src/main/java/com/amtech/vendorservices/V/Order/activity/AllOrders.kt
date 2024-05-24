@@ -13,7 +13,7 @@ import com.amtech.vendorservices.V.Order.Model.MAllOrder.ModelAllOrderItem
 import com.amtech.vendorservices.V.Order.activity.OrderDetails.Companion.back
 import com.amtech.vendorservices.V.retrofit.ApiClient
 import com.amtech.vendorservices.databinding.ActivityAllOrdersBinding
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +26,7 @@ class AllOrders : AppCompatActivity() {
     val context=this@AllOrders
     private lateinit var mainData: ArrayList<ModelAllOrderItem>
 
-    lateinit var sessionManager:SessionManager
+    lateinit var sessionManager: SessionManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

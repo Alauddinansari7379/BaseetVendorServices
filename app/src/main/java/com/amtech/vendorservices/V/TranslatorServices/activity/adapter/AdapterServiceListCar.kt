@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amtech.vendorservices.R
-import com.amtech.vendorservices.V.TranslatorServices.activity.model.Product
 import com.amtech.vendorservices.databinding.SingleRowServiceListBinding
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import com.squareup.picasso.Picasso
 
 

@@ -2,9 +2,8 @@ package com.amtech.vendorservices.V.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.amtech.vendorservices.R
 import com.amtech.vendorservices.databinding.ActivityEditBankInfoBinding
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 
 class EditBankInfo : AppCompatActivity() {
     val binding by lazy {

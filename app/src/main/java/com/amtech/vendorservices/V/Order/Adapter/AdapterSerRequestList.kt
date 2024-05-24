@@ -2,16 +2,13 @@ package com.amtech.vendorservices.V.Order.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.amtech.vendorservices.V.Order.Model.Data
 import com.amtech.vendorservices.databinding.SingleRowSerRequestListBinding
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 
 
 class AdapterSerRequestList(

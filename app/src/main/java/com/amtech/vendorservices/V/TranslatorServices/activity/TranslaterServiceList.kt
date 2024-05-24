@@ -19,7 +19,7 @@ import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelServic
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.Product
 import com.amtech.vendorservices.V.retrofit.ApiClient
 import com.amtech.vendorservices.databinding.ActivityTranslaterServiceListBinding
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

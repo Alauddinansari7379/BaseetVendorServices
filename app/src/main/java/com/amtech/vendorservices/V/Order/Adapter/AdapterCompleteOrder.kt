@@ -10,7 +10,7 @@ import com.amtech.vendorservices.V.Helper.pmFormate
 import com.amtech.vendorservices.V.Order.Model.DataX
 import com.amtech.vendorservices.V.Order.activity.OrderDetails
 import com.amtech.vendorservices.databinding.SingleRowCompleteOrderListBinding
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 
 
 class AdapterCompleteOrder(

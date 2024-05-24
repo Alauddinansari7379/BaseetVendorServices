@@ -2,9 +2,8 @@ package com.amtech.vendorservices.V.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.amtech.vendorservices.R
 import com.amtech.vendorservices.databinding.ActivityEditTranslaterInformationBinding
- import com.example.hhfoundation.sharedpreferences.SessionManager
+ import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 
 class EditTranslaterInformation : AppCompatActivity() {
     private  val binding by lazy {

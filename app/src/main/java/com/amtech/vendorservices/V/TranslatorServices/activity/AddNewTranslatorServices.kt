@@ -31,7 +31,7 @@ import com.devstune.searchablemultiselectspinner.SearchableItem
 import com.devstune.searchablemultiselectspinner.SearchableMultiSelectSpinner
 import com.devstune.searchablemultiselectspinner.SelectionCompleteListener
 import com.example.hhfoundation.Helper.ImageUploadClass.UploadRequestBody
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -160,6 +160,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
             carModelList.add(ModelSpinner("2024", "1"))
 
             ServiceDate.text = currentDate
+
             spinnerFrom.adapter =
                 ArrayAdapter<ModelSpinner>(
                     context,

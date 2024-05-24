@@ -13,7 +13,7 @@ import com.amtech.vendorservices.V.MyTranslotor.Model.ModelMyTra
 import com.amtech.vendorservices.V.activity.EditTranslaterInformation
 import com.amtech.vendorservices.V.retrofit.ApiClient
 import com.amtech.vendorservices.databinding.ActivityProfileBinding
- import com.example.hhfoundation.sharedpreferences.SessionManager
+ import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import retrofit2.Call

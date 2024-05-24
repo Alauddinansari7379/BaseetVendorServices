@@ -2,16 +2,15 @@ package com.amtech.vendorservices.V.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.amtech.vendorservices.R
 import com.amtech.vendorservices.databinding.ActivityServiceUpdateBinding
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 
 class ServiceUpdate : AppCompatActivity() {
     private val binding by lazy {
         ActivityServiceUpdateBinding.inflate(layoutInflater)
     }
     private val context=this@ServiceUpdate
-    lateinit var sessionManager:SessionManager
+    lateinit var sessionManager: SessionManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

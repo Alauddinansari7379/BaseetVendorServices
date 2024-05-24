@@ -1,4 +1,4 @@
-package com.example.hhfoundation.sharedpreferences
+package com.amtech.vendorservices.V.sharedpreferences
 
 import android.content.Context
 import android.preference.PreferenceManager

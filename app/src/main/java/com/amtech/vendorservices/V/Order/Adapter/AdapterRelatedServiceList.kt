@@ -7,14 +7,11 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.Data
-import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
 import com.amtech.vendorservices.databinding.SingleRowRelatedServiceBinding
-import com.amtech.vendorservices.databinding.SingleRowSerRequestListBinding
-import com.example.hhfoundation.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import com.squareup.picasso.Picasso
 
 
