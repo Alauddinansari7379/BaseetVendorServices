@@ -3,7 +3,7 @@ package com.amtech.vendorservices.V.Order.Model.ModelOrderDet
 data class Detail(
     val accepted: Any,
     val add_ons: List<Any>,
-    val confirmed: Any,
+    val confirmed: String,
     val created_at: String,
     val delivered: Any,
     val discount_on_food: Any,

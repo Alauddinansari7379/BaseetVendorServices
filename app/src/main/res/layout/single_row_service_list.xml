@@ -75,7 +75,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="S.No:"
+                                android:text="@string/s_no_"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -87,7 +87,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="1"
+                                android:text="@string/_1"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -115,8 +115,7 @@
                                 android:id="@+id/imgProfile"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:scaleType="centerCrop"
-                                 >
+                                android:scaleType="centerCrop">
 
                             </de.hdodenhof.circleimageview.CircleImageView>
 
@@ -134,7 +133,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Status:"
+                                android:text="@string/status"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -168,7 +167,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
 
@@ -176,7 +175,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Name : "
+                                android:text="@string/name_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -188,7 +187,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Raheem (In Person)"
+                                android:text="@string/raheem_in_person"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -214,7 +213,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Type : "
+                                android:text="@string/type_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -226,7 +225,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Service"
+                                android:text="@string/service"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -245,7 +244,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Action :"
+                                android:text="@string/action"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -272,6 +271,7 @@
 
                                 </LinearLayout>
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -301,52 +301,45 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_weight="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="@string/price_"
+                            android:textColor="@color/text_color"
+                            android:textSize="12sp"
+                            android:textStyle="bold">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1">
+                            android:gravity="center">
+
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Price : "
+                                android:text="@string/_00"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
 
                             </androidx.appcompat.widget.AppCompatTextView>
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center">
-
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tvPrice"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:text="100$"
-                                    android:textColor="@color/text_color"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold">
-
-                                </androidx.appcompat.widget.AppCompatTextView>
-
-
-                            </LinearLayout>
 
                         </LinearLayout>
 
-
                     </LinearLayout>
 
+
                 </LinearLayout>
+
             </LinearLayout>
 
 

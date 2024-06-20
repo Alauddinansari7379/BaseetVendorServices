@@ -20,7 +20,7 @@ class ServiceUpdate : AppCompatActivity() {
             }
             sessionManager= SessionManager(context)
 
-            when (sessionManager.usertype) {
+           /* when (sessionManager.usertype) {
                 "car" -> {
                     binding.tvTitle.text = "Car Service Update"
                     binding.tvImage.text = "Car Image"
@@ -78,6 +78,7 @@ class ServiceUpdate : AppCompatActivity() {
                 }
 
             }
-        }
+        }*/
+    }
     }
 }

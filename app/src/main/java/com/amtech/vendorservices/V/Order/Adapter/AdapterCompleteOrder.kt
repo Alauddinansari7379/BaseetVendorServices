@@ -39,8 +39,12 @@ class AdapterCompleteOrder(
                     binding.tvName.text = delivery_address.contact_person_name
                     binding.tvServiceDate.text = pmFormate(schedule_at)
                     binding.tvDate.text = created_at.subSequence(0, 11)
-                    binding.tvOrderStatus.text = order_status
-                    binding.tvPaymentStatus.text = payment_status
+                    if (order_status == "delivered") {
+                        binding.tvOrderStatus.text = "Completed"
+                    } else {
+                        binding.tvOrderStatus.text = order_status
+                    }
+                     binding.tvPaymentStatus.text = payment_status
                     binding.tvTotal.text = "$order_amount$"
 
                     binding.layoutAction.setOnClickListener {

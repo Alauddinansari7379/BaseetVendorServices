@@ -35,7 +35,7 @@
             android:layout_gravity="start"
             android:layout_marginStart="25dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Edit Bank Info"
+            android:text="@string/edit_bank_info"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:text="Edit Info"
+                android:text="@string/edit_info"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold">
@@ -107,9 +107,9 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Bank Name *"
+                        android:text="@string/bank_name"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -131,7 +131,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/corner"
-                    android:hint="SBI"
+                    android:hint="@string/sbi"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="14sp">
@@ -153,9 +153,9 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Branch Name*"
+                        android:text="@string/branch_name"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -177,51 +177,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/corner"
-                    android:hint="Sd Nagar"
-                    android:inputType="text"
-                    android:padding="10dp"
-                    android:textSize="14sp">
-
-                </androidx.appcompat.widget.AppCompatEditText>
-
-            </LinearLayout><LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="Holder Name *"
-                        android:textSize="14sp">
-
-                    </androidx.appcompat.widget.AppCompatTextView>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/corner"
-                    android:hint="Abdul Syed"
+                    android:hint="@string/sd_nagar"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="14sp">
@@ -241,9 +197,9 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Account No *"
+                        android:text="@string/holder_name"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -265,7 +221,51 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/corner"
-                    android:hint="1234568952141"
+                    android:hint="@string/abdul_syed"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textSize="14sp">
+
+                </androidx.appcompat.widget.AppCompatEditText>
+
+            </LinearLayout><LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/account_no"
+                        android:textSize="14sp">
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/corner"
+                    android:hint="@string/_1234568952141"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="14sp">
@@ -296,7 +296,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
-                    android:text="Update"
+                    android:text="@string/update"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="12sp">
@@ -312,7 +312,7 @@
                     android:layout_marginEnd="10dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:layout_marginStart="20dp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

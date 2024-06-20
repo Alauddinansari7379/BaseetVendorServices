@@ -21,7 +21,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="Name"
+            android:text="@string/name"
             android:textColor="@color/main_color"
             android:textSize="11sp"
             android:textStyle="bold">
@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Price : "
+                    android:text="@string/price"
                     android:textColor="@color/main_color"
                     android:textSize="12sp"
                     android:textStyle="bold">
@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:textColor="@color/main_color"
                     android:textSize="12sp"
                     android:textStyle="bold">
@@ -85,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Translation from language :"
+                    android:text="@string/translation_from_language"
                     android:textColor="@color/main_color"
                     android:textSize="12sp"
                     android:textStyle="bold">
@@ -125,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Translation to language : "
+                    android:text="@string/translation_to_language"
                     android:textColor="@color/main_color"
                     android:textSize="12sp"
                     android:textStyle="bold">
@@ -166,7 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Translation Service Type : "
+                    android:text="@string/translation_service_type"
                     android:textColor="@color/main_color"
                     android:textSize="12sp"
                     android:textStyle="bold">
@@ -206,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Service dates : "
+                    android:text="@string/service_dates"
                     android:textColor="@color/main_color"
                     android:textSize="12sp"
                     android:textStyle="bold">
@@ -246,7 +246,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Service hour : "
+                    android:text="@string/service_hour_"
                     android:textColor="@color/main_color"
                     android:textSize="12sp"
                     android:textStyle="bold">
@@ -279,7 +279,7 @@
 
             <LinearLayout
 
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
@@ -287,7 +287,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Portfolio Video : "
+                    android:text="@string/portfolio_video_"
                     android:textColor="@color/main_color"
                     android:textSize="12sp"
                     android:textStyle="bold">
@@ -299,7 +299,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="View Video"
+                    android:text="@string/view_video"
                     android:textColor="@color/main_color"
                     android:textSize="11sp"
                     android:textStyle="bold">
@@ -322,7 +322,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Short Description :"
+                android:text="@string/short_description"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold">
@@ -334,7 +334,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/main_color"
                 android:textSize="12sp"
                 android:textStyle="bold">
@@ -348,18 +348,18 @@
 
                 <LinearLayout
 
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/edtUpdatePrice"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_marginEnd="15dp"
                         android:layout_weight="1.5"
                         android:background="@drawable/corner"
-                        android:hint="Price"
+                        android:hint="@string/price"
                         android:inputType="number"
                         android:padding="10dp"
                         android:textSize="12sp">
@@ -373,7 +373,7 @@
                         android:layout_marginEnd="10dp"
                         android:backgroundTint="#00c9a7"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Update Price"
+                        android:text="@string/update_price"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="11sp">
@@ -404,11 +404,11 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSendService"
                     android:layout_width="wrap_content"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:backgroundTint="#00c9a7"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Send this Service"
+                    android:text="@string/send_this_service"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="11sp">

@@ -42,7 +42,7 @@
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
-                    android:text="Lorum ipsum"
+                    android:text="@string/lorum_ipsum"
                     android:textColor="@color/white"
                     android:textSize="14sp">
 
@@ -73,7 +73,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:foregroundGravity="bottom"
                     android:padding="5dp"
-                    android:text="Dashboard"
+                    android:text="@string/dashboard"
                     android:textColor="@color/white"
                     android:textSize="14sp">
 
@@ -102,7 +102,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/DoctorIconPS"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Order"
+                    android:text="@string/order"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -157,7 +157,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Service Request"
+                            android:text="@string/service_request"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -196,7 +196,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Confirmed"
+                            android:text="@string/confirmed"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -237,7 +237,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Completed"
+                            android:text="@string/completed"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -254,7 +254,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="?android:attr/selectableItemBackground"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="0"
+                                android:text="@string/_0"
                                 android:gravity="center"
                                 android:layout_gravity="center"
                                 android:textStyle="bold"
@@ -297,7 +297,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Canceled"
+                            android:text="@string/canceled"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -314,7 +314,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="?android:attr/selectableItemBackground"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="0"
+                                android:text="@string/_0"
                                 android:gravity="center"
                                 android:layout_gravity="center"
                                 android:textStyle="bold"
@@ -358,7 +358,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Refunded"
+                            android:text="@string/refunded"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -375,7 +375,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="?android:attr/selectableItemBackground"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="0"
+                                android:text="@string/_0"
                                 android:gravity="center"
                                 android:layout_gravity="center"
                                 android:textStyle="bold"
@@ -418,7 +418,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="All"
+                            android:text="@string/all"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -435,7 +435,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="?android:attr/selectableItemBackground"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="0"
+                                android:text="@string/_0"
                                 android:gravity="center"
                                 android:layout_gravity="center"
                                 android:textStyle="bold"
@@ -475,7 +475,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/reportIconPS"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Translator Service"
+                    android:text="@string/translator_service"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -529,7 +529,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Add New"
+                            android:text="@string/add_new"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -576,7 +576,7 @@
                                 android:background="?android:attr/selectableItemBackground"
                                 android:fontFamily="@font/poppins_regular"
                                 android:padding="5dp"
-                                android:text="List"
+                                android:text="@string/list"
                                 android:textColor="@color/white"
                                 android:textSize="12sp">
 
@@ -614,7 +614,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/reportIconCM"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Translator Config"
+                    android:text="@string/translator_config"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -668,7 +668,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Clinical Evaluation Request"
+                            android:text="@string/clinical_evaluation_request"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -706,7 +706,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Consultation Request"
+                            android:text="@string/consultation_request"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -745,7 +745,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Today's Appointments"
+                            android:text="@string/today_s_appointments"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -783,7 +783,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Previous Appointments"
+                            android:text="@string/previous_appointments"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -821,7 +821,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Prescription"
+                            android:text="@string/prescription"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -856,7 +856,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/reportIconRAFU"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="My Translator"
+                    android:text="@string/my_translator"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -910,7 +910,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="FollowUp Prescription"
+                            android:text="@string/followup_prescription"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -948,7 +948,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Referrals"
+                            android:text="@string/referrals"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -986,7 +986,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Referrals-Follow-Ups"
+                            android:text="@string/referrals_follow_ups"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -1024,7 +1024,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Referral-Discharge History"
+                            android:text="@string/referral_discharge_history"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -1062,7 +1062,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Referral-Doc History"
+                            android:text="@string/referral_doc_history"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -1100,7 +1100,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Daily Vital Updates"
+                            android:text="@string/daily_vital_updates"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -1134,7 +1134,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/reportIconLabR"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Bank Info"
+                    android:text="@string/bank_info"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -1188,7 +1188,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Advised Lab Investigations"
+                            android:text="@string/advised_lab_investigations"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -1226,7 +1226,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Advised Lab Investigations \nAttachment"
+                            android:text="@string/advised_lab_investigations_nattachment"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -1260,7 +1260,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@id/reportIconLabT"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="My Wallet"
+                    android:text="@string/my_wallet"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -1314,7 +1314,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Lab Report"
+                            android:text="@string/lab_report"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -1352,7 +1352,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Add Lab Report"
+                            android:text="@string/add_lab_report"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -1390,7 +1390,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:fontFamily="@font/poppins_regular"
                             android:padding="5dp"
-                            android:text="Template"
+                            android:text="@string/template"
                             android:textColor="@color/white"
                             android:textSize="12sp">
 
@@ -1425,7 +1425,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:foregroundGravity="bottom"
                     android:padding="5dp"
-                    android:text="Reviews"
+                    android:text="@string/reviews"
                     android:textColor="@color/white"
                     android:textSize="14sp">
 
@@ -1457,7 +1457,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:foregroundGravity="bottom"
                     android:padding="5dp"
-                    android:text="Logout"
+                    android:text="@string/logout"
                     android:textColor="@color/white"
                     android:textSize="14sp">
 

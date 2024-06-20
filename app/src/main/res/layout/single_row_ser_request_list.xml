@@ -74,7 +74,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="S.No:"
+                                android:text="@string/s_no_"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -113,7 +113,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Name : "
+                                android:text="@string/name_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -144,7 +144,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Service Date :"
+                                android:text="@string/service_hour_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -182,7 +182,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Description : "
+                                android:text="@string/description_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -213,7 +213,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Service Hours :"
+                                android:text="@string/service_hour_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -252,7 +252,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Type : "
+                                android:text="@string/type_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -282,7 +282,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Price : "
+                                android:text="@string/price_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -294,7 +294,7 @@
                                  android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="00$"
+                                android:text="@string/_00"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -345,6 +345,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layoutLangauge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -360,7 +361,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="From Lang : "
+                                android:text="@string/from_lang"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -372,7 +373,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Turkish"
+                                android:text="@string/turkish"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -391,7 +392,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="To Lang : "
+                                android:text="@string/to_lang"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -403,7 +404,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Arabic"
+                                android:text="@string/arabic"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -429,7 +430,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Portfolio Video : "
+                                android:text="@string/portfolio_video_"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -441,7 +442,7 @@
                                  android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_bold"
-                                android:text="View Video"
+                                android:text="@string/view_video"
                                 android:textColor="@color/main_color"
                                 android:textSize="11sp"
                                 android:textStyle="bold">
@@ -461,7 +462,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="35dp"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Accept"
+                                android:text="@string/accept"
                                 android:visibility="gone"
                                 android:textAllCaps="false"
                                 android:backgroundTint="#00c9a7"
@@ -475,7 +476,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Waiting For Customer Confirmation"
+                                android:text="@string/waiting_for_customer_confirmation"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:visibility="gone"

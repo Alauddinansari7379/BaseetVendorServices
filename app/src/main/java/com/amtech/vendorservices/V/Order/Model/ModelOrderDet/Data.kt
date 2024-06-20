@@ -3,7 +3,7 @@ package com.amtech.vendorservices.V.Order.Model.ModelOrderDet
 data class Data(
     val accepted: Any,
     val add_ons: List<Any>,
-    val confirmed: Any,
+    val confirmed: String,
     val created_at: String,
     val delivered: Any,
     val discount_on_food: Any,
@@ -23,10 +23,5 @@ data class Data(
     val total_add_on_price: Int,
     val updated_at: String,
     val variant: String,
-    val car_type: String,
-    val driv_type: String,
-    val rent_typ: String,
-    val trperson: String,
-    val amenities: String,
     val variation: List<Any>
 )

@@ -36,7 +36,7 @@ class AdapterServiceListCar(
                 with(list[position]) {
                     binding.tvSrn.text = id.toString()
                     binding.tvName.text = name
-                      binding.tvType.text = "Service"
+                      binding.tvType.text = sessionManager.usertype+" Service"
                      binding.tvPrice.text = "$price$"
                     if (status==1){
                         binding.switchStatus.isChecked=true

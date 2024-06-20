@@ -35,7 +35,7 @@
             android:layout_gravity="start"
             android:layout_marginStart="25dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Customer Reviews"
+            android:text="@string/customer_reviews"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -67,7 +67,7 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-            android:text="Overall Rating"
+            android:text="@string/overall_rating"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold">
@@ -106,7 +106,7 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-            android:text="Based on 15 Reviews"
+            android:text="@string/based_on_15_reviews"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold">
@@ -197,7 +197,7 @@
                                         android:layout_marginStart="10dp"
                                         android:layout_marginTop="10dp"
                                         android:fontFamily="@font/poppins_regular"
-                                        android:text="Martin Blair"
+                                        android:text="@string/martin_blair"
                                         android:textColor="@color/main_color"
                                         android:textSize="16sp"
                                         android:textStyle="bold">
@@ -231,7 +231,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="15dp"
                                     android:fontFamily="@font/poppins_regular"
-                                    android:text="2 Days Ago"
+                                    android:text="@string/_2_days_ago"
                                     android:textColor="@color/text_color"
                                     android:textSize="14sp"
                                     android:textStyle="bold">
@@ -259,9 +259,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/poppins_regular"
-                                    android:text="Lorem Ipsum is simply dummy text of the printing
-and typesetting industry.Lorem Ipsum is sidddmply
-dummy text of the printing and typesetting industry."
+                                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_is_sidddmply_dummy_text_of_the_printing_and_typesetting_industry"
                                     android:textColor="@color/text_color"
                                     android:textSize="12sp"
                                     android:textStyle="bold">
@@ -366,7 +364,7 @@ dummy text of the printing and typesetting industry."
                                         android:layout_marginStart="10dp"
                                         android:layout_marginTop="10dp"
                                         android:fontFamily="@font/poppins_regular"
-                                        android:text="Piysah pran"
+                                        android:text="@string/piysah_pran"
                                         android:textColor="@color/main_color"
                                         android:textSize="16sp"
                                         android:textStyle="bold">
@@ -400,7 +398,7 @@ dummy text of the printing and typesetting industry."
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="15dp"
                                     android:fontFamily="@font/poppins_regular"
-                                    android:text="2 Days Ago"
+                                    android:text="@string/_2_days_ago"
                                     android:textColor="@color/text_color"
                                     android:textSize="14sp"
                                     android:textStyle="bold">
@@ -428,9 +426,8 @@ dummy text of the printing and typesetting industry."
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/poppins_regular"
-                                    android:text="Lorem Ipsum is simply dummy text of the printing
-and typesetting industry.Lorem Ipsum is sidddmply
-dummy text of the printing and typesetting industry."
+                                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_is_sidddmply_dummy_text_of_the_printing_and_typesetting_industry"
+
                                     android:textColor="@color/text_color"
                                     android:textSize="12sp"
                                     android:textStyle="bold">
@@ -569,7 +566,7 @@ dummy text of the printing and typesetting industry."
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="15dp"
                                     android:fontFamily="@font/poppins_regular"
-                                    android:text="2 Days Ago"
+                                    android:text="@string/_2_days_ago"
                                     android:textColor="@color/text_color"
                                     android:textSize="14sp"
                                     android:textStyle="bold">
@@ -597,9 +594,8 @@ dummy text of the printing and typesetting industry."
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/poppins_regular"
-                                    android:text="Lorem Ipsum is simply dummy text of the printing
-and typesetting industry.Lorem Ipsum is sidddmply
-dummy text of the printing and typesetting industry."
+                                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_is_sidddmply_dummy_text_of_the_printing_and_typesetting_industry"
+
                                     android:textColor="@color/text_color"
                                     android:textSize="12sp"
                                     android:textStyle="bold">

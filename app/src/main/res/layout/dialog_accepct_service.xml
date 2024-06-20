@@ -7,10 +7,10 @@
     android:layout_marginTop="15dp"
     android:background="@drawable/transplant"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="10dp">
 
     <LinearLayout
-        android:layout_width="350dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
@@ -45,7 +45,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Related Services as Per Customer Request."
+                        android:text="@string/related_services_as_per_customer_request"
                         android:textColor="@color/main_color">
 
                     </androidx.appcompat.widget.AppCompatTextView>

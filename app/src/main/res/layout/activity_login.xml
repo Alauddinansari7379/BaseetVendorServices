@@ -32,6 +32,7 @@
     </androidx.appcompat.widget.AppCompatImageView>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSignInH"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -39,17 +40,18 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_regular"
-        android:text="Sign In">
+        android:text="@string/sign_in">
 
     </androidx.appcompat.widget.AppCompatTextView>
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAdminH"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:gravity="center"
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_regular"
-        android:text="Want to login your admin account? Admin Login In"
+        android:text="@string/want_to_login_your_admin_account_admin_login_in"
         android:textSize="12sp">
 
     </androidx.appcompat.widget.AppCompatTextView>
@@ -68,6 +70,7 @@
 
             </androidx.viewpager.widget.ViewPager>
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvVendorH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -75,7 +78,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Vendor Login Form"
+                android:text="@string/vendor_login_form"
                 android:textSize="12sp">
 
             </androidx.appcompat.widget.AppCompatTextView>
@@ -94,13 +97,15 @@
         android:layout_marginTop="15dp"
       >
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
+                android:id="@+id/tvEmailH"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                  android:layout_marginTop="60dp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Your Email"
+                android:text="@string/your_email"
                 android:textSize="12sp">
 
             </androidx.appcompat.widget.AppCompatTextView>
@@ -111,36 +116,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-         android:layout_marginRight="10dp">
+        android:layout_marginStart="15dp"
+         android:layout_marginEnd="15dp">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/corner"
-            android:hint="Enter Email Address"
+             android:layout_weight="1"
+             android:background="@drawable/corner"
+            android:hint="@string/enter_email_address"
             android:inputType="textEmailAddress"
             android:padding="10dp"
-            android:textSize="14sp">
+             android:textSize="14sp">
 
         </androidx.appcompat.widget.AppCompatEditText>
 
-    </LinearLayout>  <LinearLayout
+    </LinearLayout>
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
       >
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
+                android:id="@+id/tvPasswordH"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                 android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                 android:layout_marginEnd="15dp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Password"
+                android:text="@string/password"
                 android:textSize="12sp">
 
             </androidx.appcompat.widget.AppCompatTextView>
@@ -151,19 +157,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-         android:layout_marginRight="10dp">
+        android:layout_marginStart="15dp"
+          android:layout_marginEnd="15dp">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:background="@drawable/corner"
-            android:hint="Enter Your Password"
+            android:hint="@string/enter_your_password"
             android:inputType="textPassword"
-            android:padding="10dp"
+             android:padding="10dp"
             android:textSize="14sp">
 
         </androidx.appcompat.widget.AppCompatEditText>
@@ -174,15 +179,17 @@
             android:layout_height="wrap_content">
 
             <CheckBox
+
                 android:id="@+id/checkBox"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                 android:buttonTint="@color/white"
+                  android:buttonTint="@color/white"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Remember me">
+                android:text="@string/remember_me">
 
             </CheckBox>
 
@@ -192,14 +199,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
             android:background="@drawable/corner"
             android:backgroundTint="@color/yellow"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-              android:text="Sign In"
+              android:text="@string/sign_in"
             android:textStyle="bold"
             android:textAllCaps="false"
             android:textColor="@color/main_color"

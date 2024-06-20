@@ -47,7 +47,7 @@
                     android:layout_centerVertical="true"
                     android:gravity="center"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="This is a custom Toast"
+                    android:text="@string/this_is_a_custom_toast"
                     android:textColor="@color/white"
                     android:textSize="13sp"
                     />

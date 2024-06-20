@@ -35,7 +35,7 @@
             android:layout_gravity="start"
             android:layout_marginStart="25dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Translater Bank Info"
+            android:text="@string/translater_bank_info"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -72,7 +72,7 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:text="My Bank Info"
+                android:text="@string/my_bank_info"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold">
@@ -109,7 +109,7 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-            android:text="Bank Name : SBI"
+            android:text="@string/bank_name_sbi"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold">
@@ -124,7 +124,7 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-            android:text="Branch : Malakpet"
+            android:text="@string/branch_malakpet"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold">
@@ -139,7 +139,7 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-            android:text="Holder Name : 657576575775"
+            android:text="@string/holder_name_657576575775"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold">
@@ -154,7 +154,7 @@
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/poppins_regular"
             android:gravity="center"
-            android:text="Hyderabad,India"
+            android:text="@string/hyderabad_india"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold">

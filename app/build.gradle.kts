@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -130,6 +131,18 @@ dependencies {
     //Multiselection Spinner
     implementation ("com.github.AnuraganuPunalur:Multi-Selection-Spinner-Android:1.0")
     implementation ("com.github.telichada:SearchableMultiSelectSpinner:2.0")
+
+    //firebase
+    implementation ("com.google.firebase:firebase-auth:21.1.0")
+    implementation ("com.google.firebase:firebase-core:21.1.1")
+    implementation ("com.google.android.gms:play-services-auth:20.4.0")
+    implementation ("com.google.firebase:firebase-iid:21.1.0")
+    implementation ("com.google.firebase:firebase-messaging:23.1.2")
+    implementation ("com.google.firebase:firebase-appdistribution-api-ktx:16.0.0-beta05")
+    implementation ("com.google.firebase:firebase-messaging:23.1.1")
+    implementation ("com.google.firebase:firebase-analytics")
+    // (Jitsi dependencies)
+    implementation("org.jitsi.react:jitsi-meet-sdk:8.5.0")
   }
 
 

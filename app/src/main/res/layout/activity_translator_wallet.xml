@@ -35,7 +35,7 @@
             android:layout_gravity="start"
             android:layout_marginStart="25dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Translator Wallet"
+            android:text="@string/translator_wallet"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -68,10 +68,10 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="WITHDRAWABLE BALANCE"
+                android:text="@string/withdrawable_balance"
                 android:textColor="@color/white"
                  android:textSize="14sp">
 
@@ -79,9 +79,9 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="0"
+                android:text="@string/_0"
                 android:textColor="@color/white"
                  android:textSize="14sp">
 
@@ -99,8 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-
-                    android:text="Request Withdrawn">
+                    android:text="@string/request_withdrawn">
 
                 </androidx.appcompat.widget.AppCompatTextView>
             </LinearLayout>
@@ -145,7 +144,7 @@
                         android:backgroundTint="@color/white"
                         android:gravity="center"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="PENDING WITHDRAW"
+                        android:text="@string/pending_withdraw"
                         android:textColor="@color/white"
                         android:textSize="14sp">
 
@@ -155,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
                         android:gravity="center"
-                        android:text="00"
+                        android:text="@string/_00"
                         android:fontFamily="@font/poppins_regular"
                         android:textColor="@color/white"
                         android:textSize="14sp">
@@ -198,7 +197,7 @@
                         android:backgroundTint="@color/white"
                         android:gravity="center"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="WITHDRAW"
+                        android:text="@string/withdraw"
                         android:textColor="@color/white"
                         android:textSize="14sp">
 
@@ -208,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
                         android:gravity="center"
-                        android:text="00"
+                        android:text="@string/_00"
                         android:fontFamily="@font/poppins_regular"
                         android:textColor="@color/white"
                         android:textSize="14sp">
@@ -242,10 +241,10 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="TOTAL EARNING"
+                android:text="@string/total_earning"
                 android:textColor="@color/white"
                 android:textSize="14sp">
 
@@ -253,9 +252,9 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="00"
+                android:text="@string/_00"
                 android:textColor="@color/white"
                 android:textSize="14sp">
 
@@ -330,7 +329,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="S.No:"
+                                android:text="@string/s_no_"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -369,7 +368,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Amount : "
+                                android:text="@string/amount"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -400,7 +399,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Status:"
+                                android:text="@string/status"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -441,7 +440,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Note : "
+                                android:text="@string/note"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -452,7 +451,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Lorun Ipsam"
+                                android:text="@string/lorun_ipsam"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -478,7 +477,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Request Time : "
+                                android:text="@string/request_time"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -489,7 +488,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="12:45PM"
+                                android:text="@string/_12_45pm"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -518,7 +517,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Close : "
+                                android:text="@string/close"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -625,7 +624,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="S.No:"
+                                android:text="@string/s_no_"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -664,7 +663,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Amount : "
+                                android:text="@string/amount"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -695,7 +694,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Status:"
+                                android:text="@string/status"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -736,7 +735,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Note : "
+                                android:text="@string/note"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -747,7 +746,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Lorun Ipsam"
+                                android:text="@string/lorun_ipsam"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -773,7 +772,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Request Time : "
+                                android:text="@string/request_time"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -784,7 +783,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="12:45PM"
+                                android:text="@string/_12_45pm"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -813,7 +812,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Close : "
+                                android:text="@string/close"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -920,7 +919,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="S.No:"
+                                android:text="@string/s_no_"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -959,7 +958,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Amount : "
+                                android:text="@string/amount"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -990,7 +989,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Status:"
+                                android:text="@string/status"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -1031,7 +1030,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Note : "
+                                android:text="@string/note"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -1042,7 +1041,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Lorun Ipsam"
+                                android:text="@string/lorun_ipsam"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -1068,7 +1067,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Request Time : "
+                                android:text="@string/request_time"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -1079,7 +1078,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="12:45PM"
+                                android:text="@string/_12_45pm"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -1108,7 +1107,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Close : "
+                                android:text="@string/close"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -1148,6 +1147,7 @@
 
 
     </androidx.cardview.widget.CardView>
+
         </LinearLayout>
     </ScrollView>
  </androidx.appcompat.widget.LinearLayoutCompat>

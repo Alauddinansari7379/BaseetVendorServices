@@ -127,8 +127,7 @@ class TranslaterServiceList : AppCompatActivity() {
     }
 
     private fun apiCallServiceList() {
-        AppProgressBar.showLoaderDialog(context)
-        AppProgressBar.showLoaderDialog(context)
+         AppProgressBar.showLoaderDialog(context)
         ApiClient.apiService.serviceList(
             sessionManager.idToken.toString(),
         )

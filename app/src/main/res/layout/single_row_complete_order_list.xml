@@ -23,7 +23,6 @@
             android:orientation="vertical">
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +49,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Order : "
+                                android:text="@string/order_"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -62,7 +61,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="1"
+                                android:text="@string/_1"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -89,7 +88,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Customer : "
+                                android:text="@string/customer_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -101,7 +100,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="testio2"
+                                android:text="@string/testio2"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -114,13 +113,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="10dp"
-                             android:layout_weight="1">
+                            android:layout_weight="1">
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Service Date : "
+                                android:text="@string/service_date_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -132,7 +131,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="00/00/0000"
+                                android:text="@string/_00_00_0000"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -158,7 +157,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Date : "
+                                android:text="@string/date_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -170,7 +169,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="00/00/0000"
+                                android:text="@string/_00_00_0000"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -189,7 +188,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Order Status :"
+                                android:text="@string/order_status_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -202,14 +201,14 @@
                                 android:layout_marginStart="5dp"
                                 android:background="@drawable/corner_new"
                                 android:backgroundTint="#E5F9FB"
-                                android:drawableLeft="@drawable/circuleimage"
+                                android:drawableStart="@drawable/circuleimage"
                                 android:gravity="center"
                                 android:textColor="@color/white">
 
                                 <androidx.constraintlayout.utils.widget.ImageFilterButton
                                     android:layout_width="8dp"
                                     android:layout_height="8dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_marginEnd="5dp"
                                     android:background="@drawable/circuleimage"
                                     android:backgroundTint="#0BCBDD">
 
@@ -221,7 +220,7 @@
                                     android:layout_height="12dp"
                                     android:fontFamily="@font/poppins_regular"
                                     android:paddingEnd="5dp"
-                                    android:text="Delivered"
+                                    android:text="@string/delivered"
                                     android:textColor="#0BCBDD"
                                     android:textSize="8sp">
 
@@ -233,7 +232,6 @@
 
 
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -250,7 +248,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Payment Status : "
+                                android:text="@string/payment_status"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -262,15 +260,15 @@
                                 android:layout_height="16dp"
                                 android:background="@drawable/corner_new"
                                 android:backgroundTint="#FDEDF1"
-                                android:drawableLeft="@drawable/circuleimage"
+                                android:drawableStart="@drawable/circuleimage"
                                 android:gravity="center"
+                                android:layout_marginStart="5dp"
                                 android:textColor="@color/white">
 
                                 <androidx.constraintlayout.utils.widget.ImageFilterButton
                                     android:layout_width="8dp"
                                     android:layout_height="8dp"
                                     android:layout_marginEnd="10dp"
-                                    android:layout_marginRight="5dp"
                                     android:background="@drawable/circuleimage"
                                     android:backgroundTint="#ED4C78">
 
@@ -282,7 +280,7 @@
                                     android:layout_height="12dp"
                                     android:fontFamily="@font/poppins_regular"
                                     android:paddingEnd="5dp"
-                                    android:text="Paid"
+                                    android:text="@string/paid"
                                     android:textColor="#ED4C78"
                                     android:textSize="8sp">
 
@@ -290,11 +288,43 @@
 
 
                             </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="@string/type_"
+                                android:textColor="@color/text_color"
+                                android:textSize="12sp"
+                                android:textStyle="bold">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvType"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textColor="@color/text_color"
+                                android:textSize="12sp">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
 
                         </LinearLayout>
 
 
                     </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -312,7 +342,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Total : "
+                                android:text="@string/total_"
                                 android:textColor="@color/text_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -336,7 +366,7 @@
                             android:id="@+id/layoutAction"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="5dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1">
 
@@ -344,7 +374,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Action : "
+                                android:text="@string/action"
                                 android:textColor="@color/main_color"
                                 android:textSize="12sp"
                                 android:textStyle="bold">
@@ -362,7 +392,7 @@
                                     android:layout_height="15dp"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_marginEnd="5dp"
                                     android:background="@drawable/eye"
                                     android:backgroundTint="@color/main_color">
 
@@ -373,13 +403,66 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="5dp"
                                     android:fontFamily="@font/poppins_regular"
-                                    android:text="View"
+                                    android:text="@string/view"
                                     android:textColor="@color/black"
                                     android:textSize="12sp"
                                     android:textStyle="bold">
 
                                 </androidx.appcompat.widget.AppCompatTextView>
                             </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutVideoCall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="@string/connect_with_the_customer"
+                                android:textColor="@color/text_color"
+                                android:textSize="12sp"
+                                android:textStyle="bold">
+
+                            </androidx.appcompat.widget.AppCompatTextView>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1">
+
+
+                            <androidx.constraintlayout.utils.widget.ImageFilterButton
+                                android:id="@+id/imgVideoCall"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="5dp"
+                                android:background="@drawable/video_call"
+                                android:padding="5dp">
+
+                            </androidx.constraintlayout.utils.widget.ImageFilterButton>
+
 
                         </LinearLayout>
 

@@ -35,7 +35,7 @@
             android:layout_gravity="start"
             android:layout_marginStart="25dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Edit Translater Information"
+            android:text="@string/edit_translater_information"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:text="Edit Info"
+                android:text="@string/edit_info"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold">
@@ -108,9 +108,9 @@
                         android:id="@+id/tvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Translater Name *"
+                        android:text="@string/translater_name"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -132,10 +132,10 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/corner"
-                    android:hint="On Call"
+                    android:hint="@string/on_call"
                     android:inputType="text"
                     android:padding="10dp"
-                    android:textSize="15dp">
+                    android:textSize="14sp">
 
                 </androidx.appcompat.widget.AppCompatEditText>
 
@@ -152,9 +152,9 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Upload Logo"
+                    android:text="@string/upload_logo"
                     android:textSize="14sp">
 
                 </androidx.appcompat.widget.AppCompatTextView>
@@ -178,10 +178,10 @@
                         android:layout_height="45dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
-                        android:hint="Choose File"
+                        android:hint="@string/choose_file"
                         android:inputType="text"
                         android:padding="10dp"
-                        android:textSize="15dp">
+                        android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
                     <androidx.viewpager.widget.ViewPager
@@ -195,10 +195,10 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="3"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Browse"
+                        android:text="@string/browse"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -221,9 +221,9 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Contact Number*"
+                        android:text="@string/contact_number"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -245,10 +245,10 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/corner"
-                    android:hint="+91 -582588445"
+                    android:hint="@string/_91_582588445"
                     android:inputType="text"
                     android:padding="10dp"
-                    android:textSize="15dp">
+                    android:textSize="14sp">
 
                 </androidx.appcompat.widget.AppCompatEditText>
 
@@ -267,9 +267,9 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Address*"
+                        android:text="@string/address"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -292,10 +292,10 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:background="@drawable/corner"
-                    android:hint="Hyderabad"
+                    android:hint="@string/hyderabad"
                     android:inputType="textMultiLine"
                     android:padding="10dp"
-                    android:textSize="15dp">
+                    android:textSize="14sp">
 
                 </androidx.appcompat.widget.AppCompatEditText>
 
@@ -314,7 +314,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Choose Images"
+                    android:text="@string/choose_images"
                     android:textSize="14sp">
 
                 </androidx.appcompat.widget.AppCompatTextView>
@@ -338,10 +338,10 @@
                         android:layout_height="45dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
-                        android:hint="Choose File"
+                        android:hint="@string/choose_file"
                         android:inputType="text"
                         android:padding="10dp"
-                        android:textSize="15dp">
+                        android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
                     <androidx.viewpager.widget.ViewPager
@@ -358,7 +358,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="3"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Browse"
+                        android:text="@string/browse"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -389,7 +389,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
-                     android:text="Update"
+                     android:text="@string/update"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="12sp">
@@ -405,7 +405,7 @@
                     android:layout_marginEnd="10dp"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
-                     android:text="Cancel"
+                     android:text="@string/cancel"
                     android:layout_marginStart="20dp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

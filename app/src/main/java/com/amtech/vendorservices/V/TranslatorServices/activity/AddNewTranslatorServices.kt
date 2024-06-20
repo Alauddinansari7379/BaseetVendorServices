@@ -940,6 +940,8 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     } else {
                         myToast(context, "${response.body()!!.message}")
                         AppProgressBar.hideLoaderDialog()
+                        onBackPressed()
+
                     }
 
                 } catch (e: Exception) {
@@ -1018,7 +1020,8 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     } else if (response.code() == 200) {
                         myToast(context, "${response.body()!!.message}")
                         AppProgressBar.hideLoaderDialog()
-                        refresh()
+                       // refresh()
+                        onBackPressed()
 
                     } else {
                         myToast(context, "${response.body()!!.message}")
@@ -1114,6 +1117,8 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     } else {
                         myToast(context, "${response.body()!!.message}")
                         AppProgressBar.hideLoaderDialog()
+                        onBackPressed()
+
                     }
 
                 } catch (e: Exception) {

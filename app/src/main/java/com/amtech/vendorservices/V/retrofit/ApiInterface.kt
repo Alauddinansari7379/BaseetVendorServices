@@ -1,12 +1,13 @@
 package com.amtech.vendorservices.V.retrofit
 
+import com.amtech.vendorservices.V.Dashboard.model.ModelDashTra.ModelDashTra
 import com.amtech.vendorservices.V.Dashboard.model.ModelDashboard
 import com.amtech.vendorservices.V.Login.model.ModelLogin
 import com.amtech.vendorservices.V.MyTranslotor.Model.ModelMyTra
-import com.amtech.vendorservices.V.Order.Model.MAllOrder.ModelAllOrder
 import com.amtech.vendorservices.V.Order.Model.ModeUpdatePrice.ModelUpdatePrice
 import com.amtech.vendorservices.V.Order.Model.ModelComplete
 import com.amtech.vendorservices.V.Order.Model.ModelOrderDet.ModelOrderDet
+import com.amtech.vendorservices.V.Order.Model.ModelOrderDetail.ModelOrderDetail
 import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
 import com.amtech.vendorservices.V.Order.Model.ModelSendSer.ModelSendSer
 import com.amtech.vendorservices.V.Order.Model.ModelServiceReq
@@ -14,7 +15,13 @@ import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.Mod
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelServiceList
 import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Part
+import retrofit2.http.Query
 
 
 interface ApiInterface {
@@ -24,12 +31,19 @@ interface ApiInterface {
     fun login(
         @Query("email") email: String,
         @Query("password") password: String,
+        @Query("device_token") device_token: String,
+        @Query("device_type") device_type: String,
     ): Call<ModelLogin>
 
     @GET("vendor/dashboard-data")
     fun dashboard(
         @Header("Authorization") authorization: String
     ): Call<ModelDashboard>
+
+    @GET("vendor/dashboard-data")
+    fun dashboardTra(
+        @Header("Authorization") authorization: String
+    ): Call<ModelDashTra>
 
     @GET("vendor/completed-orders")
     fun completeOrder(
@@ -42,7 +56,7 @@ interface ApiInterface {
     @GET("vendor/all-orders")
     fun allOrders(
         @Header("Authorization") authorization: String,
-    ): Call<ModelAllOrder>
+    ): Call<ModelOrderDetail>
 
     @GET("vendor/cancl-orders")
     fun cancelledOrders(
@@ -77,51 +91,53 @@ interface ApiInterface {
     @GET("vendor/service-related")
     fun getRelatedService(
         @Header("Authorization") authorization: String,
-        @Query("tr_from") tr_from:String,
-        @Query("tr_to") tr_to:String,
-        @Query("type") type:String,
-        @Query("price") price:String,
+        @Query("tr_from") tr_from: String,
+        @Query("tr_to") tr_to: String,
+        @Query("type") type: String,
+        @Query("price") price: String,
     ): Call<ModelServiceRet>
+
     @GET("vendor/service-related")
     fun getRelatedServiceCar(
         @Header("Authorization") authorization: String,
-        @Query("driv_type") driv_type:String,
-        @Query("car_type") car_type:String,
-         @Query("price") price:String,
+        @Query("driv_type") driv_type: String,
+        @Query("car_type") car_type: String,
+        @Query("price") price: String,
     ): Call<ModelServiceRet>
 
     @GET("vendor/service-related")
     fun getRelatedServiceHome(
         @Header("Authorization") authorization: String,
-        @Query("hometype") hometype:String,
-          @Query("price") price:String,
+        @Query("hometype") hometype: String,
+        @Query("price") price: String,
     ): Call<ModelServiceRet>
 
     @GET("vendor/sendservice")
     fun sendService(
         @Header("Authorization") authorization: String,
-        @Query("food_id") food_id:String,
-        @Query("request_id") request_id:String,
+        @Query("food_id") food_id: String,
+        @Query("request_id") request_id: String,
     ): Call<ModelSendSer>
 
     @PUT("vendor/update-order-status")
     fun statuesChange(
         @Header("Authorization") authorization: String,
-        @Query("order_id") order_id:String,
-        @Query("status") status:String,
+        @Query("order_id") order_id: String,
+        @Query("status") status: String,
     ): Call<ModelSendSer>
 
     @GET("vendor/order-details")
     fun orderDetails(
         @Header("Authorization") authorization: String,
-         @Query("order_id") order_id:String,
+        @Query("order_id") order_id: String,
     ): Call<ModelOrderDet>
 
     @POST("vendor/update-price")
     fun updatePrice(
         @Header("Authorization") authorization: String,
-         @Query("food_id") food_id:String,
-         @Query("price") price:String,
+        @Query("food_id") food_id: String,
+        @Query("price") price: String,
+        @Query("request_id") request_id: String,
     ): Call<ModelUpdatePrice>
 
     @Multipart
@@ -168,7 +184,7 @@ interface ApiInterface {
         @Query("latitude") latitude: String,
         @Query("zone_id") zone_id: String,
         @Query("driv_type") driv_type: String,
-      //  @Query("ammenties[]") ammenties: String,
+        //  @Query("ammenties[]") ammenties: String,
         @Part image: MultipartBody.Part,
     ): Call<ModelServiceList>
 
@@ -178,18 +194,18 @@ interface ApiInterface {
         @Header("Authorization") authorization: String,
         @Query("food_type") food_type: String,
         @Query("price") price: String,
-         @Query("home_days") home_days: String,
+        @Query("home_days") home_days: String,
         @Query("name") name: String,
         @Query("description") description: String,
         @Query("dates") dates: String,
         @Query("available_time_starts") available_time_starts: String,
         @Query("available_time_ends") available_time_ends: String,
         @Query("car_type") car_type: String,
-         @Query("longitude") longitude: String,
+        @Query("longitude") longitude: String,
         @Query("latitude") latitude: String,
         @Query("zone_id") zone_id: String,
-         @Query("ammenties[]") ammenties: List<String>,
-         @Query("ammenties[]") ammenties1: List<String>,
+        @Query("ammenties[]") ammenties: List<String>,
+        @Query("ammenties[]") ammenties1: List<String>,
         @Part image: MultipartBody.Part,
     ): Call<ModelServiceList>
 //

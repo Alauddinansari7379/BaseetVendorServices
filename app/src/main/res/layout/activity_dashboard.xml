@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:text="Dashboard"
+            android:text="@string/dashboard"
             android:fontFamily="@font/poppins_regular"
             android:layout_marginStart="25dp"
             android:textColor="@color/white"
@@ -77,7 +77,7 @@
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:text="Services Statistics">
+                android:text="@string/services_statistics">
 
             </androidx.appcompat.widget.AppCompatTextView>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -94,10 +94,9 @@
                 android:id="@+id/spinnerStatistics"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:hint="Blood Group"
-                android:inputType="textEmailAddress"
+                 android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:textSize="15dp">
+                android:textSize="15sp">
 
             </Spinner>
 
@@ -142,7 +141,7 @@
                         android:backgroundTint="@color/white"
                         android:gravity="center"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Total Services"
+                        android:text="@string/total_services"
                         android:textColor="@color/white"
                         android:textSize="14sp">
 
@@ -219,7 +218,7 @@
                         android:backgroundTint="@color/white"
                         android:gravity="center"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Ordered Services"
+                        android:text="@string/ordered_services"
                         android:textColor="@color/white"
                         android:textSize="14sp">
 
@@ -307,7 +306,7 @@
                         android:backgroundTint="@color/white"
                         android:gravity="center"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Completed Services"
+                        android:text="@string/completed_services"
                         android:textColor="@color/white"
                         android:textSize="14sp">
 
@@ -327,7 +326,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
                         android:gravity="center"
-                        android:text="0"
+                        android:text="@string/_0"
                         android:fontFamily="@font/poppins_bold"
                         android:layout_marginStart="50dp"
                         android:textColor="@color/white"
@@ -384,7 +383,7 @@
                         android:backgroundTint="@color/white"
                         android:gravity="center"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Rejected Services"
+                        android:text="@string/rejected_services"
                         android:textColor="@color/white"
                         android:textSize="14sp">
 
@@ -404,7 +403,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
                         android:gravity="center"
-                        android:text="0"
+                        android:text="@string/_0"
                         android:fontFamily="@font/poppins_bold"
                         android:layout_marginStart="50dp"
                         android:textColor="@color/white"
@@ -456,7 +455,7 @@
             android:textStyle="bold"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"
-            android:text="Yearly Statistics">
+            android:text="@string/yearly_statistics">
 
         </androidx.appcompat.widget.AppCompatTextView>
         <androidx.appcompat.widget.AppCompatImageView
@@ -489,7 +488,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-             android:text="Total earning : "
+             android:text="@string/total_earning"
             android:textStyle="bold"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"
@@ -529,7 +528,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/poppins_regular"
-            android:text="Commission Given :"
+            android:text="@string/commission_given"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="14sp">
@@ -541,7 +540,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/poppins_regular"
-            android:text="0$"
+            android:text="@string/_0"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="14sp">

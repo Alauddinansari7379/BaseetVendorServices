@@ -14,6 +14,7 @@ import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.myToast
 import com.amtech.vendorservices.V.Order.Adapter.AdapterRelatedServiceList
 import com.amtech.vendorservices.V.Order.Adapter.AdapterSerRequestList
+import com.amtech.vendorservices.V.Order.Adapter.AdapterSerRequestList.Companion.requestIdNew
 import com.amtech.vendorservices.V.Order.Model.Data
 import com.amtech.vendorservices.V.Order.Model.ModeUpdatePrice.ModelUpdatePrice
 import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
@@ -86,6 +87,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                         } else {
                             mainData = response.body()!!.data
+                           mainData.reverse()
 
                             setRecyclerViewAdapter(mainData)
                             AppProgressBar.hideLoaderDialog()
@@ -160,6 +162,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                         } else {
                             val view = layoutInflater.inflate(R.layout.dialog_accepct_service, null)
                             dialog = Dialog(context)
+                            
                             /*     var nameTv = view!!.findViewById<TextView>(R.id.name)
                               val priceTv = view!!.findViewById<TextView>(R.id.price)
                               val fromLanTv = view!!.findViewById<TextView>(R.id.fromLan)
@@ -346,12 +349,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                     }
                 }
-
-
                 override fun onFailure(call: Call<ModelServiceRet>, t: Throwable) {
-                      myToast(context, t.message.toString())
-                   // myToast(context, "No Data Found")
-
                     AppProgressBar.hideLoaderDialog()
                     count2++
                     if (count2 <= 3) {
@@ -386,7 +384,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                     call: Call<ModelServiceRet>, response: Response<ModelServiceRet>
                 ) {
                     try {
-                        if (response.code() == 404) {
+                        if (response.code() == 401) {
                             myToast(context, "Something went wrong")
 
                         } else if (response.code() == 500) {
@@ -555,12 +553,13 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
     private fun apiCallUpdatePrice(
         foodId: String,
         price: String,
+
      ) {
         AppProgressBar.showLoaderDialog(context)
         ApiClient.apiService.updatePrice(
             sessionManager.idToken.toString(),
             foodId,
-            price
+            price,requestIdNew
         )
             .enqueue(object : Callback<ModelUpdatePrice> {
                 @SuppressLint("LogNotTimber", "SetTextI18n")
@@ -588,7 +587,6 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                     }
                 }
-
 
                 override fun onFailure(call: Call<ModelUpdatePrice>, t: Throwable) {
                       myToast(context, t.message.toString())
@@ -619,7 +617,6 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
         tranServ: String,
     ) {
         requestId=id
-
         when (sessionManager.usertype) {
             "car" -> {
                 apiCallRelatedServiceCar(langFrom, langTo, tranServ, price)
@@ -643,6 +640,12 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
     override fun updatePrice(foodId: String,price:String) {
          apiCallUpdatePrice(foodId,price)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        apiCallServiceReqList()
 
     }
 

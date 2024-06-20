@@ -35,7 +35,7 @@
             android:layout_gravity="start"
             android:layout_marginStart="25dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Translator Services"
+            android:text="@string/translator_services"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:text="Add New Translator Service"
+                android:text="@string/add_new_translator_service"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold">
@@ -93,7 +93,7 @@
             android:gravity="center"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Help"
+            android:text="@string/help"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="12sp">
@@ -128,7 +128,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="English(EN)"
+                    android:text="@string/english_en"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold">
@@ -142,7 +142,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="@color/white"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Arabic(AR)"
+                    android:text="@string/arabic_ar"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold">
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Translator Service Name"
+                        android:text="@string/translator_service_name"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -208,7 +208,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text=" (EN)"
+                        android:text="@string/en"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -231,7 +231,7 @@
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/corner"
                     android:fontFamily="@font/poppins_regular"
-                    android:hint="Name"
+                    android:hint="@string/name"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="14sp">
@@ -255,9 +255,9 @@
                         android:id="@+id/tvDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Translator Service Description"
+                        android:text="@string/translator_service_description"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -267,7 +267,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text=" (EN)"
+                        android:text="@string/en"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -290,7 +290,7 @@
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/corner"
                     android:fontFamily="@font/poppins_regular"
-                    android:hint="Description"
+                    android:hint="@string/description"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="14sp">
@@ -321,7 +321,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Zone"
+                            android:text="@string/zone"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold">
@@ -340,7 +340,7 @@
                     android:layout_marginRight="10dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
                         android:background="@drawable/corner">
@@ -349,10 +349,9 @@
                             android:id="@+id/spinnerZone"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:hint="Blood Group"
-                            android:inputType="textEmailAddress"
+                             android:inputType="textEmailAddress"
                             android:padding="10dp"
-                            android:textSize="15dp">
+                            android:textSize="15sp">
 
                         </Spinner>
 
@@ -380,7 +379,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Scenic views"
+                        android:text="@string/scenic_views"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold">
@@ -403,7 +402,7 @@
                                 android:layout_height="45dp"
                                 android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
                                 android:fontFamily="@font/poppins_regular"
-                                android:hint="Select Scenic views"
+                                android:hint="@string/select_scenic_views"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textSize="14sp">
@@ -427,7 +426,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Bathroom"
+                        android:text="@string/bathroom"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold">
@@ -450,7 +449,7 @@
                                 android:layout_height="45dp"
                                 android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
                                 android:fontFamily="@font/poppins_regular"
-                                android:hint="Select Bathroom"
+                                android:hint="@string/select_bathroom"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textSize="14sp">
@@ -474,7 +473,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Essentials"
+                        android:text="@string/essentials"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold">
@@ -497,7 +496,7 @@
                                 android:layout_height="45dp"
                                 android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
                                 android:fontFamily="@font/poppins_regular"
-                                android:hint="Select Essentials"
+                                android:hint="@string/select_essentials"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textSize="14sp">
@@ -521,7 +520,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Clothes storage"
+                        android:text="@string/clothes_storage"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold">
@@ -544,7 +543,7 @@
                                 android:layout_height="45dp"
                                 android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
                                 android:fontFamily="@font/poppins_regular"
-                                android:hint="Select Clothes storage"
+                                android:hint="@string/select_clothes_storage"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textSize="14sp">
@@ -567,7 +566,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Private BBQ grill"
+                        android:text="@string/private_bbq_grill"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold">
@@ -590,7 +589,7 @@
                                 android:layout_height="45dp"
                                 android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
                                 android:fontFamily="@font/poppins_regular"
-                                android:hint="Select Private BBQ grill"
+                                android:hint="@string/select_private_bbq_grill"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textSize="14sp">
@@ -614,7 +613,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Utilities"
+                        android:text="@string/utilities"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold">
@@ -637,7 +636,7 @@
                                 android:layout_height="45dp"
                                 android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
                                 android:fontFamily="@font/poppins_regular"
-                                android:hint="Select Utilities"
+                                android:hint="@string/select_utilities"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textSize="14sp">
@@ -668,7 +667,7 @@
                     android:buttonTint="#377DFF"
                     android:checked="true"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="On Call">
+                    android:text="@string/on_call">
 
                 </androidx.appcompat.widget.AppCompatRadioButton>
 
@@ -679,7 +678,7 @@
                     android:layout_marginEnd="20dp"
                     android:buttonTint="#377DFF"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="In Person">
+                    android:text="@string/in_person">
 
                 </androidx.appcompat.widget.AppCompatRadioButton>
 
@@ -689,7 +688,7 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="#377DFF"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="Doc">
+                    android:text="@string/doc">
 
                 </androidx.appcompat.widget.AppCompatRadioButton>
             </LinearLayout>
@@ -717,7 +716,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Driving Type"
+                            android:text="@string/driving_type"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold">
@@ -743,7 +742,7 @@
                         android:buttonTint="#377DFF"
                         android:checked="true"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Self-Driving">
+                        android:text="@string/self_driving">
 
                     </androidx.appcompat.widget.AppCompatRadioButton>
 
@@ -754,7 +753,7 @@
                         android:layout_marginEnd="20dp"
                         android:buttonTint="#377DFF"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Driver">
+                        android:text="@string/driver">
 
                     </androidx.appcompat.widget.AppCompatRadioButton>
 
@@ -781,7 +780,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Car Type (EN)"
+                                android:text="@string/car_type_en"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold">
@@ -810,10 +809,9 @@
                                 android:id="@+id/spinnerCarType"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
-                                android:hint="Blood Group"
-                                android:inputType="textEmailAddress"
+                                 android:inputType="textEmailAddress"
                                 android:padding="10dp"
-                                android:textSize="15dp">
+                                android:textSize="15sp">
 
                             </Spinner>
 
@@ -844,7 +842,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
-                                android:text="Car Model (EN)"
+                                android:text="@string/car_model_en"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold">
@@ -873,10 +871,9 @@
                                 android:id="@+id/spinnerCarModel"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
-                                android:hint="Blood Group"
-                                android:inputType="textEmailAddress"
+                                 android:inputType="textEmailAddress"
                                 android:padding="10dp"
-                                android:textSize="15dp">
+                                android:textSize="15sp">
 
                             </Spinner>
 
@@ -974,7 +971,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Translation from "
+                            android:text="@string/translation_from"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold">
@@ -993,7 +990,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Translation to "
+                            android:text="@string/translation_to"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold">
@@ -1021,10 +1018,9 @@
                             android:id="@+id/spinnerFrom"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:hint="Blood Group"
-                            android:inputType="textEmailAddress"
+                             android:inputType="textEmailAddress"
                             android:padding="10dp"
-                            android:textSize="15dp">
+                            android:textSize="15sp">
 
                         </Spinner>
 
@@ -1041,10 +1037,9 @@
                             android:id="@+id/spinnerTo"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:hint="Blood Group"
-                            android:inputType="textEmailAddress"
+                             android:inputType="textEmailAddress"
                             android:padding="10dp"
-                            android:textSize="15dp">
+                            android:textSize="15sp">
 
                         </Spinner>
 
@@ -1077,7 +1072,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Service date"
+                            android:text="@string/service_date"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold">
@@ -1097,7 +1092,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Service Hour"
+                            android:text="@string/service_hour"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold">
@@ -1148,10 +1143,9 @@
                             android:id="@+id/spinnerServiceH"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:hint="Blood Group"
-                            android:inputType="textEmailAddress"
+                             android:inputType="textEmailAddress"
                             android:padding="10dp"
-                            android:textSize="15dp">
+                            android:textSize="15sp">
 
                         </Spinner>
 
@@ -1185,7 +1179,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Days"
+                            android:text="@string/days"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold">
@@ -1213,10 +1207,9 @@
                             android:id="@+id/spinnerDays"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:hint="Blood Group"
-                            android:inputType="textEmailAddress"
+                             android:inputType="textEmailAddress"
                             android:padding="10dp"
-                            android:textSize="15dp">
+                            android:textSize="15sp">
 
                         </Spinner>
 
@@ -1249,7 +1242,7 @@
                              android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Home Type (EN)"
+                            android:text="@string/home_type_en"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold">
@@ -1277,10 +1270,9 @@
                             android:id="@+id/spinnerHomeType"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:hint="Blood Group"
-                            android:inputType="textEmailAddress"
+                             android:inputType="textEmailAddress"
                             android:padding="10dp"
-                            android:textSize="15dp">
+                            android:textSize="15sp">
 
                         </Spinner>
 
@@ -1311,9 +1303,9 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Portfolio Video"
+                            android:text="@string/portfolio_video"
                             android:textSize="14sp">
 
                         </androidx.appcompat.widget.AppCompatTextView>
@@ -1336,7 +1328,7 @@
                         android:layout_marginEnd="5dp"
                         android:background="@drawable/corner"
                         android:fontFamily="@font/poppins_regular"
-                        android:hint="Portfolio Video"
+                        android:hint="@string/portfolio_video"
                         android:inputType="text"
                         android:padding="10dp"
                         android:textSize="14sp">
@@ -1359,9 +1351,9 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Price"
+                        android:text="@string/price"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -1384,7 +1376,7 @@
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/corner"
                     android:fontFamily="@font/poppins_regular"
-                    android:hint="Price"
+                    android:hint="@string/price"
                     android:inputType="numberDecimal"
                     android:padding="10dp"
                     android:textSize="14sp">
@@ -1407,9 +1399,9 @@
                         android:id="@+id/tvImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Translator Image"
+                        android:text="@string/translator_image"
                         android:textSize="14sp">
 
                     </androidx.appcompat.widget.AppCompatTextView>
@@ -1427,13 +1419,13 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvChoice"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/corner"
                     android:fontFamily="@font/poppins_regular"
-                    android:hint="Choose Image"
+                    android:hint="@string/choose_image"
                     android:inputType="text"
                     android:padding="10dp"
                     android:textSize="14sp">
@@ -1520,7 +1512,7 @@
                     android:gravity="center"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:text="Choose"
+                    android:text="@string/choose"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="12sp">
@@ -1553,7 +1545,7 @@
                     android:backgroundTint="#377DFF"
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center"
-                    android:text="Submit"
+                    android:text="@string/submit"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="12sp">

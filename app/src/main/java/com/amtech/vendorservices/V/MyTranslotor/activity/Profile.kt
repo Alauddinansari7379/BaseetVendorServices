@@ -1,7 +1,9 @@
 package com.amtech.vendorservices.V.MyTranslotor.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +29,11 @@ class Profile : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
     private val context = this@Profile
     var count=0
-
+    private val PREF_NAME = "MyPrefs"
+    private val PREF_USERNAME = "username"
+    private val PREF_PASSWORD = "password"
+    private val FCM_TOKEN = "fcmtoken"
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -39,7 +45,7 @@ class Profile : AppCompatActivity() {
 
             when (sessionManager.usertype) {
                 "car" -> {
-                    binding.tvTitle.text = "Car Rental Information "
+                    binding.tvTitle.text = "Car Rental Information"
                     binding.tvInfo.text = "Car Rental Info"
                 }
                 "home" -> {
@@ -78,6 +84,13 @@ class Profile : AppCompatActivity() {
                         // myToast(context, "Unauthorized")
                         myToast(context, "User Logged in other Device")
                         sessionManager.logout()
+//                        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+//                        if(sessionManager.fcmToken!!.isNotEmpty()){
+//                            saveFCM(sessionManager.fcmToken.toString())
+//                        }
+//                        fcmTokenNew = sharedPreferences.getString(FCM_TOKEN, "").toString()
+//
+//                        Log.e("FCMNewSession",fcmTokenNew)
                         val intent = Intent(applicationContext, Login::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP

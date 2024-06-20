@@ -8,7 +8,7 @@ data class Data(
     val customer_id: String,
     val description: String,
     val details: Any,
-    val driv_type: String,
+    val driv_type: String?,
     val end_time: String,
     val id: Int,
     val name: String?,

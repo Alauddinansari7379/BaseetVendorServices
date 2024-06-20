@@ -2,18 +2,26 @@ package com.amtech.vendorservices.V.Dashboard
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.NotificationManager
+import android.content.ComponentName
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,6 +29,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.amtech.vendorservices.R
+import com.amtech.vendorservices.V.Dashboard.model.ModelDashTra.ModelDashTra
 import com.amtech.vendorservices.V.Dashboard.model.ModelDashboard
 import com.amtech.vendorservices.V.Dashboard.model.ModelSpinner
 import com.amtech.vendorservices.V.Helper.AppProgressBar
@@ -49,8 +58,14 @@ import com.example.easywaylocation.GetLocationDetail
 import com.example.easywaylocation.Listener
 import com.example.easywaylocation.LocationData
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
+import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.FirebaseApp
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -81,13 +96,59 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
     private var currentAddress = ""
     private var postalCodeNew = ""
      val commission = ArrayList<Int>()
+    private val NOTIFICATION_PERMISSION_CODE = 123
 
+    private lateinit var firebaseApp:FirebaseApp
+
+    private val notificationManager: NotificationManager by lazy {
+        getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
 
+        if ( sessionManager.selectedLanguage == "en"){
+            englishSetting()
+        }else{
+            arabicSetting()
+        }
+//      FirebaseApp.initializeApp(context)!!
+//
+//       // firebaseApp.name.toString()
+
+        // FirebaseInstanceId.getInstance().getToken();
+
+        requestNotificationPermission()
+     //   getCurrentFCMToken()
+
+        when {
+            ContextCompat.checkSelfPermission(
+                this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED -> {
+                // You can use the API that requires the permission.
+                Log.e("Notification", "onCreate: PERMISSION GRANTED")
+                // sendNotification(this)
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
+                Snackbar.make(
+                    findViewById<View>(android.R.id.content).rootView, "Notification blocked", Snackbar.LENGTH_LONG
+                ).setAction("Settings") {
+                    // Responds to click on the action
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    val uri: Uri = Uri.fromParts("package", packageName, null)
+                    intent.data = uri
+                    startActivity(intent)
+                }.show()
+            }
+            else -> {
+                // The registered ActivityResultCallback gets the result of this request
+                requestPermissionLauncher.launch(
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
+            }
+        }
 
         sessionManager.imageURL = "https://baseet.thedemostore.in/storage/app/public/product/"
 
@@ -118,8 +179,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         binding.includedrawar1.tvName.text=sessionManager.customerName.toString()
         try {
             if (sessionManager.profilePic != null) {
-                Picasso.get()
-                    .load(sessionManager.profilePic!!.replace("http","https"))
+                Picasso.get().load(sessionManager.profilePic!!.replace("http","https"))
                     .placeholder(R.drawable.user)
                     .error(R.drawable.user_logo)
                     .into(binding.includedrawar1.imgProfile)
@@ -128,6 +188,9 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         }catch (e:Exception){
             e.printStackTrace()
         }
+//        Glide.with(context).load("xvdfx")
+//            .into()
+
 
          binding.imgBack.setOnClickListener {
             binding.drawerlayout1.openDrawer(GravityCompat.START)
@@ -501,11 +564,131 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
         getLastLocation()
-        apiCallDashboard()
+        if (sessionManager.usertype=="translator"){
+            apiCallDashboardTra()
+        }else{
+            apiCallDashboard()
+
+        }
     }
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission())
+    {
+            isGranted: Boolean ->
+        if (isGranted) {
+            // Permission is granted. Continue the action or workflow in your
+            // app.
+            //  sendNotification(this)
+            // myToast(this@MainActivity,"Permission granted")
+        } else {
+            // Explain to the user that the feature is unavailable because the
+            // features requires a permission that the user has denied. At the
+            // same time, respect the user's decision. Don't link to system
+            // settings in an effort to convince the user to change their
+            // decision.
+        }
+    }
+    private fun requestNotificationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NOTIFICATION_POLICY) == PackageManager.PERMISSION_GRANTED
+        ) return
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.ACCESS_NOTIFICATION_POLICY
+            )
+        ) {
+        }
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf<String>(Manifest.permission.ACCESS_NOTIFICATION_POLICY),
+            NOTIFICATION_PERMISSION_CODE
+        )
+    }
+    private val notificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+                isGranted ->
+            hasNotificationPermissionGranted = isGranted
+            if (!isGranted) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
+                            showNotificationPermissionRationale()
+                        } else {
+                            showSettingDialog()
+                        }
+                    }
+                }
+            } else {
+                Toast.makeText(applicationContext, "notification permission granted", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    var hasNotificationPermissionGranted = false
+    private val isNotificationListenerEnabled: Boolean
+        get() {
+            val pkgName = packageName
+            val cn = ComponentName(pkgName, "$pkgName.NotificationListener")
+            val flat = Settings.Secure.getString(contentResolver, "enabled_notification_listeners")
+            return flat != null && flat.contains(cn.flattenToString())
+        }
+    private fun showSettingDialog() {
+        MaterialAlertDialogBuilder(this, com.google.android.material.R.style.MaterialAlertDialog_Material3)
+            .setTitle("Notification Permission")
+            .setMessage("Notification permission is required, Please allow notification permission from setting")
+            .setPositiveButton("Ok") { _, _ ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                intent.data = Uri.parse("package:$packageName")
+                startActivity(intent)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+    private fun showNotificationPermissionRationale() {
 
+        MaterialAlertDialogBuilder(this, com.google.android.material.R.style.MaterialAlertDialog_Material3)
+            .setTitle("Alert")
+            .setMessage("Notification permission is required, to show notification")
+            .setPositiveButton("Ok") { _, _ ->
+                if (Build.VERSION.SDK_INT >= 33) {
+                    notificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<String?>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//
+//        // Checking the request code of our request
+//        if (requestCode == NOTIFICATION_PERMISSION_CODE) {
+//            // If permission is granted
+//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                // Displaying a toast
+//                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show()
+//            } else {
+//                // Displaying another toast if permission is not granted
+//                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG)
+//                    .show()
+//            }
+//        }
+//    }
 
+    private fun getCurrentFCMToken() {
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("FCM Token", "Fetching FCM token failed", task.exception)
+                    return@addOnCompleteListener
+                }
 
+                // Get new FCM token
+                val token = task.result
+                Log.d("FCM Token", "FCM token: $token")
+                // Send the token to your server or save it as needed
+            }
+    }
     fun refresh() {
         overridePendingTransition(0, 0)
         finish()
@@ -653,7 +836,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         startActivity(intent)
                         AppProgressBar.hideLoaderDialog()
 
-                    } else if (response.code() == 200) {
+                    } else{
                         // binding.tvTotalSer.text=response.body()!!.data.top_sell.toString()
                         binding.tvOrderedSer.text = response.body()!!.data.all.toString()
                         binding.tvCompletedSer.text = response.body()!!.data.delivered.toString()
@@ -722,13 +905,9 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                             response.body()!!.data.refunded.toString()
                         binding.includedrawar1.tvAllCount.text =
                             response.body()!!.data.all.toString()
-
+                        AppProgressBar.hideLoaderDialog()
                         // binding.tvRejectedSer
 
-                    } else {
-                        myToast(context, "Something went wrong")
-
-                        AppProgressBar.hideLoaderDialog()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -739,13 +918,139 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             }
 
             override fun onFailure(call: Call<ModelDashboard>, t: Throwable) {
-                myToast(context, t.message.toString())
                 AppProgressBar.hideLoaderDialog()
                 count1++
                 if (count1<= 3) {
                     Log.e("count", count1.toString())
                     apiCallDashboard()
                  } else {
+                    myToast(context, t.message.toString())
+
+                    AppProgressBar.hideLoaderDialog()
+
+                }
+                AppProgressBar.hideLoaderDialog()
+            }
+
+        })
+
+    }
+    private fun apiCallDashboardTra() {
+
+        //  AppProgressBar.showLoaderDialog(context)
+        ApiClient.apiService.dashboardTra(
+            sessionManager.idToken.toString()
+        ).enqueue(object : Callback<ModelDashTra> {
+            @SuppressLint("LogNotTimber", "LongLogTag")
+            override fun onResponse(
+                call: Call<ModelDashTra>, response: Response<ModelDashTra>
+            ) {
+                try {
+                    if (response.code() == 500) {
+                        myToast(context, "Server Error")
+                        AppProgressBar.hideLoaderDialog()
+
+                    } else if (response.code() == 401) {
+                        // myToast(context, "Unauthorized")
+                        myToast(this@Dashboard, "User Logged in other Device")
+                        sessionManager.logout()
+                        val intent = Intent(applicationContext, Login::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        finish()
+                        startActivity(intent)
+                        AppProgressBar.hideLoaderDialog()
+
+                    } else{
+                        // binding.tvTotalSer.text=response.body()!!.data.top_sell.toString()
+                        binding.tvOrderedSer.text = response.body()!!.data.all.toString()
+                        binding.tvCompletedSer.text = response.body()!!.data.delivered.toString()
+                        binding.tvRejectedSer.text = response.body()!!.data.rejected.toString()
+                        val jsonResponse = """
+                    {
+                        "earning": {
+                            "1": ${response.body()!!.earning.`1`},
+                            "2": ${response.body()!!.earning.`2`},
+                            "3": ${response.body()!!.earning.`3`},
+                            "4": ${response.body()!!.earning.`4`},
+                            "5": ${response.body()!!.earning.`5`},
+                            "6": ${response.body()!!.earning.`6`},
+                            "7": ${response.body()!!.earning.`7`},
+                            "8": ${response.body()!!.earning.`8`},
+                            "9": ${response.body()!!.earning.`9`},
+                            "10": ${response.body()!!.earning.`10`},
+                            "11": ${response.body()!!.earning.`11`},
+                            "12": ${response.body()!!.earning.`12`}
+                        },
+                        "commission": {
+                             "1": ${response.body()!!.commission.`1`},
+                            "2": ${response.body()!!.commission.`2`},
+                            "3": ${response.body()!!.commission.`3`},
+                            "4": ${response.body()!!.commission.`4`},
+                            "5": ${response.body()!!.commission.`5`},
+                            "6": ${response.body()!!.commission.`6`},
+                            "7": ${response.body()!!.commission.`7`},
+                            "8": ${response.body()!!.commission.`8`},
+                            "9": ${response.body()!!.commission.`9`},
+                            "10": ${response.body()!!.commission.`10`},
+                            "11": ${response.body()!!.commission.`11`},
+                            "12": ${response.body()!!.commission.`12`}
+                        }
+                    }
+                """
+                        // Parse JSON response
+                        val jsonObject = JSONObject(jsonResponse)
+                        // Extract earning and commission objects
+                        val earningObject = jsonObject.getJSONObject("earning")
+                        val commissionObject = jsonObject.getJSONObject("commission")
+
+                        // Calculate sum of earnings
+                        var earningsSum = 0.0
+                        for (key in earningObject.keys()) {
+                            earningsSum += earningObject.getDouble(key)
+                        }
+                        // Calculate sum of commissions
+                        var commissionsSum = 0.0
+                        for (key in commissionObject.keys()) {
+                            commissionsSum += commissionObject.getDouble(key)
+                        }
+
+                        // Print the sums
+                        println("Sum of earnings: $earningsSum")
+                        println("Sum of commissions: $commissionsSum")
+
+                        binding.totalEarning.text = earningsSum.toString()+" $"
+                        binding.commission.text = commissionsSum.toString()+" $"
+
+                        binding.includedrawar1.tvComCount.text =
+                            response.body()!!.data.delivered.toString()
+                        binding.includedrawar1.tvCanCount.text =
+                            response.body()!!.data.rejected.toString()
+                        binding.includedrawar1.tvRefundCount.text =
+                            response.body()!!.data.refunded.toString()
+                        binding.includedrawar1.tvAllCount.text =
+                            response.body()!!.data.all.toString()
+                        AppProgressBar.hideLoaderDialog()
+                        // binding.tvRejectedSer
+
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    myToast(context, "Something went wrong")
+                    AppProgressBar.hideLoaderDialog()
+
+                }
+            }
+
+            override fun onFailure(call: Call<ModelDashTra>, t: Throwable) {
+                AppProgressBar.hideLoaderDialog()
+                count1++
+                if (count1<= 3) {
+                    Log.e("count", count1.toString())
+                    apiCallDashboardTra()
+                 } else {
+                    myToast(context, t.message.toString())
+
                     AppProgressBar.hideLoaderDialog()
 
                 }
@@ -766,6 +1071,18 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                 Toast.makeText(
                     context, "Please provide the required permission", Toast.LENGTH_SHORT
                 ).show()
+            }
+        }
+        // Checking the request code of our request
+        if (requestCode == NOTIFICATION_PERMISSION_CODE) {
+            // If permission is granted
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Displaying a toast
+                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show()
+            } else {
+                // Displaying another toast if permission is not granted
+                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG)
+                    .show()
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions!!, grantResults)
@@ -823,6 +1140,28 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         ActivityCompat.requestPermissions(
             context, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE
         )
+    }
+
+    private fun arabicSetting(){
+         val locale: Locale = Locale(sessionManager.selectedLanguage!!)
+        Locale.setDefault(locale)
+        val config: Configuration = Configuration()
+        config.locale = locale
+        resources.updateConfiguration(config, resources.displayMetrics)
+        sessionManager.selectedLanguage = "ar"
+    }
+
+    private fun englishSetting(){
+         val locale: Locale = Locale(sessionManager.selectedLanguage!!)
+        Locale.setDefault(locale)
+        val config: Configuration = Configuration()
+        config.locale = locale
+        resources.updateConfiguration(config, resources.displayMetrics)
+        sessionManager.selectedLanguage = "en"
+    }
+
+    companion object{
+        var refreshLan=true
     }
 
     override fun onStart() {

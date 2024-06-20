@@ -2,7 +2,6 @@ package com.amtech.vendorservices.V.Order.Model.ModelRelatedSer
 
 data class Data(
     val dates: String,
-    val servicesdates: String,
     val description: String,
     val drone: String,
     val foodid: Int,
@@ -17,5 +16,10 @@ data class Data(
     val car_type: String,
     val home_type: String,
     val tr_from: String,
-    val tr_to: String
-)
+    val tr_to: String,
+    val amenities: Any,
+    val car_model: String,
+
+    val servicesdates: String,
+
+    )

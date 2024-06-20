@@ -27,6 +27,7 @@ data class ModelAllOrderItem(
     val id: Int,
     val order_amount: Int,
     val order_note: String,
+    val food_type: String,
     val order_status: String,
     val order_type: String,
     val original_delivery_charge: Int,

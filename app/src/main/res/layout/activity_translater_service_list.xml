@@ -35,7 +35,7 @@
             android:layout_gravity="start"
             android:layout_marginStart="25dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Translater Service List"
+            android:text="@string/translater_service_list"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/poppins_regular"
                 android:gravity="center"
-                android:text="Service List"
+                android:text="@string/service_list"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold">
@@ -94,7 +94,7 @@
             android:gravity="center"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Add new Service"
+            android:text="@string/add_new_service"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="12sp">
@@ -117,9 +117,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_weight="1.1"
-            android:drawableLeft="@drawable/searchnew"
+            android:drawableStart="@drawable/searchnew"
             android:drawablePadding="5dp"
-            android:hint="Search By Name"
+            android:hint="@string/search_by_name"
             android:padding="10dp"
             android:imeOptions="actionDone"
             android:textSize="14sp">
@@ -132,9 +132,9 @@
             android:layout_marginEnd="5dp"
             android:layout_weight="1.1"
             android:visibility="gone"
-            android:drawableLeft="@drawable/searchnew"
+            android:drawableStart="@drawable/searchnew"
             android:drawablePadding="5dp"
-            android:hint="Search By Name"
+            android:hint="@string/search_by_name"
             android:padding="10dp"
             android:imeOptions="actionDone"
             android:textSize="14sp">
@@ -149,7 +149,7 @@
             android:background="@drawable/corner"
             android:backgroundTint="@color/yellow"
             android:fontFamily="@font/poppins_regular"
-            android:text="Search"
+            android:text="@string/search"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="14sp">
@@ -199,10 +199,8 @@
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
-                android:hint="Blood Group"
-                android:inputType="textEmailAddress"
-                android:padding="10dp"
-                android:textSize="15dp">
+                 android:padding="10dp"
+                android:textSize="14sp">
 
             </Spinner>
 
@@ -215,7 +213,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6"
+                    android:text="@string/_6"
                     android:textColor="@color/black">
 
                 </androidx.appcompat.widget.AppCompatTextView>

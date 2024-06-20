@@ -47,9 +47,11 @@ class AdapterSerRequestList(
 
                     if (sessionManager.usertype == "car") {
                         binding.layoutDrivingType.visibility = View.VISIBLE
+                        binding.layoutLangauge.visibility = View.GONE
                     } else if (sessionManager.usertype == "home"){
                         binding.tvTypeTv.text="Home Type : "
                         binding.layoutDrivingType.visibility = View.GONE
+                        binding.layoutLangauge.visibility = View.GONE
 
                     }else{
                         binding.layoutDrivingType.visibility = View.GONE
@@ -65,34 +67,43 @@ class AdapterSerRequestList(
 
                     }
                     binding.btnAccept.setOnClickListener {
-                        if (sessionManager.usertype == "car") {
-                            accept.accept(
-                                id.toString(),
-                                name!!,
-                                price!!,
-                                driv_type!!,
-                                trperson!!,
-                                type!!
-                            )
-                        } else if (sessionManager.usertype == "home") {
-                            accept.accept(
-                                id.toString(),
-                                name!!,
-                                price!!,
-                                "driv_type"!!,
-                                trperson!!,
-                                type!!
-                            )
-                        } else {
-                            accept.accept(
-                                id.toString(),
-                                name!!,
-                                price!!,
-                                tr_from!!,
-                                tr_to!!,
-                                type!!
-                            )
+                        when (sessionManager.usertype) {
+                            "car" -> {
+                                requestIdNew=id.toString()
+                                accept.accept(
+                                    id.toString(),
+                                    name!!,
+                                    price!!,
+                                    driv_type.toString(),
+                                    trperson!!,
+                                    type!!,
+                                )
+                            }
+                            "home" -> {
+                                requestIdNew=id.toString()
 
+                                accept.accept(
+                                    id.toString(),
+                                    name!!,
+                                    price!!,
+                                    "driv_type"!!,
+                                    trperson!!,
+                                    type!!
+                                )
+                            }
+                            else -> {
+                                requestIdNew=id.toString()
+
+                                accept.accept(
+                                    id.toString(),
+                                    name!!,
+                                    price!!,
+                                    tr_from!!,
+                                    tr_to!!,
+                                    type!!
+                                )
+
+                            }
                         }
                     }
 //
@@ -119,5 +130,8 @@ class AdapterSerRequestList(
     }
     interface Accept{
         fun accept(id: String,name:String,price:String,langFrom:String,langTo:String,tranServ:String)
+    }
+    companion object{
+        var requestIdNew=""
     }
 }
