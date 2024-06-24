@@ -37,7 +37,7 @@ class AdapterServiceList(
                 with(list[position]) {
                     binding.tvSrn.text = id.toString()
                     binding.tvName.text = name
-                    binding.tvType.text = sessionManager.usertype+" Service"
+                    binding.tvType.text = sessionManager.usertype+context.resources.getString(R.string.Service)
                      binding.tvPrice.text = "$price$"
                     if (status==1){
                         binding.switchStatus.isChecked=true

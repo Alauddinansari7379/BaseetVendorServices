@@ -7,9 +7,11 @@ import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.amtech.vendorservices.R
+import com.amtech.vendorservices.V.Dashboard.Dashboard
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.myToast
 import com.amtech.vendorservices.V.Order.Adapter.AdapterRelatedServiceList
@@ -47,8 +49,38 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
+
+        Dashboard().languageSetting(this, sessionManager.selectedLanguage.toString())
+
+        if (Dashboard.refreshLanNew) {
+            Dashboard.refreshLanNew = false
+            refresh()
+        }
+        if (sessionManager.selectedLanguage == "en") {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.arabic_text)
+        } else {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.english_text)
+        }
+
+        binding.imgLan.setOnClickListener {
+            if (sessionManager.selectedLanguage == "en") {
+                sessionManager.selectedLanguage = "ar"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            } else {
+                sessionManager.selectedLanguage = "en"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            }
+        }
         with(binding) {
-            imagBack.setOnClickListener {
+            imgBack.setOnClickListener {
                 onBackPressed()
             }
             apiCallServiceReqList()
@@ -75,14 +107,14 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                 ) {
                     try {
                         if (response.code() == 404) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.body()!!.data.isEmpty()) {
-                            myToast(context, "No Data Found")
+                            myToast(context, resources.getString(R.string.No_Data_Found))
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
@@ -95,7 +127,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
 
@@ -104,8 +136,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
 
                 override fun onFailure(call: Call<ModelServiceReq>, t: Throwable) {
-                    myToast(context, "Something went wrong")
-                    AppProgressBar.hideLoaderDialog()
+                     AppProgressBar.hideLoaderDialog()
                     count++
                     if (count <= 3) {
                         Log.e("count", count.toString())
@@ -149,14 +180,14 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                 ) {
                     try {
                         if (response.code() == 404) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.body()!!.data.isEmpty()) {
-                            myToast(context, "No Data Found")
+                            myToast(context, resources.getString(R.string.No_Data_Found))
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
@@ -223,7 +254,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
 
@@ -233,7 +264,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                 override fun onFailure(call: Call<ModelServiceRet>, t: Throwable) {
                     //  myToast(context, t.message.toString())
-                    myToast(context, "No Data Found")
+                    myToast(context, resources.getString(R.string.No_Data_Found))
 
                     AppProgressBar.hideLoaderDialog()
                     count1++
@@ -270,14 +301,14 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                 ) {
                     try {
                         if (response.code() == 404) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.body()!!.data.isEmpty()) {
-                            myToast(context, "No Data Found")
+                            myToast(context, resources.getString(R.string.No_Data_Found))
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
@@ -343,7 +374,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
 
@@ -385,14 +416,14 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                 ) {
                     try {
                         if (response.code() == 401) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.body()!!.data.isEmpty()) {
-                            myToast(context, "No Data Found")
+                            myToast(context, resources.getString(R.string.No_Data_Found))
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
@@ -458,7 +489,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
 
@@ -502,14 +533,14 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                 ) {
                     try {
                         if (response.code() == 404) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.body()!!.data.isEmpty()) {
-                            myToast(context, "No Data Found")
+                            myToast(context, resources.getString(R.string.No_Data_Found))
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
@@ -523,7 +554,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
 
@@ -568,10 +599,10 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                 ) {
                     try {
                         if (response.code() == 404) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
@@ -581,7 +612,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                             refresh()
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
 
@@ -654,5 +685,9 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
         finish()
         startActivity(intent)
         overridePendingTransition(0, 0)
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Dashboard.refreshLanNew=true
     }
 }

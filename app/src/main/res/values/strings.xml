@@ -47,6 +47,8 @@
     <string name="service_date">Service date</string>
     <string name="service_hour">Service Hour</string>
     <string name="days">Days</string>
+    <string name="Select_Items">Select Items</string>
+    <string name="Done">Done</string>
     <string name="_EN"> (EN)</string>
     <string name="_AR"> (AR)</string>
     <string name="home_type_en">Home Type (EN)</string>
@@ -259,8 +261,11 @@
      <string name="Edit_Home_Rental_Information">Edit Home Rental Information</string>
      <string name="Car_Rental_Bank_Info">Car Rental Bank Info</string>
     <string name="Car_Rental_Wallet">Car Rental Wallet</string>
+    <string name="Home_Rental_Wallet">Home Rental Wallet</string>
     <string name="Car_Servicet">Car Service</string>
+    <string name="Home_Rental_Bank_Info">Home Rental Bank Info</string>
      <string name="Car_Rental_Config">Car Rental Config</string>
+     <string name="My_Car_Rental">My Car Rental</string>
     <string name="Home_Service">Home Service</string>
     <string name="Home_Rental_Config">Home Rental Config</string>
     <string name="My_Home_Rental">My Home Rental</string>
@@ -275,6 +280,7 @@
     <string name="User_Logged_in_other_Device">User Logged in other Device</string>
     <string name="Please_provide_the_required_permission">Please provide the required permission</string>
     <string name="Unauthorized">Unauthorized</string>
+    <string name="Login_Sucessfully">Login Successfully</string>
     <string name="Try_Again">Try Again</string>
     <string name="Car_Rental_Information">Car Rental Information</string>
     <string name="Car_Rental_Info">Car Rental Info</string>
@@ -386,6 +392,8 @@
     <string name="Children_tableware">Children’s tableware</string>
     <string name="Window_guards">Window guards</string>
     <string name="Board_games">Board games</string>
+    <string name="Image_Selected">Image Selected</string>
+    <string name="chose_lanaguge">Chose Language</string>
     <string name="Heating_and_cooling">Heating and cooling</string>
     <string name="Portable_heater">Portable heater</string>
     <string name="Home_safety">Home safety</string>

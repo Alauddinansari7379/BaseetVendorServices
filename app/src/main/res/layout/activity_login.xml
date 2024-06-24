@@ -98,7 +98,7 @@
       >
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvEmailH"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
@@ -140,7 +140,7 @@
       >
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvPasswordH"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                  android:layout_marginEnd="15dp"

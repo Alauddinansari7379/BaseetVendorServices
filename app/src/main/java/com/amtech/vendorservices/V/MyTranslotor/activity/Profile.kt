@@ -7,7 +7,9 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.amtech.vendorservices.R
+import com.amtech.vendorservices.V.Dashboard.Dashboard
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.myToast
 import com.amtech.vendorservices.V.Login.activity.Login
@@ -38,6 +40,36 @@ class Profile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
+        Dashboard().languageSetting(this, sessionManager.selectedLanguage.toString())
+
+        if (Dashboard.refreshLanNew) {
+            Dashboard.refreshLanNew = false
+            refresh()
+        }
+        if (sessionManager.selectedLanguage == "en") {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.arabic_text)
+        } else {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.english_text)
+        }
+
+        binding.imgLan.setOnClickListener {
+            if (sessionManager.selectedLanguage == "en") {
+                sessionManager.selectedLanguage = "ar"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            } else {
+                sessionManager.selectedLanguage = "en"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            }
+        }
+
         with(binding) {
             imgBack.setOnClickListener {
                 onBackPressed()
@@ -45,12 +77,12 @@ class Profile : AppCompatActivity() {
 
             when (sessionManager.usertype) {
                 "car" -> {
-                    binding.tvTitle.text = "Car Rental Information"
-                    binding.tvInfo.text = "Car Rental Info"
+                    binding.tvTitle.text = resources.getString(R.string.Car_Rental_Information)
+                     binding.tvInfo.text = resources.getString(R.string.Car_Rental_Info)
                 }
                 "home" -> {
-                    binding.tvTitle.text = "Home Rental Information"
-                    binding.tvInfo.text = "Home Rental Info"
+                    binding.tvTitle.text =resources.getString(R.string.Home_Rental_Information)
+                     binding.tvInfo.text = resources.getString(R.string.Home_Rental_Info)
 
                 }else->{
 
@@ -77,12 +109,12 @@ class Profile : AppCompatActivity() {
             ) {
                 try {
                     if (response.code() == 500) {
-                        myToast(context, "Server Error")
+                        myToast(context, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 401) {
                         // myToast(context, "Unauthorized")
-                        myToast(context, "User Logged in other Device")
+                        myToast(context,  resources.getString(R.string.User_Logged_in_other_Device))
                         sessionManager.logout()
 //                        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 //                        if(sessionManager.fcmToken!!.isNotEmpty()){
@@ -99,18 +131,17 @@ class Profile : AppCompatActivity() {
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 200) {
-                        binding.tvName.text =
-                            "Name : " + response.body()!!.name
-                        binding.tvPhone.text = "Phone : " + response.body()!!.phone
-                        binding.tvAddress.text = "Address : " + response.body()!!.address
+                        binding.tvName.text = resources.getString(R.string.name_) + response.body()!!.name
+                         binding.tvPhone.text =resources.getString(R.string.Phone) + response.body()!!.phone
+                        binding.tvAddress.text = resources.getString(R.string.address_) + response.body()!!.address
 
                         if (response.body()!!.comission != null) {
                             binding.tvDiscount.text =
-                                "Discount : " + response.body()!!.comission + "%"
+                                resources.getString(R.string.Discount) + response.body()!!.comission + "%"
                         }
                         if (response.body()!!.comission != null) {
                             binding.tvCommission.text =
-                                "Admin commission : " + response.body()!!.comission + "%"
+                                resources.getString(R.string.Admin_commission) + response.body()!!.comission + "%"
                         }
 
                         if (response.body()!!.applogo != null) {
@@ -132,21 +163,20 @@ class Profile : AppCompatActivity() {
 //                            earning.add(i)
 //                        }
                     } else {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
 
                         AppProgressBar.hideLoaderDialog()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    myToast(context, "Something went wrong")
+                    myToast(context, resources.getString(R.string.Something_went_wrong))
                     AppProgressBar.hideLoaderDialog()
 
                 }
             }
 
             override fun onFailure(call: Call<ModelMyTra>, t: Throwable) {
-                myToast(context, "Something went wrong")
-                AppProgressBar.hideLoaderDialog()
+                 AppProgressBar.hideLoaderDialog()
                    count++
                    if (count<= 3) {
                        Log.e("count", count.toString())
@@ -161,6 +191,17 @@ class Profile : AppCompatActivity() {
 
         })
 
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Dashboard.refreshLanNew=true
+    }
+
+    private fun refresh() {
+        overridePendingTransition(0, 0)
+        finish()
+        startActivity(intent)
+        overridePendingTransition(0, 0)
     }
 
 }

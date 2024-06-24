@@ -7,8 +7,10 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.amtech.vendorservices.R
+import com.amtech.vendorservices.V.Dashboard.Dashboard
 import com.amtech.vendorservices.V.Dashboard.model.ModelSpinner
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.myToast
@@ -29,7 +31,7 @@ class TranslaterServiceList : AppCompatActivity() {
         ActivityTranslaterServiceListBinding.inflate(layoutInflater)
     }
     var count = 0
-     private var statisticsList = ArrayList<ModelSpinner>()
+    private var statisticsList = ArrayList<ModelSpinner>()
 
     private lateinit var mainData: ArrayList<Product>
     private lateinit var mainDataCar: ArrayList<com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.Product>
@@ -40,10 +42,41 @@ class TranslaterServiceList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
+
+        Dashboard().languageSetting(this, sessionManager.selectedLanguage.toString())
+
+        if (Dashboard.refreshLanNew) {
+            Dashboard.refreshLanNew = false
+            refresh()
+        }
+        if (sessionManager.selectedLanguage == "en") {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.arabic_text)
+        } else {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.english_text)
+        }
+
+        binding.imgLan.setOnClickListener {
+            if (sessionManager.selectedLanguage == "en") {
+                sessionManager.selectedLanguage = "ar"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            } else {
+                sessionManager.selectedLanguage = "en"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            }
+        }
         with(binding) {
             imgBack.setOnClickListener {
                 onBackPressed()
             }
+
             if (sessionManager.usertype=="car"){
                 apiCallServiceListCar()
             }else{
@@ -53,15 +86,15 @@ class TranslaterServiceList : AppCompatActivity() {
 
             when (sessionManager.usertype) {
                 "car" -> {
-                    binding.tvTitle.text = "Car Rental List"
-                    binding.btnAddNew.text = "Add New Item"
-                    binding.tvList.text = "Item List"
+                    binding.tvTitle.text = resources.getString(R.string.Car_Rental_List)
+                    binding.btnAddNew.text = resources.getString(R.string.Add_New_Item)
+                    binding.tvList.text = resources.getString(R.string.Item_List)
                 }
 
                 "home" -> {
-                    binding.tvTitle.text = "Home Rental List"
-                    binding.btnAddNew.text = "Add New Item"
-                    binding.tvList.text = "Item List"
+                    binding.tvTitle.text = resources.getString(R.string.Home_Rental_List)
+                    binding.btnAddNew.text = resources.getString(R.string.Add_New_Item)
+                    binding.tvList.text = resources.getString(R.string.Item_List)
                 }
 //                "translator"->{
 //                    binding.includedrawar1.tvService.text="Translator Service"
@@ -80,23 +113,23 @@ class TranslaterServiceList : AppCompatActivity() {
 
             edtSearch.addTextChangedListener { str ->
                 setRecyclerViewAdapter(mainData.filter {
-                    it.name != null && it.name.toString()!!
+                    it.name != null && it.name.toString()
                         .contains(str.toString(), ignoreCase = true)
                 } as ArrayList<Product>)
             }
 
             edtSearchCar.addTextChangedListener { str ->
                 setRecyclerViewAdapterCar(mainDataCar.filter {
-                    it.name != null && it.name.toString()!!
+                    it.name != null && it.name.toString()
                         .contains(str.toString(), ignoreCase = true)
                 } as ArrayList<com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.Product>)
             }
 
-            statisticsList.add(ModelSpinner("All Category", "1"))
-            statisticsList.add(ModelSpinner("Indian (Main)", "1"))
-            statisticsList.add(ModelSpinner("Italian (Main)", "1"))
-            statisticsList.add(ModelSpinner("Arabian (Main)", "1"))
-            statisticsList.add(ModelSpinner("Chains (Main)", "1"))
+            statisticsList.add(ModelSpinner(resources.getString(R.string.All_Category), "All Category"))
+            statisticsList.add(ModelSpinner(resources.getString(R.string.Indian_Main), "Indian (Main)"))
+            statisticsList.add(ModelSpinner(resources.getString(R.string.Italian_Main), "Italian (Main)"))
+            statisticsList.add(ModelSpinner(resources.getString(R.string.Arabian_Main), "Arabian (Main)"))
+            statisticsList.add(ModelSpinner(resources.getString(R.string.Chains_Main), "Chains (Main)"))
 
             binding.spinnerCat.adapter =
                 ArrayAdapter<ModelSpinner>(
@@ -104,7 +137,6 @@ class TranslaterServiceList : AppCompatActivity() {
                     R.layout.spinner_layout,
                     statisticsList
                 )
-
             binding.spinnerCat.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -112,25 +144,22 @@ class TranslaterServiceList : AppCompatActivity() {
                         view: View?,
                         i: Int,
                         l: Long
-                    ) {
+                    )
+                    {
                         if (statisticsList.size > 0) {
-                            val statusChange = statisticsList[i].text
+                            val statusChange = statisticsList[i].value
                         }
                     }
-
                     override fun onNothingSelected(adapterView: AdapterView<*>?) {
 
                     }
                 }
         }
-
     }
-
     private fun apiCallServiceList() {
-         AppProgressBar.showLoaderDialog(context)
+        AppProgressBar.showLoaderDialog(context)
         ApiClient.apiService.serviceList(
-            sessionManager.idToken.toString(),
-        )
+            sessionManager.idToken.toString())
             .enqueue(object : Callback<ModelServiceList> {
                 @SuppressLint("LogNotTimber")
                 override fun onResponse(
@@ -138,15 +167,15 @@ class TranslaterServiceList : AppCompatActivity() {
                 ) {
                     try {
                         if (response.code() == 404) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.body()!!.products.isEmpty()) {
-                            myToast(context, "No Data Found")
+                            myToast(context, resources.getString(R.string.No_Data_Found))
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
@@ -155,7 +184,7 @@ class TranslaterServiceList : AppCompatActivity() {
                             AppProgressBar.hideLoaderDialog()
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
 
@@ -180,9 +209,15 @@ class TranslaterServiceList : AppCompatActivity() {
             })
 
     }
+
+    fun refresh() {
+        overridePendingTransition(0, 0)
+        finish()
+        startActivity(intent)
+        overridePendingTransition(0, 0)
+    }
     private fun apiCallServiceListCar() {
-        AppProgressBar.showLoaderDialog(context)
-        AppProgressBar.showLoaderDialog(context)
+         AppProgressBar.showLoaderDialog(context)
         ApiClient.apiService.serviceListCar(
             sessionManager.idToken.toString(),
         )
@@ -193,15 +228,15 @@ class TranslaterServiceList : AppCompatActivity() {
                 ) {
                     try {
                         if (response.code() == 404) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.body()!!.products.isEmpty()) {
-                            myToast(context, "No Data Found")
+                            myToast(context, resources.getString(R.string.No_Data_Found))
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
@@ -210,14 +245,11 @@ class TranslaterServiceList : AppCompatActivity() {
                             AppProgressBar.hideLoaderDialog()
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
-
                     }
                 }
-
-
                 override fun onFailure(call: Call<ModelGetListCar>, t: Throwable) {
                     AppProgressBar.hideLoaderDialog()
                     count++
@@ -227,15 +259,11 @@ class TranslaterServiceList : AppCompatActivity() {
                     } else {
                         myToast(context, t.message.toString())
                         AppProgressBar.hideLoaderDialog()
-
                     }
                     AppProgressBar.hideLoaderDialog()
                 }
-
             })
-
     }
-
     private fun setRecyclerViewAdapter(data: ArrayList<Product>) {
         binding.recyclerView.apply {
             adapter = AdapterServiceList(context, data)
@@ -250,5 +278,9 @@ class TranslaterServiceList : AppCompatActivity() {
             AppProgressBar.hideLoaderDialog()
 
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Dashboard.refreshLanNew=true
     }
 }

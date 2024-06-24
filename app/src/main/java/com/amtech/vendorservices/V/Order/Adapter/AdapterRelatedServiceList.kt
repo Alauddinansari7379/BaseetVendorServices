@@ -39,10 +39,10 @@ class AdapterRelatedServiceList(
             with(list[position]){
                 when (sessionManager.usertype) {
                     "car" -> {
-                        binding.tvDrivingType.text="Driving Type : "
-                        binding.tvCarType.text="Car Type : "
-                        binding.tvTravlingPer.text="Travelling Person : "
-                        binding.tvServiceH.text="Days : "
+                        binding.tvDrivingType.text=context.resources.getString(R.string.Driving_Type)
+                        binding.tvCarType.text=context.resources.getString(R.string.Car_Type)
+                        binding.tvTravlingPer.text=context.resources.getString(R.string.Travelling_Person)
+                         binding.tvServiceH.text=context.resources.getString(R.string.Days)
 
                         binding.name.text = name
                         binding.price.text = "$price$"
@@ -55,7 +55,7 @@ class AdapterRelatedServiceList(
                         binding.edtUpdatePrice.setText(price)
                     }
                     "home" -> {
-                        binding.tvCarType.text="Home Type : "
+                        binding.tvCarType.text=context.resources.getString(R.string.Home_Type)
                         binding.name.text = name
                         binding.price.text = "$price$"
                         binding.description.text = description

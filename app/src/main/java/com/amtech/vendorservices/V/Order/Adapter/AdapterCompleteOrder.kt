@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Helper.pmFormate
 import com.amtech.vendorservices.V.Order.Model.DataX
 import com.amtech.vendorservices.V.Order.activity.OrderDetails
@@ -40,7 +41,7 @@ class AdapterCompleteOrder(
                     binding.tvServiceDate.text = pmFormate(schedule_at)
                     binding.tvDate.text = created_at.subSequence(0, 11)
                     if (order_status == "delivered") {
-                        binding.tvOrderStatus.text = "Completed"
+                        binding.tvOrderStatus.text = context.resources.getString(R.string.Completed)
                     } else {
                         binding.tvOrderStatus.text = order_status
                     }

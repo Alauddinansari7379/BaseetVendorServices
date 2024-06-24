@@ -5,6 +5,8 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.ContentResolver
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -15,11 +17,13 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.PrimeDatePicker.Companion.dialogWith
 import com.aminography.primedatepicker.picker.callback.MultipleDaysPickCallback
 import com.amtech.vendorservices.R
+import com.amtech.vendorservices.V.Dashboard.Dashboard
 import com.amtech.vendorservices.V.Dashboard.model.ModelSpinner
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.currentDate
@@ -90,18 +94,47 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
+        Dashboard().languageSetting(this, sessionManager.selectedLanguage.toString())
+
+        if (Dashboard.refreshLanNew) {
+            Dashboard.refreshLanNew = false
+            refresh()
+        }
+        if (sessionManager.selectedLanguage == "en") {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.arabic_text)
+        } else {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.english_text)
+        }
+
+        binding.imgLan.setOnClickListener {
+            if (sessionManager.selectedLanguage == "en") {
+                sessionManager.selectedLanguage = "ar"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            } else {
+                sessionManager.selectedLanguage = "en"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            }
+        }
         with(binding) {
             imgBack.setOnClickListener {
                 onBackPressed()
             }
             when (sessionManager.usertype) {
                 "car" -> {
-                    binding.tvTitle.text = "Car Service"
-                    binding.tvAddNew.text = "Add New Car Rental Service"
-                    binding.tvName.text = "Car Rental Name"
-                    binding.tvDesc.text = "Car Rental Description"
-                    binding.tvImage.text = "Car Image"
-                    binding.tvHoure.text = "Days"
+                    binding.tvTitle.text = resources.getString(R.string.Car_Servicet)
+                    binding.tvAddNew.text = resources.getString(R.string.Add_New_Car_Rental_Service)
+                    binding.tvName.text = resources.getString(R.string.Car_Rental_Name)
+                    binding.tvDesc.text = resources.getString(R.string.Car_Rental_Description)
+                    binding.tvImage.text = resources.getString(R.string.Car_Image)
+                     binding.tvHoure.text = resources.getString(R.string.Days)
                     binding.layoutOnCall.visibility = View.GONE
                     binding.layoutTrasanlotor.visibility = View.GONE
                     binding.layoutHomeSpinner.visibility = View.GONE
@@ -110,11 +143,12 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                 }
 
                 "home" -> {
-                    binding.tvTitle.text = "Home Service"
-                    binding.tvAddNew.text = "Add New Home Rental Service"
-                    binding.tvName.text = "Home Rental Name"
-                    binding.tvDesc.text = "Home Rental Details"
-                    binding.tvImage.text = "Home Image"
+                    binding.tvTitle.text = resources.getString(R.string.Home_Service)
+                    binding.tvAddNew.text = resources.getString(R.string.Add_New_Home_Rental_Service)
+
+                    binding.tvName.text = resources.getString(R.string.Home_Rental_Name)
+                    binding.tvDesc.text = resources.getString(R.string.Home_Rental_Details)
+                    binding.tvImage.text = resources.getString(R.string.Home_Image)
 
                     binding.layoutOnCall.visibility = View.GONE
                     binding.layoutTrasanlotor.visibility = View.GONE
@@ -132,26 +166,26 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
             }
 
-            statisticsList.add(ModelSpinner("Turkish", "1"))
-            statisticsList.add(ModelSpinner("Arabic", "1"))
-            statisticsList.add(ModelSpinner("English", "1"))
-            statisticsList.add(ModelSpinner("Russian", "1"))
+            statisticsList.add(ModelSpinner(resources.getString(R.string.Turkey), "Turkish"))
+            statisticsList.add(ModelSpinner(resources.getString(R.string.Arabic), "Arabic"))
+            statisticsList.add(ModelSpinner(resources.getString(R.string.English), "English"))
+            statisticsList.add(ModelSpinner(resources.getString(R.string.Russian), "Russian"))
 
-            zoneList.add(ModelSpinner("India", "1"))
-            zoneList.add(ModelSpinner("Trab Zone", "1"))
-            zoneList.add(ModelSpinner("Turkey", "1"))
-            zoneList.add(ModelSpinner("Saudi", "1"))
+            zoneList.add(ModelSpinner(resources.getString(R.string.India), "India"))
+            zoneList.add(ModelSpinner(resources.getString(R.string.Trab_Zone), "Trab Zone"))
+            zoneList.add(ModelSpinner(resources.getString(R.string.Turkey), "Turkey"))
+            zoneList.add(ModelSpinner(resources.getString(R.string.Saudi), "Saudi"))
 
-            carTypeList.add(ModelSpinner("Sedan", "1"))
-            carTypeList.add(ModelSpinner("Coupe", "1"))
-            carTypeList.add(ModelSpinner("Wagon", "1"))
-            carTypeList.add(ModelSpinner("Hatchback", "1"))
-            carTypeList.add(ModelSpinner("Off-road", "1"))
-            carTypeList.add(ModelSpinner("SUV", "1"))
-            carTypeList.add(ModelSpinner("Pickup", "1"))
-            carTypeList.add(ModelSpinner("Cabriolet", "1"))
-            carTypeList.add(ModelSpinner("Limbo", "1"))
-            carTypeList.add(ModelSpinner("Minivan", "1"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.Sedan), "Sedan"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.Coupe), "Coupe"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.Wagon), "Wagon"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.Hatchback), "Hatchback"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.Off_road), "Off-road"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.SUV), "SUV"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.Pickup), "Pickup"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.Cabriolet), "Cabriolet"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.Limbo), "Limbo"))
+            carTypeList.add(ModelSpinner(resources.getString(R.string.Minivan), "Minivan"))
 
 
             carModelList.add(ModelSpinner("2021", "1"))
@@ -177,7 +211,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (statisticsList.size > 0) {
-                            translationFrom = statisticsList[i].text
+                            translationFrom = statisticsList[i].value
                         }
                     }
 
@@ -186,24 +220,24 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     }
                 }
 
-            homeTypeList.add(ModelSpinner("1+1(1 Room + Hall)", "1"))
-            homeTypeList.add(ModelSpinner("2+1(2 Room + Hall)", "1"))
-            homeTypeList.add(ModelSpinner("3+1(3 Room + Hall)", "1"))
-            homeTypeList.add(ModelSpinner("4+1(4 Room + Hall)", "1"))
-            homeTypeList.add(ModelSpinner("5+1(5 Room + Hall)", "1"))
-            homeTypeList.add(ModelSpinner("Villa", "1"))
-            homeTypeList.add(ModelSpinner("Wood Home", "1"))
+            homeTypeList.add(ModelSpinner(resources.getString(R.string.Room_Hall1), "1+1(1 Room + Hall)"))
+            homeTypeList.add(ModelSpinner(resources.getString(R.string.Room_Hall2), "2+1(2 Room + Hall)"))
+            homeTypeList.add(ModelSpinner(resources.getString(R.string.Room_Hall3), "3+1(3 Room + Hall)"))
+            homeTypeList.add(ModelSpinner(resources.getString(R.string.Room_Hall4), "4+1(4 Room + Hall)"))
+            homeTypeList.add(ModelSpinner(resources.getString(R.string.Room_Hall5), "5+1(5 Room + Hall)"))
+            homeTypeList.add(ModelSpinner(resources.getString(R.string.Villa), "Villa"))
+            homeTypeList.add(ModelSpinner(resources.getString(R.string.Wood_Home), "Wood Home"))
 
 
 
-            mainEntranceList.add(ModelSpinner("The main Entrance", "1"))
-            mainEntranceList.add(ModelSpinner("Balcony", "1"))
-            mainEntranceList.add(ModelSpinner("The Kichen", "1"))
-            mainEntranceList.add(ModelSpinner("The Lounge", "1"))
-            mainEntranceList.add(ModelSpinner("The Bathroom", "1"))
-            mainEntranceList.add(ModelSpinner("Master Bedroom", "1"))
-            mainEntranceList.add(ModelSpinner("Bedroom", "1"))
-            mainEntranceList.add(ModelSpinner("The Store", "1"))
+            mainEntranceList.add(ModelSpinner(resources.getString(R.string.The_main_Entrance), "The main Entrance"))
+            mainEntranceList.add(ModelSpinner(resources.getString(R.string.Balcony), "Balcony"))
+            mainEntranceList.add(ModelSpinner(resources.getString(R.string.The_Kichen), "The Kitchen"))
+            mainEntranceList.add(ModelSpinner(resources.getString(R.string.The_Lounge), "The Lounge"))
+            mainEntranceList.add(ModelSpinner(resources.getString(R.string.The_Bathroom), "The Bathroom"))
+            mainEntranceList.add(ModelSpinner(resources.getString(R.string.Master_Bedroom), "Master Bedroom"))
+            mainEntranceList.add(ModelSpinner(resources.getString(R.string.Bedroom), "Bedroom"))
+            mainEntranceList.add(ModelSpinner(resources.getString(R.string.The_Store), "The Store"))
 
             spinnerMainEntrance.adapter =
                 ArrayAdapter<ModelSpinner>(
@@ -221,7 +255,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (mainEntranceList.size > 0) {
-                            maniEntrance = mainEntranceList[i].text
+                            maniEntrance = mainEntranceList[i].value
                         }
                     }
 
@@ -246,7 +280,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (homeTypeList.size > 0) {
-                            homeType = homeTypeList[i].text
+                            homeType = homeTypeList[i].value
                         }
                     }
 
@@ -296,7 +330,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (zoneList.size > 0) {
-                            zone = zoneList[i].text
+                            zone = zoneList[i].value
                         }
                     }
 
@@ -321,7 +355,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (carTypeList.size > 0) {
-                            carType = carTypeList[i].text
+                            carType = carTypeList[i].value
                         }
                     }
 
@@ -429,7 +463,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (statisticsList.size > 0) {
-                            translationTo = statisticsList[i].text
+                            translationTo = statisticsList[i].value
                         }
                     }
 
@@ -462,14 +496,14 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
 
             tvEnglish.setOnClickListener {
-                tvSerNameEn.text = " (EN)"
-                tvDescEn.text = " (EN)"
+                tvSerNameEn.text = resources.getString(R.string._EN)
+                tvDescEn.text =  resources.getString(R.string._EN)
                 layoutEnglishLine.setBackgroundColor(resources.getColor(R.color.blue))
                 layoutArbicLine.setBackgroundColor(Color.parseColor("#FFFFFF"))
             }
             tvArabic.setOnClickListener {
-                tvSerNameEn.text = " (AR)"
-                tvDescEn.text = " (AR)"
+                tvSerNameEn.text =  resources.getString(R.string._AR)
+                tvDescEn.text = resources.getString(R.string._AR)
                 layoutEnglishLine.setBackgroundColor(Color.parseColor("#FFFFFF"))
                 layoutArbicLine.setBackgroundColor(resources.getColor(R.color.blue))
             }
@@ -522,18 +556,18 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
             btnSubmit.setOnClickListener {
                 if (edtName.text.toString().isEmpty()) {
-                    edtName.error = "Enter Name"
+                    edtName.error =resources.getString(R.string.Enter_Name)
                     edtName.requestFocus()
                     return@setOnClickListener
                 }
                 if (edtDescription.text.toString().isEmpty()) {
-                    edtDescription.error = "Enter Description"
+                    edtDescription.error = resources.getString(R.string.Enter_Description)
                     edtDescription.requestFocus()
                     return@setOnClickListener
                 }
 
                 if (edtPrice.text.toString().isEmpty()) {
-                    edtPrice.error = "Enter Price"
+                    edtPrice.error = resources.getString(R.string.Enter_Price)
                     edtPrice.requestFocus()
                     return@setOnClickListener
                 }
@@ -571,11 +605,23 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                 Log.e("multipleSelectedDate", multipleSelectedDate.toString())
             }
             binding.ServiceDate.text = multipleSelectedDate.toString()
-
+            val locale = Locale(sessionManager.selectedLanguage!!)
+            Locale.setDefault(locale)
+            val resources: Resources = context.resources
+            val config: Configuration = resources.configuration
+            config.setLocale(locale)
+            resources.updateConfiguration(config, resources.displayMetrics)
         }
         binding.ServiceDate.setOnClickListener {
+            val locale = Locale("en")
+            Locale.setDefault(locale)
+            val resources: Resources = context.resources
+            val config: Configuration = resources.configuration
+            config.setLocale(locale)
+            resources.updateConfiguration(config, resources.displayMetrics)
+
             val today = CivilCalendar()
-            val datePicker = dialogWith(today)
+            val datePicker = PrimeDatePicker.dialogWith(today)
                 .pickMultipleDays(callback)
                 .build()
             datePicker.show(supportFragmentManager, "MultipleDatePicker")
@@ -595,17 +641,17 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     private fun spinnerScenic() {
         val itemsNew: MutableList<SearchableItem> = ArrayList()
-        scenicList.add(ModelSpinner("Mountain view", "1"))
-        scenicList.add(ModelSpinner("Park view", "1"))
+        scenicList.add(ModelSpinner(resources.getString(R.string.Mountain_view), "Mountain view"))
+        scenicList.add(ModelSpinner(resources.getString(R.string.Park_view), "Park view"))
 
         for (i in scenicList) {
-            itemsNew.add(SearchableItem(i.text, i.toString()))
+            itemsNew.add(SearchableItem(i.text, i.value))
         }
         binding.spinnerScenic.setOnClickListener {
             SearchableMultiSelectSpinner.show(
                 context,
-                "Select Items",
-                "Done",
+                resources.getString(R.string.Select_Items),
+                resources.getString(R.string.Done),
                 itemsNew,
                 object :
                     SelectionCompleteListener {
@@ -614,7 +660,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         val selectedData = StringBuilder()
                         for (i in selectedItems) {
                             selectedData.append("${i.text}, ")
-                            ammentiesData.add(ModelSpinner(i.text, "1"))
+                            ammentiesData.add(ModelSpinner(i.code, "1"))
                             Log.e("chosenItems", i.text)
                         }
                         binding.spinnerScenic.text = selectedData.toString()
@@ -626,21 +672,21 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     private fun spinnerBathroom() {
         val itemsNew: MutableList<SearchableItem> = ArrayList()
-        bathroomList.add(ModelSpinner("Hair dryer", "1"))
-        bathroomList.add(ModelSpinner("Cleaning products", "1"))
-        bathroomList.add(ModelSpinner("Shampoo", "1"))
-        bathroomList.add(ModelSpinner("Body soap", "1"))
-        bathroomList.add(ModelSpinner("Hot water", "1"))
-        bathroomList.add(ModelSpinner("Bedroom and laundry", "1"))
+        bathroomList.add(ModelSpinner(resources.getString(R.string.Hair_dryer), "Hair dryer"))
+        bathroomList.add(ModelSpinner(resources.getString(R.string.Cleaning_products), "Cleaning products"))
+        bathroomList.add(ModelSpinner(resources.getString(R.string.Shampoo), "Shampoo"))
+        bathroomList.add(ModelSpinner(resources.getString(R.string.Body_soap), "Body soap"))
+        bathroomList.add(ModelSpinner(resources.getString(R.string.Hot_water), "Hot water"))
+        bathroomList.add(ModelSpinner(resources.getString(R.string.Bedroom_and_laundry), "Bedroom and laundry"))
 
         for (i in bathroomList) {
-            itemsNew.add(SearchableItem(i.text, i.toString()))
+            itemsNew.add(SearchableItem(i.text, i.value))
         }
         binding.spinnerBathroom.setOnClickListener {
             SearchableMultiSelectSpinner.show(
                 context,
-                "Select Items",
-                "Done",
+                resources.getString(R.string.Select_Items),
+                resources.getString(R.string.Done),
                 itemsNew,
                 object :
                     SelectionCompleteListener {
@@ -650,7 +696,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         for (i in selectedItems) {
                             selectedData.append("${i.text}, ")
                             Log.e("chosenItems", i.text)
-                            ammentiesData.add(ModelSpinner(i.text, "1"))
+                            ammentiesData.add(ModelSpinner(i.code, "1"))
 
                         }
                         binding.spinnerBathroom.text = selectedData.toString()
@@ -662,25 +708,25 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     private fun spinnerEssentials() {
         val itemsNew: MutableList<SearchableItem> = ArrayList()
-        essentialsList.add(ModelSpinner("Towels, bed sheets", "1"))
-        essentialsList.add(ModelSpinner("soap and toilet paper", "1"))
-        essentialsList.add(ModelSpinner("Hangers", "1"))
-        essentialsList.add(ModelSpinner("Bed linen", "1"))
-        essentialsList.add(ModelSpinner("Cotton linen", "1"))
-        essentialsList.add(ModelSpinner("Extra pillows & blankets", "1"))
-        essentialsList.add(ModelSpinner("Room-darkening blinds", "1"))
-        essentialsList.add(ModelSpinner("Iron", "1"))
-        essentialsList.add(ModelSpinner("Clothes drying rack", "1"))
+        essentialsList.add(ModelSpinner(resources.getString(R.string.Towels_bed_sheets), "Towels, bed sheets"))
+        essentialsList.add(ModelSpinner(resources.getString(R.string.soap_and_toilet_paper), "soap and toilet paper"))
+        essentialsList.add(ModelSpinner(resources.getString(R.string.Hangers), "Hangers"))
+        essentialsList.add(ModelSpinner(resources.getString(R.string.Bed_linen), "Bed linen"))
+        essentialsList.add(ModelSpinner(resources.getString(R.string.Cotton_linen), "Cotton linen"))
+        essentialsList.add(ModelSpinner(resources.getString(R.string.Extra_pillows_blankets), "Extra pillows & blankets"))
+        essentialsList.add(ModelSpinner(resources.getString(R.string.Room_darkening_blinds), "Room-darkening blinds"))
+        essentialsList.add(ModelSpinner(resources.getString(R.string.Iron), "Iron"))
+        essentialsList.add(ModelSpinner(resources.getString(R.string.Clothes_drying_rack), "Clothes drying rack"))
 
 
         for (i in essentialsList) {
-            itemsNew.add(SearchableItem(i.text, i.toString()))
+            itemsNew.add(SearchableItem(i.text, i.value))
         }
         binding.spinnerEssentials.setOnClickListener {
             SearchableMultiSelectSpinner.show(
                 context,
-                "Select Items",
-                "Done",
+                resources.getString(R.string.Select_Items),
+                resources.getString(R.string.Done),
                 itemsNew,
                 object :
                     SelectionCompleteListener {
@@ -689,8 +735,8 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         val selectedData = StringBuilder()
                         for (i in selectedItems) {
                             selectedData.append("${i.text}, ")
-                            Log.e("chosenItems", i.text)
-                            ammentiesData.add(ModelSpinner(i.text, "1"))
+                            Log.e("chosenItems", i.code)
+                            ammentiesData.add(ModelSpinner(i.code, "1"))
 
                         }
                         binding.spinnerEssentials.text = selectedData.toString()
@@ -702,71 +748,71 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     private fun spinnerClothesStorage() {
         val itemsNew: MutableList<SearchableItem> = ArrayList()
-        clothesStorageList.add(ModelSpinner("Wardrobe and chest of drawers", "1"))
-        clothesStorageList.add(ModelSpinner("Entertainment", "1"))
+        clothesStorageList.add(ModelSpinner( resources.getString(R.string.Wardrobe_and_chest_of_drawers), "Wardrobe and chest of drawers"))
+        clothesStorageList.add(ModelSpinner( resources.getString(R.string.Entertainment),"Entertainment"))
         clothesStorageList.add(
             ModelSpinner(
-                "42 HDTV with Amazon Prime Video, Netflix, cable/satellite TV, Disney+, standard cable/satellite",
+                resources.getString(R.string.HDTV_with_Amazon_Prime_Video),
+                "42 HDTV with Amazon Prime Video, Netflix, cable/satellite TV, Disney+, standard cable/satellite"
+            )
+        )
+        clothesStorageList.add(ModelSpinner( resources.getString(R.string.Family), "Family"))
+        clothesStorageList.add(
+            ModelSpinner(
+                resources.getString(R.string.Clamp_on_table_seat_high_chair),
                 "1"
             )
         )
-        clothesStorageList.add(ModelSpinner("Family", "1"))
+        clothesStorageList.add(ModelSpinner( resources.getString(R.string.With_straps_harness_and_food_tray), "With straps/harness and food tray"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Children_tableware), "Children’s tableware"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Window_guards), "Window guards"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Board_games), "Board games"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Heating_and_cooling), "Heating and cooling"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Portable_heater), "Portable heater"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Home_safety), "Home safety"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Security_cameras_on_property), "Security cameras on property"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.CCTVs_are_placed), "CCTVs are placed outside the property only"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Fire_extinguisher), "Fire extinguisher"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.First_aid_kit), "First aid kit"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Internet_and_office), "Internet and office"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Wifi_Mbps), "Wifi – 20 Mbps Verified by speed test"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Stream_HD_videos), "Stream HD videos"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Dedicated_workspace), "Dedicated workspace"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.In_a_room_with_a_door), "In a room with a door"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Kitchen_and_dining), "Kitchen and dining"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Microwave), "Microwave"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Dishes_and_cutlery), "Dishes and cutlery"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Bowls_chopsticks_plates_cups_etc), "Bowls, chopsticks, plates, cups, etc"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Samsung_23L_stainless_steel_oven), "Samsung 23L stainless steel oven"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Kettle), "Kettle"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Toaster), "Toaster"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Dining_table), "Dining table"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Coffee), "Coffee"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Bread_maker), "Bread maker"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Location_features), "Location features"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Private_entrance), "Private entrance"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Separate_street_or_building_entrance), "Separate street or building entrance"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Outdoor), "Outdoor"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Private_patio_or_balcony), "Private patio or balcony"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Private_back_garden_Fully_fenced), "Private back garden – Fully fenced"))
         clothesStorageList.add(
             ModelSpinner(
-                "Clamp-on table seat high chair – available upon request",
-                "1"
+                resources.getString(R.string.An_open_space_on_the_property_usually_covered_in_grass),
+                "An open space on the property usually covered in grass"
             )
         )
-        clothesStorageList.add(ModelSpinner("With straps/harness and food tray", "1"))
-        clothesStorageList.add(ModelSpinner("Children’s tableware", "1"))
-        clothesStorageList.add(ModelSpinner("Window guards", "1"))
-        clothesStorageList.add(ModelSpinner("Board games", "1"))
-        clothesStorageList.add(ModelSpinner("Heating and cooling", "1"))
-        clothesStorageList.add(ModelSpinner("Portable heater", "1"))
-        clothesStorageList.add(ModelSpinner("Home safety", "1"))
-        clothesStorageList.add(ModelSpinner("Security cameras on property", "1"))
-        clothesStorageList.add(ModelSpinner("CCTVs are placed outside the property only", "1"))
-        clothesStorageList.add(ModelSpinner("Fire extinguisher", "1"))
-        clothesStorageList.add(ModelSpinner("First aid kit", "1"))
-        clothesStorageList.add(ModelSpinner("Internet and office", "1"))
-        clothesStorageList.add(ModelSpinner("Wifi – 20 Mbps Verified by speed test", "1"))
-        clothesStorageList.add(ModelSpinner("Stream HD videos", "1"))
-        clothesStorageList.add(ModelSpinner("Dedicated workspace", "1"))
-        clothesStorageList.add(ModelSpinner("In a room with a door", "1"))
-        clothesStorageList.add(ModelSpinner("Kitchen and dining", "1"))
-        clothesStorageList.add(ModelSpinner("Microwave", "1"))
-        clothesStorageList.add(ModelSpinner("Dishes and cutlery", "1"))
-        clothesStorageList.add(ModelSpinner("Bowls, chopsticks, plates, cups, etc", "1"))
-        clothesStorageList.add(ModelSpinner("Samsung 23L stainless steel oven", "1"))
-        clothesStorageList.add(ModelSpinner("Kettle", "1"))
-        clothesStorageList.add(ModelSpinner("Toaster", "1"))
-        clothesStorageList.add(ModelSpinner("Dining table", "1"))
-        clothesStorageList.add(ModelSpinner("Coffee", "1"))
-        clothesStorageList.add(ModelSpinner("Bread maker", "1"))
-        clothesStorageList.add(ModelSpinner("Location features", "1"))
-        clothesStorageList.add(ModelSpinner("Private entrance", "1"))
-        clothesStorageList.add(ModelSpinner("Separate street or building entrance", "1"))
-        clothesStorageList.add(ModelSpinner("Outdoor", "1"))
-        clothesStorageList.add(ModelSpinner("Private patio or balcony", "1"))
-        clothesStorageList.add(ModelSpinner("Private back garden – Fully fenced", "1"))
-        clothesStorageList.add(
-            ModelSpinner(
-                "An open space on the property usually covered in grass",
-                "1"
-            )
-        )
-        clothesStorageList.add(ModelSpinner("Outdoor furniture", "1"))
+        clothesStorageList.add(ModelSpinner(resources.getString(R.string.Outdoor_furniture), "Outdoor furniture"))
 
 
 
         for (i in clothesStorageList) {
-            itemsNew.add(SearchableItem(i.text, i.toString()))
+            itemsNew.add(SearchableItem(i.text, i.value))
         }
         binding.spinnerClothesstorage.setOnClickListener {
             SearchableMultiSelectSpinner.show(
                 context,
-                "Select Items",
-                "Done",
+                resources.getString(R.string.Select_Items),
+                resources.getString(R.string.Done),
                 itemsNew,
                 object :
                     SelectionCompleteListener {
@@ -775,8 +821,8 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         val selectedData = StringBuilder()
                         for (i in selectedItems) {
                             selectedData.append("${i.text}, ")
-                            Log.e("chosenItems", i.text)
-                            ammentiesData1.add(ModelSpinner(i.text, "1"))
+                            Log.e("chosenItems", i.code)
+                            ammentiesData1.add(ModelSpinner(i.code, "1"))
 
                         }
                         binding.spinnerClothesstorage.text = selectedData.toString()
@@ -789,43 +835,43 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     private fun spinnerPrivateBBQGrill() {
         val itemsNew: MutableList<SearchableItem> = ArrayList()
-        privateBBQGrillList.add(ModelSpinner("Electric", "1"))
-        privateBBQGrillList.add(ModelSpinner("Parking and facilities", "1"))
-        privateBBQGrillList.add(ModelSpinner("Free residential garage on premises – 1 space", "1"))
-        privateBBQGrillList.add(ModelSpinner("Free on-street parking", "1"))
-        privateBBQGrillList.add(ModelSpinner("Services", "1"))
-        privateBBQGrillList.add(ModelSpinner("Luggage drop-off allowed", "1"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Electric), "Electric"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Parking_and_facilities), "Parking and facilities"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Free_residential_garage_on_premises_space), "Free residential garage on premises – 1 space"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Free_on_street_parking), "Free on-street parking"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Services), "Services"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Luggage_drop_off_allowed), "Luggage drop-off allowed"))
         privateBBQGrillList.add(
             ModelSpinner(
-                "For guests' convenience when they are arriving early or departing late",
-                "1"
+                resources.getString(R.string.For_guests_convenience_when_they_are_arriving_early_or_departing_late),
+                "For guests' convenience when they are arriving early or departing late"
             )
         )
-        privateBBQGrillList.add(ModelSpinner("Breakfast", "1"))
-        privateBBQGrillList.add(ModelSpinner("Breakfast is provided", "1"))
-        privateBBQGrillList.add(ModelSpinner("Long-term stays allowed", "1"))
-        privateBBQGrillList.add(ModelSpinner("Allow stays of 28 days or more", "1"))
-        privateBBQGrillList.add(ModelSpinner("Self check-in", "1"))
-        privateBBQGrillList.add(ModelSpinner("Building staff", "1"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Breakfast), "Breakfast"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Breakfast_is_provided), "Breakfast is provided"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Long_term_stays_allowed), "Long-term stays allowed"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Allow_stays_of_28_days_or_more), "Allow stays of 28 days or more"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Self_check_in), "Self check-in"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Building_staff), "Building staff"))
         privateBBQGrillList.add(
             ModelSpinner(
-                "Someone is available 24 hours a day to let guests in",
-                "1"
+                resources.getString(R.string.Someone_is_available_24_hours_a_day_to_let_guests_in),
+                "Someone is available 24 hours a day to let guests in"
             )
         )
-        privateBBQGrillList.add(ModelSpinner("Cleaning available during stay", "1"))
-        privateBBQGrillList.add(ModelSpinner("Not included", "1"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Cleaning_available_during_stay), "Cleaning available during stay"))
+        privateBBQGrillList.add(ModelSpinner(resources.getString(R.string.Not_included), "Not included"))
 
 
 
         for (i in privateBBQGrillList) {
-            itemsNew.add(SearchableItem(i.text, i.toString()))
+            itemsNew.add(SearchableItem(i.text, i.value))
         }
         binding.spinnerPrivateBBQgrill.setOnClickListener {
             SearchableMultiSelectSpinner.show(
                 context,
-                "Select Items",
-                "Done",
+                resources.getString(R.string.Select_Items),
+                resources.getString(R.string.Done),
                 itemsNew,
                 object :
                     SelectionCompleteListener {
@@ -835,7 +881,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         for (i in selectedItems) {
                             selectedData.append("${i.text}, ")
                             Log.e("chosenItems", i.text)
-                            ammentiesData1.add(ModelSpinner(i.text, "1"))
+                            ammentiesData1.add(ModelSpinner(i.code, "1"))
 
                         }
                         binding.spinnerPrivateBBQgrill.text = selectedData.toString()
@@ -848,24 +894,24 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     private fun spinnerUtilities() {
         val itemsNew: MutableList<SearchableItem> = ArrayList()
-        utilitiesList.add(ModelSpinner("Kitchen", "1"))
-        utilitiesList.add(ModelSpinner("Free washer – In unitFree washer – In unit", "1"))
-        utilitiesList.add(ModelSpinner("Dryer", "1"))
-        utilitiesList.add(ModelSpinner("Air conditioningAir conditioning", "1"))
-        utilitiesList.add(ModelSpinner("Smoke alarmSmoke alarm", "1"))
-        utilitiesList.add(ModelSpinner("Carbon monoxide alarmCarbon monoxide alarm", "1"))
+        utilitiesList.add(ModelSpinner(resources.getString(R.string.Kitchen), "Kitchen"))
+        utilitiesList.add(ModelSpinner(resources.getString(R.string.Free_washer_In_unitFree_washer_In_unit), "Free washer – In unitFree washer – In unit"))
+        utilitiesList.add(ModelSpinner(resources.getString(R.string.Dryer), "Dryer"))
+        utilitiesList.add(ModelSpinner(resources.getString(R.string.Air_conditioningAir_conditioning), "Air conditioningAir conditioning"))
+        utilitiesList.add(ModelSpinner(resources.getString(R.string.Smoke_alarmSmoke_alarm), "Smoke alarmSmoke alarm"))
+        utilitiesList.add(ModelSpinner(resources.getString(R.string.Carbon_monoxide_alarmCarbon_monoxide_alarm), "Carbon monoxide alarmCarbon monoxide alarm"))
 
 
 
 
         for (i in utilitiesList) {
-            itemsNew.add(SearchableItem(i.text, i.toString()))
+            itemsNew.add(SearchableItem(i.text, i.value))
         }
         binding.spinnerUtilities.setOnClickListener {
             SearchableMultiSelectSpinner.show(
                 context,
-                "Select Items",
-                "Done",
+                resources.getString(R.string.Select_Items),
+                resources.getString(R.string.Done),
                 itemsNew,
                 object :
                     SelectionCompleteListener {
@@ -875,7 +921,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         for (i in selectedItems) {
                             selectedData.append("${i.text}, ")
                             Log.e("chosenItems", i.text)
-                            ammentiesData1.add(ModelSpinner(i.text, "1"))
+                            ammentiesData1.add(ModelSpinner(i.code, "1"))
 
                         }
                         binding.spinnerUtilities.text = selectedData.toString()
@@ -888,7 +934,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     private fun apiCallAddNewService() {
         if (selectedImageUri == null) {
-            myToast(context, "Select an Image First")
+            myToast(context, resources.getString(R.string.Select_an_Image_First))
             return
         }
         AppProgressBar.showLoaderDialog(context)
@@ -925,11 +971,11 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
             ) {
                 try {
                     if (response.code() == 500) {
-                        myToast(context, "Server Error")
+                        myToast(context, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 404) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 200) {
@@ -946,7 +992,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    myToast(context, "Something went wrong")
+                    myToast(context, resources.getString(R.string.Something_went_wrong))
                     AppProgressBar.hideLoaderDialog()
                 }
             }
@@ -961,8 +1007,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                        AppProgressBar.hideLoaderDialog()
 
                    }
-                myToast(context, "Something went wrong")
-                AppProgressBar.hideLoaderDialog()
+                 AppProgressBar.hideLoaderDialog()
             }
 
         })
@@ -971,7 +1016,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     private fun apiCallAddCar() {
         if (selectedImageUri == null) {
-            myToast(context, "Select an Image First")
+            myToast(context, resources.getString(R.string.Select_an_Image_First))
             return
         }
         AppProgressBar.showLoaderDialog(context)
@@ -1010,11 +1055,11 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
             ) {
                 try {
                     if (response.code() == 500) {
-                        myToast(context, "Server Error")
+                        myToast(context, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 404) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 200) {
@@ -1030,7 +1075,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    myToast(context, "Something went wrong")
+                    myToast(context, resources.getString(R.string.Something_went_wrong))
                     AppProgressBar.hideLoaderDialog()
                 }
             }
@@ -1045,8 +1090,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     AppProgressBar.hideLoaderDialog()
 
                 }
-                myToast(context, "Something went wrong")
-                AppProgressBar.hideLoaderDialog()
+                 AppProgressBar.hideLoaderDialog()
             }
 
         })
@@ -1055,7 +1099,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     private fun apiCallAddHome() {
         if (selectedImageUri == null) {
-            myToast(context, "Select an Image First")
+            myToast(context, resources.getString(R.string.Select_an_Image_First))
             return
         }
         AppProgressBar.showLoaderDialog(context)
@@ -1102,11 +1146,11 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
             ) {
                 try {
                     if (response.code() == 500) {
-                        myToast(context, "Server Error")
+                        myToast(context, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 404) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 200) {
@@ -1123,7 +1167,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    myToast(context, "Something went wrong")
+                    myToast(context, resources.getString(R.string.Something_went_wrong))
                     AppProgressBar.hideLoaderDialog()
                 }
             }
@@ -1138,8 +1182,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                        AppProgressBar.hideLoaderDialog()
 
                    }
-                myToast(context, "Something went wrong")
-                AppProgressBar.hideLoaderDialog()
+                 AppProgressBar.hideLoaderDialog()
             }
 
         })
@@ -1176,9 +1219,9 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                 REQUEST_CODE_IMAGE -> {
                     selectedImageUri = data?.data
                     Log.e("data?.data", data?.data.toString())
-                    binding!!.tvChoice.setTextColor(Color.parseColor("#FF4CAF50"))
-                    binding!!.tvChoice.text = "Image Selected"
-                    if (sessionManager.usertype == "home") {
+                    binding.tvChoice.setTextColor(Color.parseColor("#FF4CAF50"))
+                    binding.tvChoice.text = resources.getString(R.string.Image_Selected)
+                     if (sessionManager.usertype == "home") {
                         binding.layoutMainaentrance.visibility = View.VISIBLE
 
                     }
@@ -1230,5 +1273,10 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
     override fun onProgressUpdate(percentage: Int) {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Dashboard.refreshLanNew=true
     }
 }

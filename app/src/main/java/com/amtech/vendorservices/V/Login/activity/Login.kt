@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
@@ -55,7 +54,7 @@ class Login : AppCompatActivity() {
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
 
-      //  languageDialog()
+        //  languageDialog()
 
         if (sessionManager.selectedLanguage.isNullOrEmpty()) {
             languageDialog()
@@ -65,10 +64,10 @@ class Login : AppCompatActivity() {
                 refreshLan = false
             }
             langaugeSetting()
-            binding.edtEmail.gravity = Gravity.END
-            binding.edtPassword.gravity = Gravity.END
+//            binding.edtEmail.gravity = Gravity.END
+//            binding.edtPassword.gravity = Gravity.END
         }
-
+//9876543211
         if (sessionManager.isLogin) {
             startActivity(Intent(context, Dashboard::class.java))
             finish()
@@ -139,50 +138,7 @@ class Login : AppCompatActivity() {
 
     }
 
-    private fun languageDialog() {
-        val view = layoutInflater.inflate(R.layout.dialog_langauge, null)
-        dialog = Dialog(context)
 
-
-        val radioEnglish = view!!.findViewById<RadioButton>(R.id.radioEnglish)
-        val radioArabic = view!!.findViewById<RadioButton>(R.id.radioArabic)
-
-
-        radioEnglish.setOnCheckedChangeListener { _, _ ->
-            val languageToLoad = "en"
-            val locale: Locale = Locale(languageToLoad)
-            Locale.setDefault(locale)
-            val config: Configuration = Configuration()
-            config.locale = locale
-            resources.updateConfiguration(config, resources.displayMetrics)
-            sessionManager.selectedLanguage = "en"
-            dialog?.dismiss()
-
-        }
-        radioArabic.setOnCheckedChangeListener { _, _ ->
-            val languageToLoad = "ar"
-            val locale: Locale = Locale(languageToLoad)
-            Locale.setDefault(locale)
-            val config: Configuration = Configuration()
-            config.locale = locale
-            resources.updateConfiguration(config, resources.displayMetrics)
-            sessionManager.selectedLanguage = "ar"
-
-            dialog?.dismiss()
-            refresh()
-        }
-
-        dialog = Dialog(context)
-        if (view.parent != null) {
-            (view.parent as ViewGroup).removeView(view) // <- fix
-        }
-        dialog!!.setContentView(view)
-        dialog?.setCancelable(false)
-
-        dialog?.show()
-
-
-    }
 
     private fun langaugeSetting() {
         val locale: Locale = Locale(sessionManager.selectedLanguage!!)
@@ -191,7 +147,10 @@ class Login : AppCompatActivity() {
         config.locale = locale
         resources.updateConfiguration(config, resources.displayMetrics)
     }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        Dashboard.refreshLanNew=true
+    }
 
     private fun refresh() {
         overridePendingTransition(0, 0)
@@ -216,11 +175,11 @@ class Login : AppCompatActivity() {
             ) {
                 try {
                     if (response.code() == 500) {
-                        myToast(this@Login, "Server Error")
+                        myToast(this@Login, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 401) {
-                        myToast(this@Login, "Unauthorized")
+                        myToast(this@Login, resources.getString(R.string.Unauthorized))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 200) {
@@ -234,7 +193,7 @@ class Login : AppCompatActivity() {
                             Log.e("sessionManager.idToken", sessionManager.idToken.toString())
                             Log.e("sessionManager.ionID", sessionManager.ionId.toString())
                             Log.e("sessionManager.group", sessionManager.group.toString())
-                            myToast(this@Login, "Login Sucessfully")
+                            myToast(this@Login, resources.getString(R.string.Login_Sucessfully))
                             val intent = Intent(applicationContext, Dashboard::class.java)
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -243,7 +202,7 @@ class Login : AppCompatActivity() {
 
                         }, 300)
                     } else {
-                        myToast(this@Login, "Something went wrong")
+                        myToast(this@Login, resources.getString(R.string.Something_went_wrong))
                         AppProgressBar.hideLoaderDialog()
                     }
                 } catch (e: Exception) {
@@ -255,7 +214,7 @@ class Login : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ModelLogin>, t: Throwable) {
-                myToast(this@Login, "Something went wrong")
+                myToast(this@Login, resources.getString(R.string.Something_went_wrong))
                 AppProgressBar.hideLoaderDialog()
                 countlogin++
                 if (countlogin <= 3) {
@@ -285,7 +244,7 @@ class Login : AppCompatActivity() {
             ) {
                 try {
                     if (response.code() == 500) {
-                        myToast(context, "Server Error")
+                        myToast(this@Login, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 200) {
@@ -295,12 +254,12 @@ class Login : AppCompatActivity() {
                         sessionManager.email = response.body()!!.email
                         sessionManager.profilePic = response.body()!!.applogo
                     } else {
-                        myToast(context, "Something went wrong")
+                        myToast(this@Login, resources.getString(R.string.Something_went_wrong))
                         AppProgressBar.hideLoaderDialog()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    myToast(context, "Something went wrong")
+                    myToast(this@Login, resources.getString(R.string.Something_went_wrong))
                     AppProgressBar.hideLoaderDialog()
 
                 }
@@ -336,6 +295,52 @@ class Login : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         editor.putString(FCM_TOKEN, fcmToken)
         editor.apply()
+    }
+
+    private fun languageDialog() {
+        val view = layoutInflater.inflate(R.layout.dialog_langauge, null)
+        dialog = Dialog(context)
+
+
+        val radioEnglish = view!!.findViewById<RadioButton>(R.id.radioEnglish)
+        val radioArabic = view!!.findViewById<RadioButton>(R.id.radioArabic)
+
+
+        radioEnglish.setOnCheckedChangeListener { _, _ ->
+            val languageToLoad = "en"
+            val locale: Locale = Locale(languageToLoad)
+            Locale.setDefault(locale)
+            val config: Configuration = Configuration()
+            config.locale = locale
+            resources.updateConfiguration(config, resources.displayMetrics)
+            sessionManager.selectedLanguage = "en"
+            dialog?.dismiss()
+            refresh()
+
+        }
+        radioArabic.setOnCheckedChangeListener { _, _ ->
+            val languageToLoad = "ar"
+            val locale: Locale = Locale(languageToLoad)
+            Locale.setDefault(locale)
+            val config: Configuration = Configuration()
+            config.locale = locale
+            resources.updateConfiguration(config, resources.displayMetrics)
+            sessionManager.selectedLanguage = "ar"
+
+            dialog?.dismiss()
+            refresh()
+        }
+
+        dialog = Dialog(context)
+        if (view.parent != null) {
+            (view.parent as ViewGroup).removeView(view) // <- fix
+        }
+        dialog!!.setContentView(view)
+        dialog?.setCancelable(false)
+
+        dialog?.show()
+
+
     }
 
     override fun onStart() {

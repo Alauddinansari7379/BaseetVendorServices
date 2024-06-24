@@ -2,6 +2,7 @@ package com.amtech.vendorservices.V.Dashboard
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.app.NotificationManager
 import android.content.ComponentName
 import android.content.ContentValues
@@ -9,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
@@ -18,8 +20,10 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -42,6 +46,7 @@ import com.amtech.vendorservices.V.Order.activity.AllOrders
 import com.amtech.vendorservices.V.Order.activity.CanceledOrders
 import com.amtech.vendorservices.V.Order.activity.ConfirmOrders
 import com.amtech.vendorservices.V.Order.activity.DeliveredOrders
+import com.amtech.vendorservices.V.Order.activity.OrderDetails
 import com.amtech.vendorservices.V.Order.activity.RefundedOrders
 import com.amtech.vendorservices.V.Order.activity.ServicesRequestList
 import com.amtech.vendorservices.V.TranslatorServices.activity.AddNewTranslatorServices
@@ -52,19 +57,17 @@ import com.amtech.vendorservices.V.activity.TranslaterSetup
 import com.amtech.vendorservices.V.activity.TranslatorBankInfo
 import com.amtech.vendorservices.V.activity.TranslatorWallet
 import com.amtech.vendorservices.V.retrofit.ApiClient
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import com.amtech.vendorservices.databinding.ActivityDashboardBinding
 import com.example.easywaylocation.EasyWayLocation
 import com.example.easywaylocation.GetLocationDetail
 import com.example.easywaylocation.Listener
 import com.example.easywaylocation.LocationData
-import com.amtech.vendorservices.V.sharedpreferences.SessionManager
-import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -95,25 +98,44 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
     private var count1 = 1
     private var currentAddress = ""
     private var postalCodeNew = ""
-     val commission = ArrayList<Int>()
+    val commission = ArrayList<Int>()
     private val NOTIFICATION_PERMISSION_CODE = 123
+    private var dialog: Dialog? = null
 
-    private lateinit var firebaseApp:FirebaseApp
+    private lateinit var firebaseApp: FirebaseApp
 
     private val notificationManager: NotificationManager by lazy {
         getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
+        Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
 
-        if ( sessionManager.selectedLanguage == "en"){
-            englishSetting()
-        }else{
-            arabicSetting()
+        if (sessionManager.selectedLanguage == "en") {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.arabic_text)
+        } else {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.english_text)
         }
+
+        binding.imgLan.setOnClickListener {
+            if (sessionManager.selectedLanguage == "en") {
+                sessionManager.selectedLanguage = "ar"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                refreshNew()
+            } else {
+                sessionManager.selectedLanguage = "en"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                refreshNew()
+
+            }
+        }
+//        binding.imgLan.setOnClickListener {
+//            languageDialog()
+//        }
 //      FirebaseApp.initializeApp(context)!!
 //
 //       // firebaseApp.name.toString()
@@ -121,18 +143,22 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         // FirebaseInstanceId.getInstance().getToken();
 
         requestNotificationPermission()
-     //   getCurrentFCMToken()
+        //   getCurrentFCMToken()
 
         when {
             ContextCompat.checkSelfPermission(
-                this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED -> {
+                this, Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED -> {
                 // You can use the API that requires the permission.
                 Log.e("Notification", "onCreate: PERMISSION GRANTED")
                 // sendNotification(this)
             }
+
             shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
                 Snackbar.make(
-                    findViewById<View>(android.R.id.content).rootView, "Notification blocked", Snackbar.LENGTH_LONG
+                    findViewById<View>(android.R.id.content).rootView,
+                    "Notification blocked",
+                    Snackbar.LENGTH_LONG
                 ).setAction("Settings") {
                     // Responds to click on the action
                     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -142,6 +168,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                     startActivity(intent)
                 }.show()
             }
+
             else -> {
                 // The registered ActivityResultCallback gets the result of this request
                 requestPermissionLauncher.launch(
@@ -153,46 +180,51 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         sessionManager.imageURL = "https://baseet.thedemostore.in/storage/app/public/product/"
 
         Log.i("AuthToken", sessionManager.idToken.toString())
-          apiCallGetProfile()
+        apiCallGetProfile()
 
 
-        when (sessionManager.usertype){
-            "car"->{
-                binding.includedrawar1.tvService.text="Car Service"
-                binding.includedrawar1.tvConfig.text="Car Rental Config"
-                binding.includedrawar1.tvMy.text="My Car Rental"
+        when (sessionManager.usertype) {
+            "car" -> {
+                binding.includedrawar1.tvService.text = resources.getString(R.string.Car_Servicet)
+
+                binding.includedrawar1.tvConfig.text =
+                    resources.getString(R.string.Car_Rental_Config)
+                binding.includedrawar1.tvMy.text = resources.getString(R.string.My_Car_Rental)
             }
 //                "translator"->{
 //                    binding.includedrawar1.tvService.text="Translator Service"
 //                    binding.includedrawar1.tvConfig.text="Translator Config"
 //                    binding.includedrawar1.tvMy.text="Translator Rental"
 //                }
-            "home"->{
-                binding.includedrawar1.tvService.text="Home Service"
-                binding.includedrawar1.tvConfig.text="Home Rental Config"
-                binding.includedrawar1.tvMy.text="My Home Rental"
-            }else->{
+            "home" -> {
+                binding.includedrawar1.tvService.text = resources.getString(R.string.Home_Service)
+                binding.includedrawar1.tvConfig.text =
+                    resources.getString(R.string.Home_Rental_Config)
+                binding.includedrawar1.tvMy.text = resources.getString(R.string.My_Home_Rental)
+            }
+
+            else -> {
+
+            }
 
         }
-
-        }
-        binding.includedrawar1.tvName.text=sessionManager.customerName.toString()
+        binding.includedrawar1.tvName.text = sessionManager.customerName.toString()
         try {
             if (sessionManager.profilePic != null) {
-                Picasso.get().load(sessionManager.profilePic!!.replace("http","https"))
+                Picasso.get().load(sessionManager.profilePic!!.replace("http", "https"))
                     .placeholder(R.drawable.user)
                     .error(R.drawable.user_logo)
                     .into(binding.includedrawar1.imgProfile)
-                Log.e("sessionManager.profilePicIn",sessionManager.profilePic.toString())
+                Log.e("sessionManager.profilePicIn", sessionManager.profilePic.toString())
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 //        Glide.with(context).load("xvdfx")
 //            .into()
 
 
-         binding.imgBack.setOnClickListener {
+        binding.imgBack.setOnClickListener {
             binding.drawerlayout1.openDrawer(GravityCompat.START)
             binding.includedrawar1.tvDashboard.setOnClickListener {
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -288,12 +320,13 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                 SweetAlertDialog(
                     this@Dashboard,
                     SweetAlertDialog.WARNING_TYPE
-                ).setTitleText("Are you sure want to Logout?").setCancelText("No")
-                    .setConfirmText("Yes").showCancelButton(true)
+                ).setTitleText(resources.getString(R.string.Are_you_sure_want_to_Logout))
+                    .setCancelText(resources.getString(R.string.No))
+                    .setConfirmText(resources.getString(R.string.Yes)).showCancelButton(true)
                     .setConfirmClickListener { sDialog ->
                         sDialog.cancel()
-                        // logOut()
                         sessionManager.logout()
+                        // logOut()
                         val intent = Intent(applicationContext, Login::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -532,9 +565,24 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         }
         drawerLayout = binding.drawerlayout1
 
-        statisticsList.add(ModelSpinner("Overall Statistics", "1"))
-        statisticsList.add(ModelSpinner("Today's Statistics", "1"))
-        statisticsList.add(ModelSpinner("This Month's Statistics", "1"))
+        statisticsList.add(
+            ModelSpinner(
+                resources.getString(R.string.Overall_Statistics),
+                "Overall Statistics"
+            )
+        )
+        statisticsList.add(
+            ModelSpinner(
+                resources.getString(R.string.Today_Statistics),
+                "Today's Statistics"
+            )
+        )
+        statisticsList.add(
+            ModelSpinner(
+                resources.getString(R.string.This_Month_Statistics),
+                "This Month's Statistics"
+            )
+        )
 
         binding.spinnerStatistics.adapter = ArrayAdapter<ModelSpinner>(
             context, R.layout.spinner_layout, statisticsList
@@ -546,7 +594,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                     p0: AdapterView<*>?, view: View?, i: Int, l: Long
                 ) {
                     if (statisticsList.size > 0) {
-                        val statusChange = statisticsList[i].text
+                        val statusChange = statisticsList[i].value
                     }
                 }
 
@@ -564,31 +612,36 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
         getLastLocation()
-        if (sessionManager.usertype=="translator"){
+        if (sessionManager.usertype == "translator") {
             apiCallDashboardTra()
-        }else{
+        } else {
             apiCallDashboard()
 
         }
     }
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission())
-    {
-            isGranted: Boolean ->
-        if (isGranted) {
-            // Permission is granted. Continue the action or workflow in your
-            // app.
-            //  sendNotification(this)
-            // myToast(this@MainActivity,"Permission granted")
-        } else {
-            // Explain to the user that the feature is unavailable because the
-            // features requires a permission that the user has denied. At the
-            // same time, respect the user's decision. Don't link to system
-            // settings in an effort to convince the user to change their
-            // decision.
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission())
+        { isGranted: Boolean ->
+            if (isGranted) {
+                // Permission is granted. Continue the action or workflow in your
+                // app.
+                //  sendNotification(this)
+                // myToast(this@MainActivity,"Permission granted")
+            } else {
+                // Explain to the user that the feature is unavailable because the
+                // features requires a permission that the user has denied. At the
+                // same time, respect the user's decision. Don't link to system
+                // settings in an effort to convince the user to change their
+                // decision.
+            }
         }
-    }
+
     private fun requestNotificationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NOTIFICATION_POLICY) == PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_NOTIFICATION_POLICY
+            ) == PackageManager.PERMISSION_GRANTED
         ) return
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
@@ -602,9 +655,9 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             NOTIFICATION_PERMISSION_CODE
         )
     }
+
     private val notificationPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-                isGranted ->
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             hasNotificationPermissionGranted = isGranted
             if (!isGranted) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -617,7 +670,11 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                     }
                 }
             } else {
-                Toast.makeText(applicationContext, "notification permission granted", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    applicationContext,
+                    "notification permission granted",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }
@@ -629,8 +686,12 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             val flat = Settings.Secure.getString(contentResolver, "enabled_notification_listeners")
             return flat != null && flat.contains(cn.flattenToString())
         }
+
     private fun showSettingDialog() {
-        MaterialAlertDialogBuilder(this, com.google.android.material.R.style.MaterialAlertDialog_Material3)
+        MaterialAlertDialogBuilder(
+            this,
+            com.google.android.material.R.style.MaterialAlertDialog_Material3
+        )
             .setTitle("Notification Permission")
             .setMessage("Notification permission is required, Please allow notification permission from setting")
             .setPositiveButton("Ok") { _, _ ->
@@ -641,9 +702,13 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             .setNegativeButton("Cancel", null)
             .show()
     }
+
     private fun showNotificationPermissionRationale() {
 
-        MaterialAlertDialogBuilder(this, com.google.android.material.R.style.MaterialAlertDialog_Material3)
+        MaterialAlertDialogBuilder(
+            this,
+            com.google.android.material.R.style.MaterialAlertDialog_Material3
+        )
             .setTitle("Alert")
             .setMessage("Notification permission is required, to show notification")
             .setPositiveButton("Ok") { _, _ ->
@@ -689,12 +754,14 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                 // Send the token to your server or save it as needed
             }
     }
+
     fun refresh() {
         overridePendingTransition(0, 0)
         finish()
         startActivity(intent)
         overridePendingTransition(0, 0)
     }
+
     private fun apiCallGetProfile() {
 
         ApiClient.apiService.getProfile(
@@ -708,22 +775,22 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             ) {
                 try {
                     if (response.code() == 500) {
-                        myToast(context, "Server Error")
+                        myToast(context, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 200) {
-                        sessionManager.usertype =response.body()!!.type
-                        sessionManager.customerName =response.body()!!.name
-                        sessionManager.phoneNumber =response.body()!!.phone
-                        sessionManager.email =response.body()!!.email
-                        sessionManager.profilePic =response.body()!!.applogo
+                        sessionManager.usertype = response.body()!!.type
+                        sessionManager.customerName = response.body()!!.name
+                        sessionManager.phoneNumber = response.body()!!.phone
+                        sessionManager.email = response.body()!!.email
+                        sessionManager.profilePic = response.body()!!.applogo
                     } else {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         AppProgressBar.hideLoaderDialog()
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    myToast(context, "Something went wrong")
+                    myToast(context, resources.getString(R.string.Something_went_wrong))
                     AppProgressBar.hideLoaderDialog()
 
                 }
@@ -732,7 +799,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             override fun onFailure(call: Call<ModelMyTra>, t: Throwable) {
                 AppProgressBar.hideLoaderDialog()
                 count++
-                if (count<= 3) {
+                if (count <= 3) {
                     Log.e("count", count.toString())
                     apiCallGetProfile()
                 } else {
@@ -822,12 +889,15 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             ) {
                 try {
                     if (response.code() == 500) {
-                        myToast(context, "Server Error")
+                        myToast(context, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 401) {
                         // myToast(context, "Unauthorized")
-                        myToast(this@Dashboard, "User Logged in other Device")
+                        myToast(
+                            this@Dashboard,
+                            resources.getString(R.string.User_Logged_in_other_Device)
+                        )
                         sessionManager.logout()
                         val intent = Intent(applicationContext, Login::class.java)
                         intent.flags =
@@ -836,7 +906,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         startActivity(intent)
                         AppProgressBar.hideLoaderDialog()
 
-                    } else{
+                    } else {
                         // binding.tvTotalSer.text=response.body()!!.data.top_sell.toString()
                         binding.tvOrderedSer.text = response.body()!!.data.all.toString()
                         binding.tvCompletedSer.text = response.body()!!.data.delivered.toString()
@@ -894,8 +964,8 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         println("Sum of earnings: $earningsSum")
                         println("Sum of commissions: $commissionsSum")
 
-                        binding.totalEarning.text = earningsSum.toString()+" $"
-                        binding.commission.text = commissionsSum.toString()+" $"
+                        binding.totalEarning.text = earningsSum.toString() + " $"
+                        binding.commission.text = commissionsSum.toString() + " $"
 
                         binding.includedrawar1.tvComCount.text =
                             response.body()!!.data.delivered.toString()
@@ -920,10 +990,10 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             override fun onFailure(call: Call<ModelDashboard>, t: Throwable) {
                 AppProgressBar.hideLoaderDialog()
                 count1++
-                if (count1<= 3) {
+                if (count1 <= 3) {
                     Log.e("count", count1.toString())
                     apiCallDashboard()
-                 } else {
+                } else {
                     myToast(context, t.message.toString())
 
                     AppProgressBar.hideLoaderDialog()
@@ -935,6 +1005,12 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         })
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Dashboard.refreshLanNew = true
+    }
+
     private fun apiCallDashboardTra() {
 
         //  AppProgressBar.showLoaderDialog(context)
@@ -947,12 +1023,15 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             ) {
                 try {
                     if (response.code() == 500) {
-                        myToast(context, "Server Error")
+                        myToast(context, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
                     } else if (response.code() == 401) {
                         // myToast(context, "Unauthorized")
-                        myToast(this@Dashboard, "User Logged in other Device")
+                        myToast(
+                            this@Dashboard,
+                            resources.getString(R.string.User_Logged_in_other_Device)
+                        )
                         sessionManager.logout()
                         val intent = Intent(applicationContext, Login::class.java)
                         intent.flags =
@@ -961,7 +1040,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         startActivity(intent)
                         AppProgressBar.hideLoaderDialog()
 
-                    } else{
+                    } else {
                         // binding.tvTotalSer.text=response.body()!!.data.top_sell.toString()
                         binding.tvOrderedSer.text = response.body()!!.data.all.toString()
                         binding.tvCompletedSer.text = response.body()!!.data.delivered.toString()
@@ -1019,8 +1098,8 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         println("Sum of earnings: $earningsSum")
                         println("Sum of commissions: $commissionsSum")
 
-                        binding.totalEarning.text = earningsSum.toString()+" $"
-                        binding.commission.text = commissionsSum.toString()+" $"
+                        binding.totalEarning.text = earningsSum.toString() + " $"
+                        binding.commission.text = commissionsSum.toString() + " $"
 
                         binding.includedrawar1.tvComCount.text =
                             response.body()!!.data.delivered.toString()
@@ -1036,7 +1115,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    myToast(context, "Something went wrong")
+                    myToast(context, resources.getString(R.string.Something_went_wrong))
                     AppProgressBar.hideLoaderDialog()
 
                 }
@@ -1045,10 +1124,10 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             override fun onFailure(call: Call<ModelDashTra>, t: Throwable) {
                 AppProgressBar.hideLoaderDialog()
                 count1++
-                if (count1<= 3) {
+                if (count1 <= 3) {
                     Log.e("count", count1.toString())
                     apiCallDashboardTra()
-                 } else {
+                } else {
                     myToast(context, t.message.toString())
 
                     AppProgressBar.hideLoaderDialog()
@@ -1078,7 +1157,11 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             // If permission is granted
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Displaying a toast
-                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Permission granted now you can read the storage",
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
                 // Displaying another toast if permission is not granted
                 Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG)
@@ -1133,7 +1216,10 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
     override fun onResume() {
         super.onResume()
         easyWayLocation.startLocation()
-
+        if (OrderDetails.back){
+            OrderDetails.back =false
+           refresh()
+        }
     }
 
     private fun askPermission() {
@@ -1142,27 +1228,84 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         )
     }
 
-    private fun arabicSetting(){
-         val locale: Locale = Locale(sessionManager.selectedLanguage!!)
-        Locale.setDefault(locale)
-        val config: Configuration = Configuration()
-        config.locale = locale
-        resources.updateConfiguration(config, resources.displayMetrics)
-        sessionManager.selectedLanguage = "ar"
+
+    companion object {
+        var refreshLan = true
+        var back = false
+        var refreshLanNew = true
     }
 
-    private fun englishSetting(){
-         val locale: Locale = Locale(sessionManager.selectedLanguage!!)
+    fun languageSetting(context: Context, languageCode: String) {
+        val locale = Locale(languageCode)
         Locale.setDefault(locale)
-        val config: Configuration = Configuration()
-        config.locale = locale
+        val resources: Resources = context.resources
+        val config: Configuration = resources.configuration
+        config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
-        sessionManager.selectedLanguage = "en"
+
+//        if (context is Activity) {
+//            context.recreate()
+//        }
     }
 
-    companion object{
-        var refreshLan=true
+    private fun languageDialog() {
+        val view = layoutInflater.inflate(R.layout.dialog_langauge, null)
+        dialog = Dialog(context)
+
+
+        val radioEnglish = view!!.findViewById<RadioButton>(R.id.radioEnglish)
+        val radioArabic = view!!.findViewById<RadioButton>(R.id.radioArabic)
+
+        if (sessionManager.selectedLanguage == "ar") {
+            radioArabic.isChecked = true
+        } else {
+            radioEnglish.isChecked = true
+        }
+
+        radioEnglish.setOnCheckedChangeListener { _, _ ->
+            val languageToLoad = "en"
+            val locale: Locale = Locale(languageToLoad)
+            Locale.setDefault(locale)
+            val config: Configuration = Configuration()
+            config.locale = locale
+            resources.updateConfiguration(config, resources.displayMetrics)
+            sessionManager.selectedLanguage = "en"
+            dialog?.dismiss()
+            refreshNew()
+
+
+        }
+        radioArabic.setOnCheckedChangeListener { _, _ ->
+            val languageToLoad = "ar"
+            val locale: Locale = Locale(languageToLoad)
+            Locale.setDefault(locale)
+            val config: Configuration = Configuration()
+            config.locale = locale
+            resources.updateConfiguration(config, resources.displayMetrics)
+            sessionManager.selectedLanguage = "ar"
+
+            dialog?.dismiss()
+            refreshNew()
+        }
+
+        dialog = Dialog(context)
+        if (view.parent != null) {
+            (view.parent as ViewGroup).removeView(view) // <- fix
+        }
+        dialog!!.setContentView(view)
+        dialog?.setCancelable(true)
+
+        dialog?.show()
     }
+
+    private fun refreshNew() {
+        val intent = Intent(applicationContext, Dashboard::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        finish()
+        startActivity(intent)
+    }
+
+
 
     override fun onStart() {
         super.onStart()

@@ -7,6 +7,9 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.amtech.vendorservices.R
+import com.amtech.vendorservices.V.Dashboard.Dashboard
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.myToast
 import com.amtech.vendorservices.V.Order.Model.DeliveryAddress
@@ -49,21 +52,51 @@ class OrderDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
+
+        Dashboard().languageSetting(this, sessionManager.selectedLanguage.toString())
+
+        if (Dashboard.refreshLanNew) {
+            Dashboard.refreshLanNew = false
+            refresh()
+        }
+        if (sessionManager.selectedLanguage == "en") {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.arabic_text)
+        } else {
+            binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.english_text)
+        }
+
+        binding.imgLan.setOnClickListener {
+            if (sessionManager.selectedLanguage == "en") {
+                sessionManager.selectedLanguage = "ar"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            } else {
+                sessionManager.selectedLanguage = "en"
+                Dashboard().languageSetting(context, sessionManager.selectedLanguage.toString())
+                overridePendingTransition(0, 0)
+                finish()
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+            }
+        }
         when (sessionManager.usertype) {
             "car" -> {
-                binding.tvCarTypeH.text = "Car Type: "
-            }
+                binding.tvCarTypeH.text = resources.getString(R.string.Car_Type)
+             }
 
             "home" -> {
-                binding.tvCarTypeH.text = "Home Type: "
-                binding.tvTravelingPersonsH.text = "Persons : "
-                binding.tvDrivingTypeH.text = "Type : "
-            }
+                binding.tvCarTypeH.text = resources.getString(R.string.Home_Type)
+                 binding.tvTravelingPersonsH.text = resources.getString(R.string.Persons)
+                 binding.tvDrivingTypeH.text = resources.getString(R.string.Type)
+             }
 
             else -> {
-                binding.tvCarTypeH.text = "Translotor Type: "
-                binding.tvTravelingPersonsH.text = "Persons : "
-                binding.tvDrivingTypeH.text = "Type : "
+                binding.tvCarTypeH.text = resources.getString(R.string.Translotor_Type)
+                 binding.tvTravelingPersonsH.text = resources.getString(R.string.Persons)
+                binding.tvDrivingTypeH.text = resources.getString(R.string.Type)
 
 
             }
@@ -124,10 +157,10 @@ class OrderDetails : AppCompatActivity() {
                 ) {
                     try {
                         if (response.code() == 404) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         }
@@ -145,7 +178,7 @@ class OrderDetails : AppCompatActivity() {
                             binding.tvPayType.text = response.body()!!.pay_type
                             binding.tvOrderPayment.text = response.body()!!.order_payment
                             if (response.body()!!.order_status == "delivered") {
-                                binding.tvOrderStatus.text = "Completed"
+                                binding.tvOrderStatus.text = resources.getString(R.string.Completed)
                             } else {
                                 binding.tvOrderStatus.text = response.body()!!.order_status
                             }
@@ -160,7 +193,7 @@ class OrderDetails : AppCompatActivity() {
                                 if (i.food_details.dates.isNotEmpty()) {
                                   //  binding.date.text = i.food_details.dates
                                     val currentDate: String =
-                                        SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(
+                                        SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(
                                             Date()
                                         )
                                    // serviceDateNew = i.food_details.dates.substringBefore(",").replace(",", "")
@@ -201,8 +234,8 @@ class OrderDetails : AppCompatActivity() {
 
 
                                 for (i in response.body()!!.details) {
-                                    binding.tvTrFrom.text = "From : ${i.food_details.tr_from}"
-                                    binding.tvTraTo.text = "To :${i.food_details.tr_to}"
+                                    binding.tvTrFrom.text = resources.getString(R.string.From) +i.food_details.tr_from
+                                    binding.tvTraTo.text = resources.getString(R.string.To) +i.food_details.tr_to
                                     binding.tvDrivingType.text = i.food_details.driv_type.toString()
                                 }
 
@@ -297,7 +330,7 @@ class OrderDetails : AppCompatActivity() {
                                 }
 
                             }
-                            val currentDate: String = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+                            val currentDate: String = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(Date())
 //
 //                            val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 //
@@ -322,8 +355,8 @@ class OrderDetails : AppCompatActivity() {
                                     binding.btnDeleverdDesable.visibility = View.GONE
                                     binding.btnDeleverd.visibility = View.GONE
                                 }else{
-                                    binding.btnDeleverdDesable.visibility = View.VISIBLE
-                                    binding.btnDeleverd.visibility = View.GONE
+                                    binding.btnDeleverdDesable.visibility = View.GONE
+                                    binding.btnDeleverd.visibility = View.VISIBLE
                                 }
 
                             } else if (date1 < date2) {
@@ -365,7 +398,7 @@ class OrderDetails : AppCompatActivity() {
 
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
 
@@ -408,14 +441,14 @@ class OrderDetails : AppCompatActivity() {
                 ) {
                     try {
                         if (response.code() == 404) {
-                            myToast(context, "Something went wrong")
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
 
                         } else if (response.code() == 500) {
-                            myToast(context, "Server Error")
+                            myToast(context, resources.getString(R.string.Server_Error))
                             AppProgressBar.hideLoaderDialog()
 
                         } else if (response.code() == 200) {
-                            myToast(context, "Status updated")
+                            myToast(context, resources.getString(R.string.Status_updated))
                             apiCallOrderDet(orderId)
                             AppProgressBar.hideLoaderDialog()
 
@@ -428,7 +461,7 @@ class OrderDetails : AppCompatActivity() {
 
                         }
                     } catch (e: Exception) {
-                        myToast(context, "Something went wrong")
+                        myToast(context, resources.getString(R.string.Server_Error))
                         e.printStackTrace()
                         AppProgressBar.hideLoaderDialog()
 
@@ -464,12 +497,21 @@ class OrderDetails : AppCompatActivity() {
     companion object {
         var back = false
     }
-
+    private fun refresh() {
+        overridePendingTransition(0, 0)
+        finish()
+        startActivity(intent)
+        overridePendingTransition(0, 0)
+    }
     private fun pmFormate(date: String): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val date = dateFormat.parse(date)
 
         val pmFormat = SimpleDateFormat("dd MMM yyyy hh:mm aaa", Locale.getDefault())
         return pmFormat.format(date)
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Dashboard.refreshLanNew=true
     }
 }

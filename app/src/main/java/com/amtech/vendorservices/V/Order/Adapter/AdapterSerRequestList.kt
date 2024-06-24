@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Order.Model.Data
 import com.amtech.vendorservices.databinding.SingleRowSerRequestListBinding
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
@@ -49,8 +50,8 @@ class AdapterSerRequestList(
                         binding.layoutDrivingType.visibility = View.VISIBLE
                         binding.layoutLangauge.visibility = View.GONE
                     } else if (sessionManager.usertype == "home"){
-                        binding.tvTypeTv.text="Home Type : "
-                        binding.layoutDrivingType.visibility = View.GONE
+                        binding.tvTypeTv.text=context.resources.getString(R.string.Home_Type)
+                         binding.layoutDrivingType.visibility = View.GONE
                         binding.layoutLangauge.visibility = View.GONE
 
                     }else{
@@ -70,38 +71,17 @@ class AdapterSerRequestList(
                         when (sessionManager.usertype) {
                             "car" -> {
                                 requestIdNew=id.toString()
-                                accept.accept(
-                                    id.toString(),
-                                    name!!,
-                                    price!!,
-                                    driv_type.toString(),
-                                    trperson!!,
-                                    type!!,
-                                )
+                                accept.accept(id.toString(), name!!, price!!, driv_type.toString(), trperson!!, type!!)
                             }
                             "home" -> {
                                 requestIdNew=id.toString()
-
-                                accept.accept(
-                                    id.toString(),
-                                    name!!,
-                                    price!!,
-                                    "driv_type"!!,
-                                    trperson!!,
-                                    type!!
+                                accept.accept(id.toString(), name!!, price!!,
+                                    "driv_type", trperson!!, type!!
                                 )
                             }
                             else -> {
                                 requestIdNew=id.toString()
-
-                                accept.accept(
-                                    id.toString(),
-                                    name!!,
-                                    price!!,
-                                    tr_from!!,
-                                    tr_to!!,
-                                    type!!
-                                )
+                                accept.accept(id.toString(), name!!, price!!, tr_from!!, tr_to!!, type!!)
 
                             }
                         }
