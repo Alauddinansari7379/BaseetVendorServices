@@ -19,7 +19,5 @@ data class Data(
     val tr_to: String,
     val amenities: Any,
     val car_model: String,
-
     val servicesdates: String,
-
     )

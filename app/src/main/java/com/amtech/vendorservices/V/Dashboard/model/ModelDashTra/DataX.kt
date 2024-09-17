@@ -33,7 +33,7 @@ data class DataX(
     val name: String,
     val order_count: Int,
     val port_video: Any,
-    val price: Int,
+    val price: Double?,
     val qty: Int,
     val rating: Any,
     val rating_count: Int,

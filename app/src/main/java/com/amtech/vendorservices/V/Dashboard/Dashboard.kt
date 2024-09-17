@@ -1130,7 +1130,6 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                 } else {
                     myToast(context, t.message.toString())
 
-                    AppProgressBar.hideLoaderDialog()
 
                 }
                 AppProgressBar.hideLoaderDialog()
@@ -1220,6 +1219,12 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             OrderDetails.back =false
            refresh()
         }
+        if (sessionManager.usertype == "translator") {
+            apiCallDashboardTra()
+        } else {
+            apiCallDashboard()
+
+        }
     }
 
     private fun askPermission() {
@@ -1304,7 +1309,6 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         finish()
         startActivity(intent)
     }
-
 
 
     override fun onStart() {
