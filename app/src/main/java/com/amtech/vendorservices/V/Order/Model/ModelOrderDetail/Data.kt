@@ -32,6 +32,7 @@ data class Data(
     val servrequests: List<Servrequest>,
     val order_note: Any,
     val order_payment: String,
+    val type: String,
     val order_status: String,
     val order_type: String,
     val original_delivery_charge: Int,

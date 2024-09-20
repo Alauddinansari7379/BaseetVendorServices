@@ -4,19 +4,20 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amtech.vendorservices.R
-import com.amtech.vendorservices.V.Helper.pmFormate
-import com.amtech.vendorservices.V.Order.Model.DataX
+import com.amtech.vendorservices.V.Order.Adapter.AdapterAllOrder.VideoCall
+import com.amtech.vendorservices.V.Order.Model.ModelOrderDetail.Data
 import com.amtech.vendorservices.V.Order.activity.OrderDetails
-import com.amtech.vendorservices.databinding.SingleRowCompleteOrderListBinding
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
+import com.amtech.vendorservices.databinding.SingleRowCompleteOrderListBinding
 
 
 class AdapterCompleteOrder(
     val context: Context,
-    var list: ArrayList<DataX>,
+    var list: ArrayList<Data>, private val videoCall: VideoCall
  ) : RecyclerView.Adapter<AdapterCompleteOrder.ViewHolder>() {
     lateinit var sessionManager: SessionManager
 
@@ -37,8 +38,8 @@ class AdapterCompleteOrder(
             with(holder) {
                 with(list[position]) {
                     binding.tvSrn.text = id.toString()
-                    binding.tvName.text = delivery_address.contact_person_name
-                    binding.tvServiceDate.text = pmFormate(schedule_at)
+                    binding.tvName.text =customer.f_name+" "+customer.l_name
+                  //  binding.tvName.text = delivery_address.contact_person_name
                     binding.tvDate.text = created_at.subSequence(0, 11)
                     if (order_status == "delivered") {
                         binding.tvOrderStatus.text = context.resources.getString(R.string.Completed)
@@ -46,12 +47,31 @@ class AdapterCompleteOrder(
                         binding.tvOrderStatus.text = order_status
                     }
                      binding.tvPaymentStatus.text = payment_status
+                     binding.tvType.text = food_type
                     binding.tvTotal.text = "$order_amount$"
 
+
+                    var type=""
+                    var serDate=""
+                    for (i in servrequests){
+                         type = i.type
+                        serDate = i.serv_date
+                     }
+                    binding.tvServiceDate.text = serDate
                     binding.layoutAction.setOnClickListener {
                         val i = Intent(context, OrderDetails::class.java)
                             .putExtra("orderId",id.toString())
+                            .putExtra("serDate",serDate)
                         context.startActivity(i)
+                    }
+                    if (sessionManager.usertype=="translator" && type=="On Call" && order_status=="confirmed"){
+                        binding.layoutVideoCall.visibility= View.VISIBLE
+                    }else{
+                        binding.layoutVideoCall.visibility= View.GONE
+
+                    }
+                    binding.imgVideoCall.setOnClickListener {
+                        videoCall.videoCall("Service$user_id")
                     }
 //                if (list[position].preview != null) {
 //                    Picasso.get().load("https:"+list[position].preview)
@@ -68,7 +88,7 @@ class AdapterCompleteOrder(
             e.printStackTrace()
         }
     }
-//    interface Cart{
-//        fun addToCart(toString: String)
-//    }
+    interface VideoCall{
+        fun videoCall(toString: String)
+    }
 }

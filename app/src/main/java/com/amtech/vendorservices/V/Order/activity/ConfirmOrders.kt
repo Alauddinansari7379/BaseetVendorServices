@@ -13,27 +13,42 @@ import com.amtech.vendorservices.V.Helper.myToast
 import com.amtech.vendorservices.V.Order.Adapter.AdapterCompleteOrder
 import com.amtech.vendorservices.V.Order.Model.DataX
 import com.amtech.vendorservices.V.Order.Model.ModelComplete
+import com.amtech.vendorservices.V.Order.Model.ModelOrderDetail.ModelOrderDetail
 import com.amtech.vendorservices.V.retrofit.ApiClient
 import com.amtech.vendorservices.databinding.ActivityConfirmOrdersBinding
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
+import com.amtech.vendorservices.V.Order.Model.ModelOrderDetail.Data
+import org.jitsi.meet.sdk.JitsiMeetActivity
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import org.jitsi.meet.sdk.JitsiMeetUserInfo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.MalformedURLException
+import java.net.URL
 
-class ConfirmOrders : AppCompatActivity() {
+class ConfirmOrders : AppCompatActivity(),AdapterCompleteOrder.VideoCall {
     private val binding by lazy {
         ActivityConfirmOrdersBinding.inflate(layoutInflater)
     }
-    var count=0
-    val context=this@ConfirmOrders
+    var count = 0
+    var type = ""
+    val context = this@ConfirmOrders
     private lateinit var sessionManager: SessionManager
-    private lateinit var mainData: ArrayList<DataX>
+    private lateinit var mainData: ArrayList<Data>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         sessionManager = SessionManager(context)
 
         Dashboard().languageSetting(this, sessionManager.selectedLanguage.toString())
+        type = intent.getStringExtra("Type").toString()
+        if (type=="Pending"){
+            binding.tvTitleNew.text=getString(R.string.pending)
+        }else{
+            binding.tvTitleNew.text=getString(R.string.confirmed_orders)
+
+        }
 
         if (Dashboard.refreshLanNew) {
             Dashboard.refreshLanNew = false
@@ -67,18 +82,77 @@ class ConfirmOrders : AppCompatActivity() {
                 onBackPressed()
             }
 
-            apiCallCompleteOrder()
-
+            //apiCallCompleteOrder()
+            apiCallAllOrder()
             edtSearch.addTextChangedListener { str ->
                 setRecyclerViewAdapter(mainData.filter {
                     it.id != null && it.id.toString()!!.contains(str.toString(), ignoreCase = true)
-                } as ArrayList<DataX>)
+                } as ArrayList<Data>)
             }
         }
 
 
     }
+    private fun apiCallAllOrder() {
+        AppProgressBar.showLoaderDialog(context)
+        ApiClient.apiService.allOrders(
+            sessionManager.idToken.toString(),
+        )
+            .enqueue(object : Callback<ModelOrderDetail> {
+                @SuppressLint("LogNotTimber")
+                override fun onResponse(
+                    call: Call<ModelOrderDetail>, response: Response<ModelOrderDetail>
+                ) {
+                    try {
+                        if (response.code() == 404) {
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
+                            AppProgressBar.hideLoaderDialog()
 
+                        } else if  (response.code() == 500) {
+                            myToast(context, resources.getString(R.string.Server_Error))
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else {
+                             val mainData = response.body()?.data ?: emptyList()
+
+                            if (type=="Pending"){
+                                val pendingOrders = mainData.filter { order ->
+                                    order.order_status == "pending"
+                            }
+                                setRecyclerViewAdapter(pendingOrders as ArrayList)
+                            }else{
+                                val pendingOrders = mainData.filter { order ->
+                                    order.order_status == "confirmed"
+                                }
+                                setRecyclerViewAdapter(pendingOrders as ArrayList)
+                            }
+
+                            AppProgressBar.hideLoaderDialog()
+                        }
+                    } catch (e: Exception) {
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
+                        e.printStackTrace()
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                }
+
+                override fun onFailure(call: Call<ModelOrderDetail>, t: Throwable) {
+                    AppProgressBar.hideLoaderDialog()
+                    count++
+                    if (count <= 3) {
+                        Log.e("count", count.toString())
+                        apiCallAllOrder()
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                }
+            })
+    }
+
+/*
     private fun apiCallCompleteOrder() {
         AppProgressBar.showLoaderDialog(context)
         AppProgressBar.showLoaderDialog(context)
@@ -135,12 +209,42 @@ class ConfirmOrders : AppCompatActivity() {
             })
 
     }
+*/
 
-    private fun setRecyclerViewAdapter(data: ArrayList<DataX>) {
+    private fun setRecyclerViewAdapter(data: ArrayList<Data>) {
         binding.recyclerView.apply {
-            adapter = AdapterCompleteOrder(context, data)
+            adapter = AdapterCompleteOrder(context, data,this@ConfirmOrders)
             AppProgressBar.hideLoaderDialog()
 
+        }
+    }
+    override fun videoCall(toString: String) {
+        val jitsiMeetUserInfo = JitsiMeetUserInfo()
+        jitsiMeetUserInfo.displayName = sessionManager.customerName
+        jitsiMeetUserInfo.email = sessionManager.email
+        try {
+            val defaultOptions: JitsiMeetConferenceOptions = JitsiMeetConferenceOptions.Builder()
+                .setServerURL(URL("https://ka-nnect.com/"))
+                .setRoom(toString)
+                .setAudioMuted(false)
+                .setVideoMuted(true)
+                .setAudioOnly(false)
+                .setUserInfo(jitsiMeetUserInfo)
+                .setConfigOverride("enableInsecureRoomNameWarning", false)
+                .setFeatureFlag("readOnlyName", true)
+                .setFeatureFlag("prejoinpage.enabled", false)
+                //  .setFeatureFlag("lobby-mode.enabled", false)
+                // .setToken("123") // Set the meeting password
+                //.setFeatureFlag("autoKnockLobby", false) // Disable lobby mode
+                //.setFeatureFlag("disableModeratorIndicator", false)
+                //.setFeatureFlag("chat.enabled",false)
+                .setConfigOverride("requireDisplayName", true)
+                .build()
+            JitsiMeetActivity.launch(context, defaultOptions)
+
+            //  startActivity(Intent(requireContext(),Rating::class.java))
+        } catch (e: MalformedURLException) {
+            e.printStackTrace();
         }
     }
 
@@ -150,8 +254,9 @@ class ConfirmOrders : AppCompatActivity() {
         startActivity(intent)
         overridePendingTransition(0, 0)
     }
+
     override fun onDestroy() {
         super.onDestroy()
-        Dashboard.refreshLanNew=true
+        Dashboard.refreshLanNew = true
     }
 }

@@ -1,16 +1,16 @@
 package com.amtech.vendorservices.V.Dashboard.model.ModelDashTra
 
 data class Earning(
-    val `1`: Int,
-    val `10`: Int,
-    val `11`: Int,
-    val `12`: Int,
-    val `2`: Int,
-    val `3`: String,
-    val `4`: String,
-    val `5`: String,
-    val `6`: String,
-    val `7`: Int,
-    val `8`: Int,
-    val `9`: Int
+    val `1`: Double?,
+    val `10`: Double?,
+    val `11`: Double?,
+    val `12`: Double?,
+    val `2`: Double?,
+    val `3`: Double?,
+    val `4`: Double?,
+    val `5`: Double?,
+    val `6`: Double?,
+    val `7`: Double?,
+    val `8`: Double?,
+    val `9`: Double?
 )

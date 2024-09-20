@@ -38,6 +38,7 @@ class OrderDetails : AppCompatActivity() {
     var date = ""
     var type = ""
     var currentdate = ""
+    var orderPayment = ""
     var serviceDateNew = ""
     var count = 0
     var count1 = 0
@@ -137,7 +138,12 @@ class OrderDetails : AppCompatActivity() {
         }
 
         binding.btnDeleverd.setOnClickListener {
-            apiCallStatuesChange(orderId, "delivered")
+            if (orderPayment=="partial"){
+                myToast(context,"Full payment not paid yet")
+            }else{
+                apiCallStatuesChange(orderId, "delivered")
+
+            }
         }
     }
 
@@ -151,7 +157,9 @@ class OrderDetails : AppCompatActivity() {
         )
             .enqueue(object : Callback<ModelOrderDet> {
                 @RequiresApi(Build.VERSION_CODES.O)
-                @SuppressLint("LogNotTimber", "SetTextI18n", "ResourceType")
+                @SuppressLint("LogNotTimber", "SetTextI18n", "ResourceType",
+                    "SuspiciousIndentation"
+                )
                 override fun onResponse(
                     call: Call<ModelOrderDet>, response: Response<ModelOrderDet>
                 ) {
@@ -177,6 +185,7 @@ class OrderDetails : AppCompatActivity() {
                             binding.tvPaymentStatus.text = response.body()!!.payment_status
                             binding.tvPayType.text = response.body()!!.pay_type
                             binding.tvOrderPayment.text = response.body()!!.order_payment
+                            orderPayment = response.body()!!.order_payment
                             if (response.body()!!.order_status == "delivered") {
                                 binding.tvOrderStatus.text = resources.getString(R.string.Completed)
                             } else {
@@ -339,7 +348,7 @@ class OrderDetails : AppCompatActivity() {
 
                             val serviceDate = serviceDateNew.substringBefore(",")
                             val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-
+                            if (serviceDate!="null") {
                             // Define the dates as strings
                             val dateStr1 = currentDate
                             val dateStr2 = serviceDate
@@ -349,34 +358,36 @@ class OrderDetails : AppCompatActivity() {
                             val date2 = LocalDate.parse(dateStr2, formatter)
 
                             // Compare the dates
-                            if (date1 > date2) {
-                                println("$date1 is after $date2")
-                                if (orderStatus == "delivered" || orderStatus == "canceled" || orderStatus == "pending") {
-                                    binding.btnDeleverdDesable.visibility = View.GONE
-                                    binding.btnDeleverd.visibility = View.GONE
-                                }else{
-                                    binding.btnDeleverdDesable.visibility = View.GONE
-                                    binding.btnDeleverd.visibility = View.VISIBLE
-                                }
 
-                            } else if (date1 < date2) {
-                                println("$date1 is before $date2")
-                                if (orderStatus == "delivered" || orderStatus == "canceled" || orderStatus == "pending") {
-                                    binding.btnDeleverdDesable.visibility = View.GONE
-                                    binding.btnDeleverd.visibility = View.GONE
-                                }else{
-                                    binding.btnDeleverdDesable.visibility = View.VISIBLE
-                                    binding.btnDeleverd.visibility = View.GONE
+                                if (date1 > date2) {
+                                    println("$date1 is after $date2")
+                                    if (orderStatus == "delivered" || orderStatus == "canceled" || orderStatus == "pending") {
+                                        binding.btnDeleverdDesable.visibility = View.GONE
+                                        binding.btnDeleverd.visibility = View.GONE
+                                    } else {
+                                        binding.btnDeleverdDesable.visibility = View.GONE
+                                        binding.btnDeleverd.visibility = View.VISIBLE
+                                    }
+
+                                } else if (date1 < date2) {
+                                    println("$date1 is before $date2")
+                                    if (orderStatus == "delivered" || orderStatus == "canceled" || orderStatus == "pending") {
+                                        binding.btnDeleverdDesable.visibility = View.GONE
+                                        binding.btnDeleverd.visibility = View.GONE
+                                    } else {
+                                        binding.btnDeleverdDesable.visibility = View.VISIBLE
+                                        binding.btnDeleverd.visibility = View.GONE
+                                    }
+                                } else {
+                                    if (orderStatus == "delivered" || orderStatus == "canceled" || orderStatus == "pending") {
+                                        binding.btnDeleverdDesable.visibility = View.GONE
+                                        binding.btnDeleverd.visibility = View.GONE
+                                    } else {
+                                        binding.btnDeleverdDesable.visibility = View.GONE
+                                        binding.btnDeleverd.visibility = View.VISIBLE
+                                    }
+                                    println("$date1 is the same as $date2")
                                 }
-                            } else {
-                                if (orderStatus == "delivered" || orderStatus == "canceled" || orderStatus == "pending") {
-                                    binding.btnDeleverdDesable.visibility = View.GONE
-                                    binding.btnDeleverd.visibility = View.GONE
-                                }else{
-                                    binding.btnDeleverdDesable.visibility = View.GONE
-                                    binding.btnDeleverd.visibility = View.VISIBLE
-                                }
-                                println("$date1 is the same as $date2")
                             }
 
 

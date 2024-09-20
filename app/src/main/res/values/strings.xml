@@ -191,6 +191,8 @@
     <string name="completed">Completed</string>
     <string name="canceled">Canceled</string>
     <string name="refunded">Refunded</string>
+    <string name="pending">Pending Orders</string>
+    <string name="confirmed_order">Confirmed Orders</string>
     <string name="all">All</string>
     <string name="translator_service">Translator Service</string>
     <string name="add_new">Add New</string>

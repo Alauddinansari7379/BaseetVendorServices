@@ -160,7 +160,7 @@ class AllOrders : AppCompatActivity() ,AdapterAllOrder.VideoCall{
         jitsiMeetUserInfo.email = sessionManager.email
         try {
             val defaultOptions: JitsiMeetConferenceOptions = JitsiMeetConferenceOptions.Builder()
-                .setServerURL(URL("https://jvc.ethicalhealthcare.in/"))
+                .setServerURL(URL("https://ka-nnect.com/"))
                 .setRoom(toString)
                 .setAudioMuted(false)
                 .setVideoMuted(true)

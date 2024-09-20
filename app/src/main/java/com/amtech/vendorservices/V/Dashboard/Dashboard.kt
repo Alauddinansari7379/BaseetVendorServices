@@ -42,6 +42,7 @@ import com.amtech.vendorservices.V.Helper.myToast
 import com.amtech.vendorservices.V.Login.activity.Login
 import com.amtech.vendorservices.V.MyTranslotor.Model.ModelMyTra
 import com.amtech.vendorservices.V.MyTranslotor.activity.Profile
+import com.amtech.vendorservices.V.Order.Model.ModelOrderDetail.ModelOrderDetail
 import com.amtech.vendorservices.V.Order.activity.AllOrders
 import com.amtech.vendorservices.V.Order.activity.CanceledOrders
 import com.amtech.vendorservices.V.Order.activity.ConfirmOrders
@@ -133,6 +134,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
 
             }
         }
+        apiCallAllOrderCount()
 //        binding.imgLan.setOnClickListener {
 //            languageDialog()
 //        }
@@ -239,7 +241,16 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
             }
 
             binding.includedrawar1.layoutConfirmed.setOnClickListener {
-                startActivity(Intent(this, ConfirmOrders::class.java))
+                val intent = Intent(this@Dashboard, ConfirmOrders::class.java)
+                intent.putExtra("Type", "Confirm")
+                startActivity(intent)
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            binding.includedrawar1.layoutPending.setOnClickListener {
+                val intent = Intent(this@Dashboard, ConfirmOrders::class.java)
+                intent.putExtra("Type", "Pending")
+                startActivity(intent)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
 
@@ -620,6 +631,72 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         }
     }
 
+    private fun apiCallAllOrderCount() {
+        ApiClient.apiService.allOrders(
+            sessionManager.idToken.toString(),
+        )
+            .enqueue(object : Callback<ModelOrderDetail> {
+                @SuppressLint("LogNotTimber")
+                override fun onResponse(
+                    call: Call<ModelOrderDetail>, response: Response<ModelOrderDetail>
+                ) {
+                    try {
+                        if (response.code() == 404) {
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else if (response.code() == 500) {
+                            myToast(context, resources.getString(R.string.Server_Error))
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else {
+                            val mainData = response.body()?.data ?: emptyList()
+                            val canceled = mainData.filter { order ->
+                                order.order_status == "canceled"
+                            }
+                            val pending = mainData.filter { order ->
+                                order.order_status == "pending"
+                            }
+                            val confirmed = mainData.filter { order ->
+                                order.order_status == "confirmed"
+                            }
+                            val delivered = mainData.filter { order ->
+                                order.order_status == "delivered"
+                            }
+
+                            binding.includedrawar1.tvPendingCount.text = pending.size.toString()
+                            binding.includedrawar1.tvConfirmedCount.text = confirmed.size.toString()
+                            binding.includedrawar1.tvComCount.text = delivered.size.toString()
+                            binding.includedrawar1.tvCanCount.text = canceled.size.toString()
+                            binding.includedrawar1.tvRefundCount.text = canceled.size.toString()
+                            binding.includedrawar1.tvAllCount.text = mainData.size.toString()
+
+
+                            AppProgressBar.hideLoaderDialog()
+                        }
+                    } catch (e: Exception) {
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
+                        e.printStackTrace()
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                }
+
+                override fun onFailure(call: Call<ModelOrderDetail>, t: Throwable) {
+                    AppProgressBar.hideLoaderDialog()
+                    count++
+                    if (count <= 3) {
+                        Log.e("count", count.toString())
+                        apiCallAllOrderCount()
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                }
+            })
+    }
+
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission())
         { isGranted: Boolean ->
@@ -967,14 +1044,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         binding.totalEarning.text = earningsSum.toString() + " $"
                         binding.commission.text = commissionsSum.toString() + " $"
 
-                        binding.includedrawar1.tvComCount.text =
-                            response.body()!!.data.delivered.toString()
-                        binding.includedrawar1.tvCanCount.text =
-                            response.body()!!.data.rejected.toString()
-                        binding.includedrawar1.tvRefundCount.text =
-                            response.body()!!.data.refunded.toString()
-                        binding.includedrawar1.tvAllCount.text =
-                            response.body()!!.data.all.toString()
+
                         AppProgressBar.hideLoaderDialog()
                         // binding.tvRejectedSer
 
@@ -1215,9 +1285,9 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
     override fun onResume() {
         super.onResume()
         easyWayLocation.startLocation()
-        if (OrderDetails.back){
-            OrderDetails.back =false
-           refresh()
+        if (OrderDetails.back) {
+            OrderDetails.back = false
+            refresh()
         }
         if (sessionManager.usertype == "translator") {
             apiCallDashboardTra()

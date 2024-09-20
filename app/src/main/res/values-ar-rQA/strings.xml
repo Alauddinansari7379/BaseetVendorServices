@@ -467,5 +467,9 @@
     <string name="Chains_Main">السلاسل (الرئيسية)</string>
 
 
+    <string name="pending">Pending</string>
+    <string name="confirmed_order">Confirmed Orders</string>
+
+
 
 </resources>

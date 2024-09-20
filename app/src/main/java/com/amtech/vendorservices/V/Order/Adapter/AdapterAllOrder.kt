@@ -50,8 +50,10 @@ class AdapterAllOrder(
                         binding.tvOrderStatus.text = order_status
                     }
                      binding.tvPaymentStatus.text = payment_status
-                    binding.tvTotal.text = "$order_amount$"
-                    binding.tvType.text = food_type
+                   // binding.tvTotal.text = "$order_amount$"
+                    for (i in details){
+                        binding.tvTotal.text = "${i.price}$"
+                    }
 
 
 
@@ -69,14 +71,19 @@ class AdapterAllOrder(
                         val jsonString = detailsNew
                         val jsonObject = JSONObject(jsonString)
                         serviceDate = jsonObject.getString("dates")
-                        type = jsonObject.getString("drone")
+                      //  type = jsonObject.getString("drone")
 
                       //  binding.tvServiceDate.text = serviceDate
                     }
                     var serDate=""
+                    var foodType=""
                     for (i in servrequests){
                       serDate = i.serv_date
+                        type = i.type
+                        foodType = i.food_type
                     }
+                    binding.tvType.text = foodType
+                    binding.tvServiceDate.text=serDate
 
                     binding.layoutAction.setOnClickListener {
                         val i = Intent(context, OrderDetails::class.java)
@@ -86,7 +93,6 @@ class AdapterAllOrder(
                             .putExtra("serDate",serDate)
                         context.startActivity(i)
                     }
-                    binding.tvServiceDate.text=serDate
                     if (sessionManager.usertype=="translator" && type=="On Call" && order_status=="confirmed"){
                         binding.layoutVideoCall.visibility= View.VISIBLE
                     }else{
