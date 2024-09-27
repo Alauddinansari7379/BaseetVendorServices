@@ -108,6 +108,9 @@ class AllOrders : AppCompatActivity() ,AdapterAllOrder.VideoCall{
                         } else {
                             mainData = response.body()!!.data
                             setRecyclerViewAdapter(mainData)
+                            if (mainData.isEmpty()){
+                                myToast(context,"NO Data found")
+                            }
                             AppProgressBar.hideLoaderDialog()
                         }
                     } catch (e: Exception) {

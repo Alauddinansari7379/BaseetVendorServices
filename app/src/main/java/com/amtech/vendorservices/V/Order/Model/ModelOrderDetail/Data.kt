@@ -39,6 +39,7 @@ data class Data(
     val otp: String,
     val pay_type: String,
     val payment_method: String,
+    val document: String,
     val payment_status: String,
     val pending: String,
     val picked_up: Any,

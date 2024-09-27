@@ -199,19 +199,16 @@ class OrderDetails : AppCompatActivity() {
                                 binding.tvHomeDays.text = i.food_details.home_days
 
                                 //  binding.date.text = pmFormate(response.body()!!.created_at)
-                                if (i.food_details.dates.isNotEmpty()) {
-                                  //  binding.date.text = i.food_details.dates
-                                    val currentDate: String =
-                                        SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(
-                                            Date()
-                                        )
-                                   // serviceDateNew = i.food_details.dates.substringBefore(",").replace(",", "")
-                                }
+//                                if (i.food_details.dates!!.isNotEmpty()) {
+//                                  //  binding.date.text = i.food_details.dates
+//                                    val currentDate: String = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(Date())
+//                                   // serviceDateNew = i.food_details.dates.substringBefore(",").replace(",", "")
+//                                }
                                 binding.tvName.text = i.food_details.name
                                 binding.tvPrice.text = i.food_details.price.toString() + " $"
                                 binding.tvPrice1.text = i.food_details.price.toString() + " $"
 
-                                binding.tvCarType.text = i.food_details.car_type.toString()
+                                binding.tvCarType.text = i.food_details.drone.toString()
                                 binding.tvTravelingPersons.text = i.food_details.trperson.toString()
                                 binding.tvDrivingType.text = i.food_details.driv_type.toString()
                                 binding.tvRentType.text = i.food_details.rent_typ.toString()
@@ -222,7 +219,7 @@ class OrderDetails : AppCompatActivity() {
 //                                    binding.tvDiscount.text = i.food_details.discount.toString()
 //                                }
 
-                                type = i.food_details.food_type
+                                type = i.food_details.food_type.toString()
 
 //                                var jsonString=""
 //
@@ -418,8 +415,7 @@ class OrderDetails : AppCompatActivity() {
 
 
                 override fun onFailure(call: Call<ModelOrderDet>, t: Throwable) {
-                    myToast(context, t.message.toString())
-                    AppProgressBar.hideLoaderDialog()
+                     AppProgressBar.hideLoaderDialog()
                     count++
                     if (count <= 3) {
                         Log.e("count", count.toString())

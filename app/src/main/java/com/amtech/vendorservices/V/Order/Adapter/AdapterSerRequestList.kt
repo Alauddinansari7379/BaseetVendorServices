@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Order.Model.Data
-import com.amtech.vendorservices.databinding.SingleRowSerRequestListBinding
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
+import com.amtech.vendorservices.databinding.SingleRowSerRequestListBinding
 
 
 class AdapterSerRequestList(
@@ -86,6 +86,12 @@ class AdapterSerRequestList(
                             }
                         }
                     }
+                    if (type == "Doc") {
+                        binding.tvViewDoc.visibility = View.VISIBLE
+                    }
+                    binding.tvViewDoc.setOnClickListener {
+                        accept.viewDoc(document.toString())
+                    }
 //
 //                binding.btnAccept.setOnClickListener {
 //                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse())
@@ -110,6 +116,7 @@ class AdapterSerRequestList(
     }
     interface Accept{
         fun accept(id: String,name:String,price:String,langFrom:String,langTo:String,tranServ:String)
+        fun viewDoc(url: String)
     }
     companion object{
         var requestIdNew=""

@@ -861,6 +861,8 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         sessionManager.phoneNumber = response.body()!!.phone
                         sessionManager.email = response.body()!!.email
                         sessionManager.profilePic = response.body()!!.applogo
+                        Log.e("customerName", sessionManager.customerName.toString())
+
                     } else {
                         myToast(context, resources.getString(R.string.Something_went_wrong))
                         AppProgressBar.hideLoaderDialog()
@@ -1038,7 +1040,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         }
 
                         // Print the sums
-                        println("Sum of earnings: $earningsSum")
+                        println("Sum of earnings: ${earningsSum.toDouble()}")
                         println("Sum of commissions: $commissionsSum")
 
                         binding.totalEarning.text = earningsSum.toString() + " $"
@@ -1171,14 +1173,6 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         binding.totalEarning.text = earningsSum.toString() + " $"
                         binding.commission.text = commissionsSum.toString() + " $"
 
-                        binding.includedrawar1.tvComCount.text =
-                            response.body()!!.data.delivered.toString()
-                        binding.includedrawar1.tvCanCount.text =
-                            response.body()!!.data.rejected.toString()
-                        binding.includedrawar1.tvRefundCount.text =
-                            response.body()!!.data.refunded.toString()
-                        binding.includedrawar1.tvAllCount.text =
-                            response.body()!!.data.all.toString()
                         AppProgressBar.hideLoaderDialog()
                         // binding.tvRejectedSer
 

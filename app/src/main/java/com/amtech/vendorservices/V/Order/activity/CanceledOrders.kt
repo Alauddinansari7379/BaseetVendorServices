@@ -171,6 +171,10 @@ class CanceledOrders : AppCompatActivity(),AdapterCompleteOrder.VideoCall {
         }
     }
 
+    override fun upload(toString: String) {
+        TODO("Not yet implemented")
+    }
+
     private fun refresh() {
         overridePendingTransition(0, 0)
         finish()

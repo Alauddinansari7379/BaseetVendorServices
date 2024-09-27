@@ -1,4 +1,4 @@
-package com.amtech.vendorservices.V.Order.Model.MAllOrder
+package com.amtech.vendorservices.V.Order.Model.ModelOrderDet
 
 data class Servrequest(
     val accept_by: String,
@@ -23,7 +23,8 @@ data class Servrequest(
     val serv_hour: String,
     val serv_id: String,
     val start_time: String,
-    val status: String,
+    val status: Int,
+    val stts: String,
     val tr_from: String,
     val tr_to: String,
     val trperson: Any,

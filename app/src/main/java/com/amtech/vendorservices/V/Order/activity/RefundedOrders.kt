@@ -84,6 +84,9 @@ class RefundedOrders : AppCompatActivity(),AdapterCompleteOrder.VideoCall {
 
     }
 
+    override fun upload(toString: String) {
+        TODO("Not yet implemented")
+    }
     private fun apiCallAllOrder() {
         AppProgressBar.showLoaderDialog(context)
         ApiClient.apiService.allOrders(

@@ -141,6 +141,15 @@ interface ApiInterface {
     ): Call<ModelUpdatePrice>
 
     @Multipart
+    @POST("vendor/docs_upload")
+    fun docsUpload(
+        @Header("Authorization") authorization: String,
+        @Query("id") id: String,
+        @Part documents: MultipartBody.Part,
+        @Part image: MultipartBody.Part,
+    ): Call<ModelServiceList>
+
+    @Multipart
     @POST("vendor/product/store")
     fun addNewService(
         @Header("Authorization") authorization: String,

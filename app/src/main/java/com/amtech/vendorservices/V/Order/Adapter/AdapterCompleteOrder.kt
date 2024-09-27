@@ -53,9 +53,11 @@ class AdapterCompleteOrder(
 
                     var type=""
                     var serDate=""
+                    var docType=""
                     for (i in servrequests){
                          type = i.type
                         serDate = i.serv_date
+                        docType = i.type
                      }
                     binding.tvServiceDate.text = serDate
                     binding.layoutAction.setOnClickListener {
@@ -73,6 +75,16 @@ class AdapterCompleteOrder(
                     binding.imgVideoCall.setOnClickListener {
                         videoCall.videoCall("Service$user_id")
                     }
+
+                    if (docType == "Doc" && order_status == "delivered") {
+                        binding.layoutUpload.visibility = View.VISIBLE
+                    }
+                    binding.btnUpload.setOnClickListener {
+                        videoCall.upload(id.toString())
+                    }
+
+
+
 //                if (list[position].preview != null) {
 //                    Picasso.get().load("https:"+list[position].preview)
 //                        .placeholder(R.drawable.placeholder_n)
@@ -90,5 +102,6 @@ class AdapterCompleteOrder(
     }
     interface VideoCall{
         fun videoCall(toString: String)
+        fun upload(id: String)
     }
 }

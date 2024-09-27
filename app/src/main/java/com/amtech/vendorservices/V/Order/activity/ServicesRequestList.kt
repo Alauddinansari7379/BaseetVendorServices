@@ -1,10 +1,13 @@
 package com.amtech.vendorservices.V.Order.activity
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -23,8 +26,9 @@ import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
 import com.amtech.vendorservices.V.Order.Model.ModelSendSer.ModelSendSer
 import com.amtech.vendorservices.V.Order.Model.ModelServiceReq
 import com.amtech.vendorservices.V.retrofit.ApiClient
-import com.amtech.vendorservices.databinding.ActivityServicesRequestListBinding
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
+import com.amtech.vendorservices.databinding.ActivityServicesRequestListBinding
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -264,8 +268,6 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                 override fun onFailure(call: Call<ModelServiceRet>, t: Throwable) {
                     //  myToast(context, t.message.toString())
-                    myToast(context, resources.getString(R.string.No_Data_Found))
-
                     AppProgressBar.hideLoaderDialog()
                     count1++
                     if (count1 <= 3) {
@@ -663,6 +665,32 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
 
         AppProgressBar.hideLoaderDialog()
+    }
+
+    @SuppressLint("MissingInflatedId")
+    override fun viewDoc(url: String) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.popup_document, null)
+        val imgDoc = dialogView.findViewById<ImageView>(R.id.imgDoc)
+        val btnClose = dialogView.findViewById<Button>(R.id.btnClose)
+
+        val close = dialogView.findViewById<ImageView>(R.id.imgClose)
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .create()
+
+        close.setOnClickListener {
+            dialog.dismiss()
+        }
+        btnClose.setOnClickListener {
+            dialog.dismiss()
+        }
+        if (url != null) {
+            Picasso.get().load("https://baseet.thedemostore.in/storage/app/public/product/" + url)
+                .error(R.drawable.error_placeholder)
+                .into(imgDoc)
+        }
+        dialog.show()
     }
 
     override fun sendRequest(foodId: String) {
