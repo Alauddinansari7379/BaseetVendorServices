@@ -70,7 +70,7 @@ class AdapterAllOrder(
                         detailsNew= i.food_details
                         val jsonString = detailsNew
                         val jsonObject = JSONObject(jsonString)
-                        serviceDate = jsonObject.getString("dates")
+                     //   serviceDate = jsonObject.getString("dates")
                       //  type = jsonObject.getString("drone")
 
                       //  binding.tvServiceDate.text = serviceDate

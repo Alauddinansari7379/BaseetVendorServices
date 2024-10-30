@@ -169,7 +169,7 @@
     <string name="translater_service_list">قائمة خدمات المترجم</string>
     <string name="service_list">قائمة الخدمة</string>
     <string name="add_new_service">إضافة خدمة جديدة</string>
-    <string name="search_by_name">البحث عن طريق الإسم</string>
+    <string name="search_by_name">البحث عن المترجم طريق الإسم</string>
     <string name="_6">6</string>
     <string name="translater_setup">إعداد المترجم</string>
     <string name="translator_wallet">محفظة المترجم</string>

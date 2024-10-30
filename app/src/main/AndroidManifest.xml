@@ -26,6 +26,10 @@
         <activity
             android:name=".V.TranslatorServices.activity.AddNewTranslatorServices"
             android:exported="false" />
+
+        <activity
+            android:name=".V.TranslatorServices.activity.UpdateServices"
+            android:exported="false" />
         <activity
             android:name=".V.activity.CustomerReviews"
             android:exported="false" />

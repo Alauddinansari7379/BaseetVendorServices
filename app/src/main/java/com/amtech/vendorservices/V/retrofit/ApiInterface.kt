@@ -2,9 +2,11 @@ package com.amtech.vendorservices.V.retrofit
 
 import com.amtech.vendorservices.V.Dashboard.model.ModelDashTra.ModelDashTra
 import com.amtech.vendorservices.V.Dashboard.model.ModelDashboard
+import com.amtech.vendorservices.V.Dashboard.model.modelStatic.ModelStatics
 import com.amtech.vendorservices.V.Login.model.ModelLogin
 import com.amtech.vendorservices.V.MyTranslotor.Model.ModelMyTra
 import com.amtech.vendorservices.V.Order.Model.ModeUpdatePrice.ModelUpdatePrice
+import com.amtech.vendorservices.V.Order.Model.ModelChange.ModelChange
 import com.amtech.vendorservices.V.Order.Model.ModelComplete
 import com.amtech.vendorservices.V.Order.Model.ModelOrderDet.ModelOrderDet
 import com.amtech.vendorservices.V.Order.Model.ModelOrderDetail.ModelOrderDetail
@@ -12,6 +14,7 @@ import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
 import com.amtech.vendorservices.V.Order.Model.ModelSendSer.ModelSendSer
 import com.amtech.vendorservices.V.Order.Model.ModelServiceReq
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.ModelGetListCar
+import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelGetProdile.ModelGetProfile
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelServiceList
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -119,6 +122,34 @@ interface ApiInterface {
         @Query("request_id") request_id: String,
     ): Call<ModelSendSer>
 
+    @POST("vendor/product/changes_status")
+    fun changesStatus(
+        @Header("Authorization") authorization: String,
+        @Query("id") id: String,
+        @Query("restaurant_id") restaurant_id: String,
+        @Query("food_id") food_id: String,
+        @Query("status") status: String,
+    ): Call<ModelChange>
+
+    @POST("vendor/product/active")
+    fun active(
+        @Header("Authorization") authorization: String,
+        @Query("id") id: String,
+        @Query("IsActive") IsActive: String,
+    ): Call<ModelServiceList>
+
+    @GET("vendor/product/edit")
+    fun getProfileList(
+        @Header("Authorization") authorization: String,
+        @Query("id") id: String,
+    ): Call<ModelGetProfile>
+
+    @POST("vendor/product/statistics")
+    fun getStatistics(
+        @Header("Authorization") authorization: String,
+        @Query("filter") filter: String,
+    ): Call<ModelStatics>
+
     @PUT("vendor/update-order-status")
     fun statuesChange(
         @Header("Authorization") authorization: String,
@@ -154,8 +185,7 @@ interface ApiInterface {
     fun addNewService(
         @Header("Authorization") authorization: String,
         @Query("food_type") food_type: String,
-        @Part image: MultipartBody.Part,
-        @Query("price") price: String,
+         @Query("price") price: String,
         @Query("port_video") port_video: String,
         @Query("ser_hour") ser_hour: String,
         @Query("name") name: String,
@@ -170,6 +200,8 @@ interface ApiInterface {
         @Query("latitude") latitude: String,
         @Query("zone_id") zone_id: String,
         @Query("Dates") Dates: String,
+        @Part amenities: List<MultipartBody.Part>, // Updated to MultipartBody.Part for amenities
+        @Part image: MutableList<MultipartBody.Part>,
     ): Call<ModelServiceList>
 
 
@@ -193,8 +225,8 @@ interface ApiInterface {
         @Query("latitude") latitude: String,
         @Query("zone_id") zone_id: String,
         @Query("driv_type") driv_type: String,
-        //  @Query("ammenties[]") ammenties: String,
-        @Part image: MultipartBody.Part,
+        @Part amenities: List<MultipartBody.Part>, // Updated to MultipartBody.Part for amenities
+        @Part image: MutableList<MultipartBody.Part>,
     ): Call<ModelServiceList>
 
     @POST("vendor/product/store")
@@ -213,9 +245,32 @@ interface ApiInterface {
         @Query("longitude") longitude: String,
         @Query("latitude") latitude: String,
         @Query("zone_id") zone_id: String,
-        @Query("ammenties[]") ammenties: List<String>,
-        @Query("ammenties[]") ammenties1: List<String>,
-        @Part image: MultipartBody.Part,
+        @Part amenities: List<MultipartBody.Part>, // Updated to MultipartBody.Part for amenities
+        @Part image_number: List<MultipartBody.Part>, // Updated to MultipartBody.Part for amenities
+        @Part image: MutableList<MultipartBody.Part>,
+    ): Call<ModelServiceList>
+
+    @POST("vendor/product/update")
+    @Multipart
+    fun updateService(
+        @Header("Authorization") authorization: String,
+        @Query("id") id: String,
+        @Query("name") name: String,
+        @Query("description") description: String,
+        @Query("price") price: String,
+        @Query("type") type: String,
+        @Query("tr_from") tr_from: String,
+        @Query("tr_to") tr_to: String,
+        @Query("dates") dates: String,
+        @Query("driv_type") driv_type: String,
+        @Query("ser_hour") ser_hour: String,
+        @Query("car_type") car_type: String,
+        @Query("car_model") car_model: String,
+        @Query("car_brand") car_brand: String,
+        @Query("home_days") home_days: String,
+        @Part images_number: List<MultipartBody.Part>, // Updated to MultipartBody.Part for amenities
+        @Part amenities: List<MultipartBody.Part>, // Updated to MultipartBody.Part for amenities
+        @Part image: MutableList<MultipartBody.Part>,
     ): Call<ModelServiceList>
 //
 //

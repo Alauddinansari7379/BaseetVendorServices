@@ -48,8 +48,10 @@ class AdapterCompleteOrder(
                     }
                      binding.tvPaymentStatus.text = payment_status
                      binding.tvType.text = food_type
-                    binding.tvTotal.text = "$order_amount$"
+                    for (i in servrequests){
+                        binding.tvTotal.text = "${i.price}$"
 
+                    }
 
                     var type=""
                     var serDate=""

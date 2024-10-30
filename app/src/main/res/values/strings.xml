@@ -165,7 +165,7 @@
     <string name="translater_service_list">Translater Service List</string>
     <string name="service_list">Service List</string>
     <string name="add_new_service">Add new Service</string>
-    <string name="search_by_name">Search By Name</string>
+    <string name="search_by_name">Search By Service Name</string>
     <string name="_6">6</string>
     <string name="translater_setup">Translater Setup</string>
     <string name="translator_wallet">Translator Wallet</string>

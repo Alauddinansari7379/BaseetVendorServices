@@ -9,6 +9,7 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
+import com.aminography.primedatepicker.picker.PrimeDatePicker.Companion.dialogWith
 import com.aminography.primedatepicker.picker.callback.MultipleDaysPickCallback
 import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Dashboard.Dashboard
@@ -27,29 +29,38 @@ import com.amtech.vendorservices.V.Dashboard.model.ModelSpinner
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.currentDate
 import com.amtech.vendorservices.V.Helper.myToast
+import com.amtech.vendorservices.V.TranslatorServices.activity.AddNewTranslatorServices.Companion
+import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.ModelGetListCar
+import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelGetProdile.ModelGetProfile
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelServiceList
 import com.amtech.vendorservices.V.retrofit.ApiClient
-import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import com.amtech.vendorservices.databinding.ActivityAddNewTranslatorServicesBinding
 import com.devstune.searchablemultiselectspinner.SearchableItem
 import com.devstune.searchablemultiselectspinner.SearchableMultiSelectSpinner
 import com.devstune.searchablemultiselectspinner.SelectionCompleteListener
 import com.example.hhfoundation.Helper.ImageUploadClass.UploadRequestBody
+import com.amtech.vendorservices.V.sharedpreferences.SessionManager
+import com.amtech.vendorservices.databinding.ActivityUpdateServicesBinding
+import com.squareup.picasso.Picasso
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCallback {
+class UpdateServices : AppCompatActivity(), UploadRequestBody.UploadCallback {
     private val binding by lazy {
-        ActivityAddNewTranslatorServicesBinding.inflate(layoutInflater)
+        ActivityUpdateServicesBinding.inflate(layoutInflater)
     }
-    private val context = this@AddNewTranslatorServices
+    private val context = this@UpdateServices
     private var datePicker: PrimeDatePicker? = null
 
     //Lists
@@ -68,7 +79,8 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
     private var utilitiesList = ArrayList<ModelSpinner>()
     private var homeTypeList = ArrayList<ModelSpinner>()
     private var ammentiesData = ArrayList<ModelSpinner>()
-     private var mainEntranceList = ArrayList<ModelSpinner>()
+    private var ammentiesData1 = ArrayList<ModelSpinner>()
+    private var mainEntranceList = ArrayList<ModelSpinner>()
     private var multipleSelectedDate = StringBuilder()
     var count = 0
     var count1 = 0
@@ -80,16 +92,17 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
     private var drone = "On Call"
     private var translationFrom = ""
     private var zone = ""
+    private var Id = ""
     private var homeType = ""
-    private var maniEntrance = ArrayList<String>()
+    private var maniEntrance=ArrayList<String>()
     private var carType = ""
     private var drivingType = ""
     private var carModel = ""
     private var travelPerson = ""
     private var translationTo = ""
     private var serviceHourNew = ""
-    private var homeDays = ""
     private val mydilaog: Dialog? = null
+    val imageString = mutableListOf<String>() // Create a list to hold the URIs
 
     lateinit var sessionManager: SessionManager
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,10 +111,11 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
         sessionManager = SessionManager(context)
         Dashboard().languageSetting(this, sessionManager.selectedLanguage.toString())
 
-        if (Dashboard.refreshLanNew) {
-            Dashboard.refreshLanNew = false
-            refresh()
-        }
+//        if (Dashboard.refreshLanNew) {
+//            Dashboard.refreshLanNew = false
+//            refresh()
+//        }
+
         if (sessionManager.selectedLanguage == "en") {
             binding.imgLan.background = ContextCompat.getDrawable(context, R.drawable.arabic_text)
         } else {
@@ -125,15 +139,16 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                 overridePendingTransition(0, 0)
             }
         }
+
+       Id= intent.getStringExtra("id").toString()
+        apiCallGetProfile()
         with(binding) {
             imgBack.setOnClickListener {
                 onBackPressed()
             }
             when (sessionManager.usertype) {
                 "car" -> {
-                    binding.tvTitle.text = resources.getString(R.string.Car_Servicet)
-                    binding.tvAddNew.text = resources.getString(R.string.Add_New_Car_Rental_Service)
-                    binding.tvName.text = resources.getString(R.string.Car_Rental_Name)
+                      binding.tvName.text = resources.getString(R.string.Car_Rental_Name)
                     binding.tvDesc.text = resources.getString(R.string.Car_Rental_Description)
                     binding.tvImage.text = resources.getString(R.string.Car_Image)
                      binding.tvHoure.text = resources.getString(R.string.Days)
@@ -144,17 +159,15 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     binding.layoutHomeType.visibility = View.GONE
                     binding.layoutServiceDate.visibility = View.GONE
                     binding.layoutVideo.visibility = View.GONE
+                    binding.layoutCarOption.visibility = View.GONE
 
                 }
 
                 "home" -> {
-                    binding.tvTitle.text = resources.getString(R.string.Home_Service)
-                    binding.tvAddNew.text = resources.getString(R.string.Add_New_Home_Rental_Service)
 
                     binding.tvName.text = resources.getString(R.string.Home_Rental_Name)
                     binding.tvDesc.text = resources.getString(R.string.Home_Rental_Details)
                     binding.tvImage.text = resources.getString(R.string.Home_Image)
-
                     binding.layoutOnCall.visibility = View.GONE
                     binding.layoutTrasanlotor.visibility = View.GONE
                     binding.layoutDrivingType.visibility = View.GONE
@@ -169,10 +182,8 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     binding.layoutHomeSpinner.visibility = View.GONE
                     binding.layoutServiceDateHome.visibility = View.GONE
                     binding.layoutHomeType.visibility = View.GONE
+                    binding.layoutUti.visibility = View.GONE
                     binding.layoutCarOption.visibility = View.GONE
-                    binding.layoutServiceDate.visibility = View.GONE
-                    binding.layoutVideo.visibility = View.GONE
-
 
                 }
 
@@ -250,7 +261,6 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
             mainEntranceList.add(ModelSpinner(resources.getString(R.string.Master_Bedroom), "Master Bedroom"))
             mainEntranceList.add(ModelSpinner(resources.getString(R.string.Bedroom), "Bedroom"))
             mainEntranceList.add(ModelSpinner(resources.getString(R.string.The_Store), "The Store"))
-
             spinnerMainEntrance1.adapter =
                 ArrayAdapter<ModelSpinner>(
                     context,
@@ -303,7 +313,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (mainEntranceList.size > 0) {
-                            maniEntrance += mainEntranceList[i].value + ","
+                            maniEntrance.add(mainEntranceList[i].value)
                         }
                     }
 
@@ -320,11 +330,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (mainEntranceList.size > 0) {
-                            if (mainEntranceList[i].value != "The main Entrance") {
-                                maniEntrance += mainEntranceList[i].value + ","
-
-                            }
-
+                            maniEntrance.add(mainEntranceList[i].value)
                         }
                     }
 
@@ -341,10 +347,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (mainEntranceList.size > 0) {
-                            if (mainEntranceList[i].value != "The main Entrance") {
-                                maniEntrance += mainEntranceList[i].value + ","
-
-                            }
+                            maniEntrance.add(mainEntranceList[i].value)
                         }
                     }
 
@@ -361,10 +364,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (mainEntranceList.size > 0) {
-                            if (mainEntranceList[i].value != "The main Entrance") {
-                                maniEntrance += mainEntranceList[i].value + ","
-
-                            }
+                            maniEntrance.add(mainEntranceList[i].value)
                         }
                     }
 
@@ -381,10 +381,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (mainEntranceList.size > 0) {
-                            if (mainEntranceList[i].value != "The main Entrance") {
-                                maniEntrance += mainEntranceList[i].value + ","
-
-                            }
+                            maniEntrance.add(mainEntranceList[i].value)
                         }
                     }
 
@@ -401,10 +398,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (mainEntranceList.size > 0) {
-                            if (mainEntranceList[i].value != "The main Entrance") {
-                                maniEntrance += mainEntranceList[i].value + ","
-
-                            }
+                            maniEntrance.add(mainEntranceList[i].value)
                         }
                     }
 
@@ -421,10 +415,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (mainEntranceList.size > 0) {
-                            if (mainEntranceList[i].value != "The main Entrance") {
-                                maniEntrance += mainEntranceList[i].value + ","
-
-                            }
+                            maniEntrance.add(mainEntranceList[i].value)
                         }
                     }
 
@@ -441,10 +432,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         l: Long
                     ) {
                         if (mainEntranceList.size > 0) {
-                            if (mainEntranceList[i].value != "The main Entrance") {
-                                maniEntrance += mainEntranceList[i].value + ","
-
-                            }
+                            maniEntrance.add(mainEntranceList[i].value)
                         }
                     }
 
@@ -452,6 +440,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
                     }
                 }
+
 
             spinnerHomeType.adapter =
                 ArrayAdapter<ModelSpinner>(
@@ -603,7 +592,6 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     ) {
                         if (serviceHour.size > 0) {
                             serviceHourNew = serviceHour[i].text
-                            homeDays = serviceHour[i].text
                         }
                     }
 
@@ -684,19 +672,6 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
 
             //datePicker.datePicker.minDate = System.currentTimeMillis() - 1000;
 
-
-            tvEnglish.setOnClickListener {
-                tvSerNameEn.text = resources.getString(R.string._EN)
-                tvDescEn.text =  resources.getString(R.string._EN)
-                layoutEnglishLine.setBackgroundColor(resources.getColor(R.color.blue))
-                layoutArbicLine.setBackgroundColor(Color.parseColor("#FFFFFF"))
-            }
-            tvArabic.setOnClickListener {
-                tvSerNameEn.text =  resources.getString(R.string._AR)
-                tvDescEn.text = resources.getString(R.string._AR)
-                layoutEnglishLine.setBackgroundColor(Color.parseColor("#FFFFFF"))
-                layoutArbicLine.setBackgroundColor(resources.getColor(R.color.blue))
-            }
             radioOnCall.setOnCheckedChangeListener { _, _ ->
                 if (radioOnCall.isChecked) {
                     drone = "On Call"
@@ -765,19 +740,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     edtPrice.requestFocus()
                     return@setOnClickListener
                 }
-                when (sessionManager.usertype) {
-                    "car" -> {
-                        apiCallAddCar()
-                    }
-
-                    "home" -> {
-                        apiCallAddHome()
-                    }
-
-                    else -> {
-                        apiCallAddNewService()
-                    }
-                }
+                apiCallServiceUpdate()
 
             }
 
@@ -789,7 +752,6 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
             spinnerPrivateBBQGrill()
             spinnerUtilities()
             spinnerCarOption()
-
 
         }
         val callback = MultipleDaysPickCallback {
@@ -833,6 +795,171 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
         return formattedDate
 
     }
+    private fun apiCallGetProfile() {
+        AppProgressBar.showLoaderDialog(context)
+        ApiClient.apiService.getProfileList(
+            sessionManager.idToken.toString(),Id
+        )
+            .enqueue(object : Callback<ModelGetProfile> {
+                @SuppressLint("LogNotTimber")
+                override fun onResponse(
+                    call: Call<ModelGetProfile>, response: Response<ModelGetProfile>
+                ) {
+                    try {
+                        if (response.code() == 404) {
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else if (response.code() == 500) {
+                            myToast(context, resources.getString(R.string.Server_Error))
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else if (response.body()!!.data.isEmpty()) {
+                            myToast(context, resources.getString(R.string.No_Data_Found))
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else {
+
+                            for (i in response.body()!!.data) {
+                                binding.edtName.setText(i.name)
+                                binding.edtDescription.setText(i.description)
+                                binding.edtPrice.setText(i.price.toString())
+
+                                // Split the image string by commas and add each part to imageString
+                                val imagePaths = i.image!!.split(",")
+                                imageString.addAll(imagePaths) // This will add all the image paths from the split
+                            }
+                            if (sessionManager.usertype == "translator" ||sessionManager.usertype == "car") {
+                                with(binding){
+                                    spinnerMainEntrance1.visibility=View.GONE
+                                    spinnerMainEntrance2.visibility=View.GONE
+                                    spinnerMainEntrance3.visibility=View.GONE
+                                    spinnerMainEntrance4.visibility=View.GONE
+                                    spinnerMainEntrance5.visibility=View.GONE
+                                    spinnerMainEntrance5.visibility=View.GONE
+                                    spinnerMainEntrance6.visibility=View.GONE
+                                    spinnerMainEntrance7.visibility=View.GONE
+                                    spinnerMainEntrance8.visibility=View.GONE
+                                    layoutUti.visibility=View.GONE
+                                }
+                            }
+                            for (i in 0 until imageString.size) {
+
+                                // Set the images to the corresponding ImageViews
+                                when (i) {
+                                    0 -> {
+                                        binding.layoutMainaentrance1.visibility = View.VISIBLE
+                                         if (imageString[0] != null) {
+                                            Picasso.get().load("https://baseet.thedemostore.in/storage/app/public/product/"+imageString[0])
+                                                .placeholder(R.drawable.user)
+                                                .error(R.drawable.error_placeholder)
+                                                .into(binding.imageView1)
+
+                                        }
+                                    }
+
+                                    1 -> {
+                                        binding.layoutMainaentrance2.visibility = View.VISIBLE
+                                         if (imageString[1] != null) {
+                                            Picasso.get().load("https://baseet.thedemostore.in/storage/app/public/product/"+imageString[1])
+                                                .placeholder(R.drawable.user)
+                                                .error(R.drawable.error_placeholder)
+                                                .into(binding.imageView2)
+
+                                        }
+                                    }
+
+                                    2 -> {
+                                        binding.layoutMainaentrance3.visibility = View.VISIBLE
+                                         if (imageString[2] != null) {
+                                            Picasso.get().load("https://baseet.thedemostore.in/storage/app/public/product/"+imageString[2])
+                                                .placeholder(R.drawable.user)
+                                                .error(R.drawable.error_placeholder)
+                                                .into(binding.imageView3)
+
+                                        }
+                                    }
+
+                                    3 -> {
+                                        binding.layoutMainaentrance4.visibility = View.VISIBLE
+                                         if (imageString[3] != null) {
+                                            Picasso.get().load("https://baseet.thedemostore.in/storage/app/public/product/"+imageString[3])
+                                                .placeholder(R.drawable.user)
+                                                .error(R.drawable.error_placeholder)
+                                                .into(binding.imageView4)
+
+                                        }
+                                    }
+
+                                    4 -> {
+                                        binding.layoutMainaentrance5.visibility = View.VISIBLE
+                                         if (imageString[4] != null) {
+                                            Picasso.get().load("https://baseet.thedemostore.in/storage/app/public/product/"+imageString[4])
+                                                .placeholder(R.drawable.user)
+                                                .error(R.drawable.error_placeholder)
+                                                .into(binding.imageView5)
+
+                                        }
+                                    }
+
+                                    5 -> {
+                                        binding.layoutMainaentrance6.visibility = View.VISIBLE
+                                         if (imageString[5] != null) {
+                                            Picasso.get().load("https://baseet.thedemostore.in/storage/app/public/product/"+imageString[5])
+                                                .placeholder(R.drawable.user)
+                                                .error(R.drawable.error_placeholder)
+                                                .into(binding.imageView6)
+
+                                        }
+                                    }
+
+                                    6 -> {
+                                        binding.layoutMainaentrance7.visibility = View.VISIBLE
+                                         if (imageString[6] != null) {
+                                            Picasso.get().load("https://baseet.thedemostore.in/storage/app/public/product/"+imageString[6])
+                                                .placeholder(R.drawable.user)
+                                                .error(R.drawable.error_placeholder)
+                                                .into(binding.imageView7)
+
+                                        }
+                                    }
+
+                                    7 -> {
+                                        binding.layoutMainaentrance8.visibility = View.VISIBLE
+                                         if (imageString[7] != null) {
+                                            Picasso.get().load("https://baseet.thedemostore.in/storage/app/public/product/"+imageString[7])
+                                                .placeholder(R.drawable.user)
+                                                .error(R.drawable.error_placeholder)
+                                                .into(binding.imageView8)
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            AppProgressBar.hideLoaderDialog()
+
+                        }
+                    } catch (e: Exception) {
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
+                        e.printStackTrace()
+                        AppProgressBar.hideLoaderDialog()
+                    }
+                }
+                override fun onFailure(call: Call<ModelGetProfile>, t: Throwable) {
+                    AppProgressBar.hideLoaderDialog()
+                    count1++
+                    if (count1 <= 3) {
+                        Log.e("count", count1.toString())
+                        apiCallGetProfile()
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+                    }
+                    AppProgressBar.hideLoaderDialog()
+                }
+            })
+    }
 
     private fun spinnerScenic() {
         val itemsNew: MutableList<SearchableItem> = ArrayList()
@@ -866,21 +993,21 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
     }
     private fun spinnerCarOption() {
         val itemsNew: MutableList<SearchableItem> = ArrayList()
-        carOption.add(ModelSpinner("Driver Age 21 and over", "Driver Age 21 and over"))
-        carOption.add(ModelSpinner("Driving License Age 2 and above", "Driving License Age 2 and above"))
-        carOption.add(ModelSpinner("Unlimited Km in Trabzon", "Unlimited Km in Trabzon"))
-        carOption.add(ModelSpinner("limited Km", "limited Km"))
-        carOption.add(ModelSpinner("Manual", "Manual"))
-        carOption.add(ModelSpinner("Automatic", "Automatic"))
-        carOption.add(ModelSpinner("Full Insurance", "Full Insurance"))
-        carOption.add(ModelSpinner("Insurance against scratches", "Insurance against scratches"))
-        carOption.add(ModelSpinner("Diesel", "Diesel"))
-        carOption.add(ModelSpinner("Petrol", "Petrol"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Mountain_view), "Driver Age 21 and over"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Park_view), "Driving License Age 2 and above"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Park_view), "Unlimited Km in Trabzon"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Park_view), "limited Km"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Park_view), "Manual"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Park_view), "Automatic"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Park_view), "Full Insurance"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Park_view), "Insurance against scratches"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Park_view), "Diesel"))
+        carOption.add(ModelSpinner(resources.getString(R.string.Park_view), "Petrol"))
 
         for (i in carOption) {
             itemsNew.add(SearchableItem(i.text, i.value))
         }
-        binding.spinnerCarOption.setOnClickListener {
+        binding.spinnerScenic.setOnClickListener {
             SearchableMultiSelectSpinner.show(
                 context,
                 resources.getString(R.string.Select_Items),
@@ -896,7 +1023,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                             ammentiesData.add(ModelSpinner(i.code, "1"))
                             Log.e("chosenItems", i.text)
                         }
-                        binding.spinnerCarOption.text = selectedData.toString()
+                        binding.spinnerScenic.text = selectedData.toString()
                     }
 
                 })
@@ -1055,7 +1182,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         for (i in selectedItems) {
                             selectedData.append("${i.text}, ")
                             Log.e("chosenItems", i.code)
-                            ammentiesData.add(ModelSpinner(i.code, "1"))
+                            ammentiesData1.add(ModelSpinner(i.code, "1"))
 
                         }
                         binding.spinnerClothesstorage.text = selectedData.toString()
@@ -1114,7 +1241,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         for (i in selectedItems) {
                             selectedData.append("${i.text}, ")
                             Log.e("chosenItems", i.text)
-                            ammentiesData.add(ModelSpinner(i.code, "1"))
+                            ammentiesData1.add(ModelSpinner(i.code, "1"))
 
                         }
                         binding.spinnerPrivateBBQgrill.text = selectedData.toString()
@@ -1154,7 +1281,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                         for (i in selectedItems) {
                             selectedData.append("${i.text}, ")
                             Log.e("chosenItems", i.text)
-                            ammentiesData.add(ModelSpinner(i.code, "1"))
+                            ammentiesData1.add(ModelSpinner(i.code, "1"))
 
                         }
                         binding.spinnerUtilities.text = selectedData.toString()
@@ -1165,78 +1292,111 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
         }
     }
 
-    private fun apiCallAddNewService() {
-        if (selectedImageUris == null) {
-            myToast(context, resources.getString(R.string.Select_an_Image_First))
+
+
+    private fun apiCallServiceUpdate() {
+        if (selectedImageUris.isNullOrEmpty()) { // Check if the list of URIs is empty
+            apiCallServiceUpdateWithOutImg()
             return
         }
 
         AppProgressBar.showLoaderDialog(context)
+
         val parts = mutableListOf<MultipartBody.Part>() // List to hold image parts
 
         // Process each selected image URI
-        for (uri in selectedImageUris!!) {
-            try {
-                val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r", null)
-                val inputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
-                val file = File(
-                    cacheDir,
-                    contentResolver.getFileName(uri)
-                ) // Ensure the filename is unique
-                val outputStream = FileOutputStream(file)
-                inputStream.copyTo(outputStream)
-                outputStream.close() // Close the output stream
-                inputStream.close() // Close the input stream
+      //  if (!selectedImageUris.isNullOrEmpty()) {
+            for (uri in selectedImageUris!!) {
+                try {
+                    val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r", null)
+                    val inputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
+                    val file = File(
+                        cacheDir,
+                        contentResolver.getFileName(uri)
+                    ) // Ensure the filename is unique
+                    val outputStream = FileOutputStream(file)
+                    inputStream.copyTo(outputStream)
+                    outputStream.close() // Close the output stream
+                    inputStream.close() // Close the input stream
 
-                val body = UploadRequestBody(file, "image", this)
-                parts.add(
-                    MultipartBody.Part.createFormData(
-                        "image[]",
-                        file.name,
-                        body
-                    )
-                ) // Use "images[]" for multiple uploads
-            } catch (e: Exception) {
-                e.printStackTrace()
-                myToast(context, "error")
-                AppProgressBar.hideLoaderDialog()
-                return // Exit if any image fails to process
+                    val body = UploadRequestBody(file, "image", this)
+                    parts.add(
+                        MultipartBody.Part.createFormData(
+                            "image[]",
+                            file.name,
+                            body
+                        )
+                    ) // Use "images[]" for multiple uploads
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    myToast(context, "error")
+                    AppProgressBar.hideLoaderDialog()
+                    return // Exit if any image fails to process
+                }
             }
+      //  }
+
+
+        var ammentiesDataNew = arrayListOf("")
+
+
+        for (i in ammentiesData) {
+            ammentiesDataNew.add(i.text)
         }
-        ammentiesData.add(ModelSpinner("null", "1"))
+        for (i in ammentiesData1) {
+            ammentiesDataNew.add(i.text)
+        }
+        ammentiesDataNew = ArrayList(ammentiesDataNew.toSet())
+        maniEntrance = ArrayList(maniEntrance.toSet())
 
-        val mainCategory = ammentiesData.map { it.text } // Assuming ammentiesData is a List of a data class with a 'text' field
+// Alternatively, if you prefer a more concise approach:
+        ammentiesDataNew = ammentiesDataNew.distinct().toCollection(ArrayList())
 
-        val amenitiesParts = mainCategory.map { amenity ->
+        maniEntrance = maniEntrance.distinct().toCollection(ArrayList())
+
+        if (maniEntrance.isNullOrEmpty()){
+            maniEntrance.add("null")
+        }
+
+        if (ammentiesDataNew.isNullOrEmpty()){
+            ammentiesDataNew.add("null")
+        }
+
+
+// Convert amenities to MultipartBody.Part
+        val imageNumber = maniEntrance.map { imgnum ->
+            MultipartBody.Part.createFormData("images_number[]", imgnum)
+        }
+
+        val amenitiesParts = ammentiesDataNew.map { amenity ->
             MultipartBody.Part.createFormData("amenities[]", amenity)
         }
-        ApiClient.apiService.addNewService(
+        ApiClient.apiService.updateService(
             sessionManager.idToken.toString(),
-            "translator",
-             binding.edtPrice.text.toString().trim(),
-            binding.edtVideo.text.toString().trim(),
-            serviceHourNew,
+            Id,
             binding.edtName.text.toString().trim(),
             binding.edtDescription.text.toString().trim(),
-            multipleSelectedDate.toString(),
-            "",
-            "",
-            translationTo,
-            translationFrom,
+            binding.edtPrice.text.toString().trim(),
             drone,
-            sessionManager.longitude.toString(),
-            sessionManager.latitude.toString(),
+            translationFrom,
+            translationTo,
+            multipleSelectedDate.toString(),
+            drivingType,
+            serviceHourNew,
+             homeType,
+            carModel,
             "",
-            binding.ServiceDate.text.toString().trim(),
+            serviceHourNew,
+            imageNumber,
             amenitiesParts,
-            parts,
-        ).enqueue(object : Callback<ModelServiceList> {
+            parts
+            ).enqueue(object : Callback<ModelServiceList> {
             @SuppressLint("LogNotTimber")
             override fun onResponse(
                 call: Call<ModelServiceList>, response: Response<ModelServiceList>
             ) {
                 try {
-                    if (response.code() == 500) {
+                     if (response.code() == 500) {
                         myToast(context, resources.getString(R.string.Server_Error))
                         AppProgressBar.hideLoaderDialog()
 
@@ -1247,9 +1407,7 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
                     } else if (response.code() == 200) {
                         myToast(context, "${response.body()!!.message}")
                         AppProgressBar.hideLoaderDialog()
-                        // refresh()
-                        onBackPressed()
-
+                        refresh()
 
                     } else {
                         myToast(context, "${response.body()!!.message}")
@@ -1266,10 +1424,10 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
             }
 
             override fun onFailure(call: Call<ModelServiceList>, t: Throwable) {
-                   count++
-                   if (count<= 3) {
-                       Log.e("count", count.toString())
-                       apiCallAddNewService()
+                   count2++
+                   if (count2<= 3) {
+                       Log.e("count", count2.toString())
+                       apiCallServiceUpdate()
                    } else {
                        myToast(context, t.message.toString())
                        AppProgressBar.hideLoaderDialog()
@@ -1281,235 +1439,230 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
         })
 
     }
-
-    private fun apiCallAddCar() {
-        if (selectedImageUris.isNullOrEmpty()) { // Check if the list of URIs is empty
-            myToast(context, resources.getString(R.string.Select_an_Image_First))
-            return
-        }
+    private fun apiCallServiceUpdateWithOutImg() {
         AppProgressBar.showLoaderDialog(context)
 
         val parts = mutableListOf<MultipartBody.Part>() // List to hold image parts
 
-        // Process each selected image URI
-        for (uri in selectedImageUris!!) {
-            try {
-                val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r", null)
-                val inputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
-                val file = File(
-                    cacheDir,
-                    contentResolver.getFileName(uri)
-                ) // Ensure the filename is unique
-                val outputStream = FileOutputStream(file)
-                inputStream.copyTo(outputStream)
-                outputStream.close() // Close the output stream
-                inputStream.close() // Close the input stream
-
-                val body = UploadRequestBody(file, "image", this)
-                parts.add(
-                    MultipartBody.Part.createFormData(
-                        "image[]",
-                        file.name,
-                        body
-                    )
-                ) // Use "images[]" for multiple uploads
-            } catch (e: Exception) {
-                e.printStackTrace()
-                myToast(context, "error")
-                AppProgressBar.hideLoaderDialog()
-                return // Exit if any image fails to process
-            }
-        }
-        val mainCategory = ammentiesData.map { it.text } // Assuming ammentiesData is a List of a data class with a 'text' field
-
-        val amenitiesParts = mainCategory.map { amenity ->
-            MultipartBody.Part.createFormData("amenities[]", amenity)
-        }
-        ApiClient.apiService.addCar(
-            sessionManager.idToken.toString(),
-            "car",
-            binding.edtPrice.text.toString().trim(),
-            binding.edtVideo.text.toString().trim(),
-            serviceHourNew,
-            binding.edtName.text.toString().trim(),
-            binding.edtDescription.text.toString().trim(),
-            multipleSelectedDate.toString(),
-            "",
-            "",
-            travelPerson,
-            carModel,
-            carType,
-            sessionManager.longitude.toString(),
-            sessionManager.latitude.toString(),
-            "1",
-            drivingType,
-            amenitiesParts,
-            parts,
-            ).enqueue(object : Callback<ModelServiceList> {
-            @SuppressLint("LogNotTimber")
-            override fun onResponse(
-                call: Call<ModelServiceList>, response: Response<ModelServiceList>
-            ) {
-                try {
-                    if (response.code() == 500) {
-                        myToast(context, resources.getString(R.string.Server_Error))
-                        AppProgressBar.hideLoaderDialog()
-
-                    } else if (response.code() == 404) {
-                        myToast(context, resources.getString(R.string.Something_went_wrong))
-                        AppProgressBar.hideLoaderDialog()
-
-                    } else if (response.code() == 200) {
-                        myToast(context, "${response.body()!!.message}")
-                        AppProgressBar.hideLoaderDialog()
-                       // refresh()
-                        onBackPressed()
-
-                    } else {
-                        myToast(context, "${response.body()!!.message}")
-                        AppProgressBar.hideLoaderDialog()
+        // Static image URL
+        var staticImageUrl =""
+            for (i in 0 until imageString.size) {
+                when (i) {
+                    0 -> {
+                        staticImageUrl= "https://baseet.thedemostore.in/storage/app/public/product/${imageString[0]}"
+                        DownloadStaticImageTask(parts, staticImageUrl).execute()
                     }
 
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    myToast(context, resources.getString(R.string.Something_went_wrong))
-                    AppProgressBar.hideLoaderDialog()
+                    1 -> {
+                        staticImageUrl= "https://baseet.thedemostore.in/storage/app/public/product/${imageString[1]}"
+                        DownloadStaticImageTask(parts, staticImageUrl).execute()
+                    }
+
+                    2 -> {
+                        staticImageUrl= "https://baseet.thedemostore.in/storage/app/public/product/${imageString[2]}"
+                        DownloadStaticImageTask(parts, staticImageUrl).execute()
+                    }
+
+                    3 -> {
+                        staticImageUrl= "https://baseet.thedemostore.in/storage/app/public/product/${imageString[3]}"
+                        DownloadStaticImageTask(parts, staticImageUrl).execute()
+                    }
+
+                    4 -> {
+                        staticImageUrl= "https://baseet.thedemostore.in/storage/app/public/product/${imageString[4]}"
+                        DownloadStaticImageTask(parts, staticImageUrl).execute()
+                    }
+
+                    5 -> {
+                        staticImageUrl= "https://baseet.thedemostore.in/storage/app/public/product/${imageString[5]}"
+                        DownloadStaticImageTask(parts, staticImageUrl).execute()
+                    }
+
+                    6 -> {
+                        staticImageUrl= "https://baseet.thedemostore.in/storage/app/public/product/${imageString[6]}"
+                        DownloadStaticImageTask(parts, staticImageUrl).execute()
+                    }
+
+                    7 -> {
+                        staticImageUrl= "https://baseet.thedemostore.in/storage/app/public/product/${imageString[7]}"
+                        DownloadStaticImageTask(parts, staticImageUrl).execute()
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<ModelServiceList>, t: Throwable) {
-                count1++
-                if (count1 <= 3) {
-                    Log.e("count", count1.toString())
-                    apiCallAddCar()
-                } else {
-                    myToast(context, t.message.toString())
-                    AppProgressBar.hideLoaderDialog()
+        }
 
-                }
-                 AppProgressBar.hideLoaderDialog()
-            }
 
-        })
-
+        // Use AsyncTask to download the static image
     }
 
-    private fun apiCallAddHome() {
-        if (selectedImageUris.isNullOrEmpty()) { // Check if the list of URIs is empty
-            myToast(context, resources.getString(R.string.Select_an_Image_First))
-            return
-        }
+    private inner class DownloadStaticImageTask(
+        private val parts: MutableList<MultipartBody.Part>,
+        private val staticImageUrl: String
+    ) : AsyncTask<Void, Void, Boolean>() {
 
-        AppProgressBar.showLoaderDialog(context)
+        override fun doInBackground(vararg params: Void?): Boolean {
+            return try {
+                val staticImageFile = File(cacheDir, "static_image.jpg") // Create a temporary file for the static image
 
-        val parts = mutableListOf<MultipartBody.Part>() // List to hold image parts
-
-        // Process each selected image URI
-        for (uri in selectedImageUris!!) {
-            try {
-                val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r", null)
-                val inputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
-                val file = File(
-                    cacheDir,
-                    contentResolver.getFileName(uri)
-                ) // Ensure the filename is unique
-                val outputStream = FileOutputStream(file)
+                // Download the image from the URL
+                val urlConnection = URL(staticImageUrl).openConnection() as HttpURLConnection
+                urlConnection.doInput = true
+                urlConnection.connect()
+                val inputStream = urlConnection.inputStream
+                val outputStream = FileOutputStream(staticImageFile)
                 inputStream.copyTo(outputStream)
-                outputStream.close() // Close the output stream
-                inputStream.close() // Close the input stream
+                outputStream.close()
+                inputStream.close()
 
-                val body = UploadRequestBody(file, "image", this)
+                // Create MultipartBody.Part for the static image
+                val staticImageBody = UploadRequestBody(staticImageFile, "image", this@UpdateServices) // Adjust "this" if necessary
                 parts.add(
                     MultipartBody.Part.createFormData(
                         "image[]",
-                        file.name,
-                        body
+                        staticImageFile.name,
+                        staticImageBody
                     )
-                ) // Use "images[]" for multiple uploads
+                )
+                true // Return true if successful
             } catch (e: Exception) {
                 e.printStackTrace()
-                myToast(context, "error")
-                AppProgressBar.hideLoaderDialog()
-                return // Exit if any image fails to process
+                false // Return false if there was an error
             }
         }
-        val mainCategory = ammentiesData.map { it.text } // Assuming ammentiesData is a List of a data class with a 'text' field
 
-        val amenitiesParts = mainCategory.map { amenity ->
-            MultipartBody.Part.createFormData("amenities[]", amenity)
-        }
-        val imageNumber = maniEntrance.map { imgnum ->
-            MultipartBody.Part.createFormData("image_number[]", imgnum)
-        }
+        override fun onPostExecute(result: Boolean) {
+            // After downloading the static image, process user-selected images
+            if (result) {
+                // Process each selected image URI, even if the list is empty or null
+                for (uri in selectedImageUris ?: emptyList()) { // Use an empty list if selectedImageUris is null
+                    if (uri != null) { // Ensure the URI is valid
+                        try {
+                            val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r", null)
+                            if (parcelFileDescriptor != null) {
+                                val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+                                val file = File(
+                                    cacheDir,
+                                    contentResolver.getFileName(uri) ?: "temp_image_${System.currentTimeMillis()}.png" // Ensure the filename is unique
+                                )
+                                val outputStream = FileOutputStream(file)
+                                inputStream.copyTo(outputStream)
+                                outputStream.close() // Close the output stream
+                                inputStream.close() // Close the input stream
 
-        ApiClient.apiService.addHome(
-            sessionManager.idToken.toString(),
-            "home",
-            binding.edtPrice.text.toString().trim(),
-            homeDays,
-            binding.edtName.text.toString().trim(),
-            binding.edtDescription.text.toString().trim(),
-            multipleSelectedDate.toString(),
-            "",
-            "",
-            homeType,
-            sessionManager.longitude.toString(),
-            sessionManager.latitude.toString(),
-            "1",
-            amenitiesParts,
-            imageNumber,
-            parts,
-        ).enqueue(object : Callback<ModelServiceList> {
-            @SuppressLint("LogNotTimber")
-            override fun onResponse(
-                call: Call<ModelServiceList>, response: Response<ModelServiceList>
-            ) {
-                AppProgressBar.hideLoaderDialog() // Hide loader at the start of response handling
-                try {
-                    when (response.code()) {
-                        500 -> {
-                            myToast(context, resources.getString(R.string.Server_Error))
+                                val body = UploadRequestBody(file, "image", this@UpdateServices) // Adjust "this" if necessary
+                                parts.add(
+                                    MultipartBody.Part.createFormData(
+                                        "image[]",
+                                        file.name,
+                                        body
+                                    )
+                                ) // Use "images[]" for multiple uploads
+                            } else {
+                                myToast(context, "Unable to open file descriptor for URI: $uri")
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            myToast(context, "Error processing image: ${e.message}")
                             AppProgressBar.hideLoaderDialog()
+                            return // Exit if any image fails to process
                         }
-
-                        404 -> {
-                            myToast(context, resources.getString(R.string.Something_went_wrong))
-                            AppProgressBar.hideLoaderDialog()
-
-                        }
-
-                        200 -> {
-                            myToast(context, "${response.body()!!.message}")
-                            refresh() // Uncomment if needed
-                            onBackPressed()
-                        }
-
-                        else -> {
-                            myToast(context, "${response.body()!!.message}")
-                            AppProgressBar.hideLoaderDialog()
-
-                        }
-
+                    } else {
+                        myToast(context, "Encountered a null URI.")
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    myToast(context, resources.getString(R.string.Something_went_wrong))
+                }
+
+                // Continue with API call...
+                continueWithApiCall(parts)
+            } else {
+                AppProgressBar.hideLoaderDialog()
+                myToast(context, "Error downloading static image.")
+            }
+        }
+
+        private fun continueWithApiCall(parts: MutableList<MultipartBody.Part>) {
+            // Handle amenities data and make the API call as before...
+            var ammentiesDataNew = arrayListOf<String>()
+
+            for (i in ammentiesData) {
+                ammentiesDataNew.add(i.text)
+            }
+            for (i in ammentiesData1) {
+                ammentiesDataNew.add(i.text)
+            }
+            ammentiesDataNew = ArrayList(ammentiesDataNew.toSet())
+            maniEntrance = ArrayList(maniEntrance.toSet())
+
+            ammentiesDataNew = ammentiesDataNew.distinct().toCollection(ArrayList())
+            maniEntrance = maniEntrance.distinct().toCollection(ArrayList())
+            if (maniEntrance.isNullOrEmpty()){
+                maniEntrance.add("null")
+            }
+
+            if (ammentiesDataNew.isNullOrEmpty()){
+                ammentiesDataNew.add("null")
+            }
+            // Convert amenities to MultipartBody.Part
+            val imageNumber = maniEntrance.map { imgnum ->
+                MultipartBody.Part.createFormData("images_number[]", imgnum)
+            }
+
+            val amenitiesParts = ammentiesDataNew.map { amenity ->
+                MultipartBody.Part.createFormData("amenities[]", amenity)
+            }
+
+            // Make the API call
+            ApiClient.apiService.updateService(
+                sessionManager.idToken.toString(),
+                Id,
+                binding.edtName.text.toString().trim(),
+                binding.edtDescription.text.toString().trim(),
+                binding.edtPrice.text.toString().trim(),
+                drone,
+                translationFrom,
+                translationTo,
+                multipleSelectedDate.toString(),
+                drivingType,
+                serviceHourNew,
+                homeType,
+                carModel,
+                "",
+                serviceHourNew,
+                imageNumber,
+                amenitiesParts,
+                parts
+            ).enqueue(object : Callback<ModelServiceList> {
+                @SuppressLint("LogNotTimber")
+                override fun onResponse(
+                    call: Call<ModelServiceList>, response: Response<ModelServiceList>
+                ) {
                     AppProgressBar.hideLoaderDialog()
-
+                    try {
+                        when (response.code()) {
+                            500 -> myToast(context, resources.getString(R.string.Server_Error))
+                            404 -> myToast(context, resources.getString(R.string.Something_went_wrong))
+                            200 -> {
+                                myToast(context, "${response.body()!!.message}")
+                             }
+                            else -> myToast(context, "${response.body()!!.message}")
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<ModelServiceList>, t: Throwable) {
-                count2++
-                if (count2 <= 3) {
-                    Log.e("count", count2.toString())
-                    apiCallAddHome() // Retry the API call
-                } else {
-                    myToast(context, t.message.toString())
+                override fun onFailure(call: Call<ModelServiceList>, t: Throwable) {
+                    count2++
+//                    if (count2 <= 3) {
+//                        Log.e("count", count2.toString())
+//                        apiCallServiceUpdateWithOutImg() // Retry the API call
+//                    } else {
+                        myToast(context, t.message.toString())
+                  //  }
+                    AppProgressBar.hideLoaderDialog()
                 }
-                AppProgressBar.hideLoaderDialog() // Hide loader on failure
-            }
-        })
+            })
+        }
     }
 
     fun refresh() {
@@ -1518,142 +1671,8 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
         startActivity(intent)
         overridePendingTransition(0, 0)
     }
-    private fun openImageChooserSingle() {
-        Intent(Intent.ACTION_PICK).also {
-            it.type = "image/*"
-            (MediaStore.ACTION_IMAGE_CAPTURE)
-            val mimeTypes = arrayOf("image/jpeg", "image/png")
-            it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-            startActivityForResult(it, REQUEST_CODE_IMAGE)
-//
-//        val pdfIntent = Intent(Intent.ACTION_GET_CONTENT)
-//        pdfIntent.type = "application/pdf"
-//        pdfIntent.addCategory(Intent.CATEGORY_OPENABLE)
-//        startActivityForResult(pdfIntent, REQUEST_CODE_IMAGE)
-
-        }
-    }
-
-    private fun openImageChooser() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "image/*"
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            val mimeTypes = arrayOf("image/jpeg", "image/png")
-            putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        }
-
-        startActivityForResult(Intent.createChooser(intent, "Select Pictures"), REQUEST_CODE_IMAGE)
-    }
 
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                REQUEST_CODE_IMAGE -> {
-                    val imageUris = mutableListOf<Uri>() // Create a list to hold the URIs
-                    if (data?.clipData != null) {
-                        // Multiple images selected
-                        val count = data.clipData!!.itemCount
-
-                        for (i in 0 until count) {
-                            val uri = data.clipData!!.getItemAt(i).uri
-                            imageUris.add(uri) // Add each URI to the list
-
-                            // Set the images to the corresponding ImageViews
-                            when (i) {
-                                0 -> {
-                                    binding.layoutMainaentrance1.visibility = View.VISIBLE
-                                    binding.imageView1.setImageURI(uri)
-                                }
-
-                                1 -> {
-                                    binding.layoutMainaentrance2.visibility = View.VISIBLE
-                                    binding.imageView2.setImageURI(uri)
-                                }
-
-                                2 -> {
-                                    binding.layoutMainaentrance3.visibility = View.VISIBLE
-                                    binding.imageView3.setImageURI(uri)
-                                }
-
-                                3 -> {
-                                    binding.layoutMainaentrance4.visibility = View.VISIBLE
-                                    binding.imageView4.setImageURI(uri)
-                                }
-
-                                4 -> {
-                                    binding.layoutMainaentrance5.visibility = View.VISIBLE
-                                    binding.imageView5.setImageURI(uri)
-                                }
-
-                                5 -> {
-                                    binding.layoutMainaentrance6.visibility = View.VISIBLE
-                                    binding.imageView6.setImageURI(uri)
-                                }
-
-                                6 -> {
-                                    binding.layoutMainaentrance7.visibility = View.VISIBLE
-                                    binding.imageView7.setImageURI(uri)
-                                }
-
-                                7 -> {
-                                    binding.layoutMainaentrance8.visibility = View.VISIBLE
-                                    binding.imageView8.setImageURI(uri)
-                                }
-                            }
-                        }
-                        if (sessionManager.usertype == "translator" || sessionManager.usertype == "car") {
-                            with(binding) {
-                                spinnerMainEntrance1.visibility = View.GONE
-                                spinnerMainEntrance2.visibility = View.GONE
-                                spinnerMainEntrance3.visibility = View.GONE
-                                spinnerMainEntrance4.visibility = View.GONE
-                                spinnerMainEntrance5.visibility = View.GONE
-                                spinnerMainEntrance5.visibility = View.GONE
-                                spinnerMainEntrance6.visibility = View.GONE
-                                spinnerMainEntrance7.visibility = View.GONE
-                                spinnerMainEntrance8.visibility = View.GONE
-                            }
-                        }
-                        // Now you can use the imageUris list to pass the URIs to your API
-                        selectedImageUris = imageUris // Store the list of URIs
-                        sendImagesToApi(selectedImageUris!!) // Call your API method here
-
-                    } else if (data?.data != null) {
-                        // Single image selected
-                        selectedImageUris = listOf(data.data!!) // Wrap it in a list
-                        binding.layoutMainaentrance1.visibility = View.VISIBLE
-                        binding.imageView1.setImageURI(selectedImageUris!![0]) // Display the single image
-                        if (sessionManager.usertype == "translator" || sessionManager.usertype == "car") {
-                            with(binding) {
-                                spinnerMainEntrance1.visibility = View.GONE
-                                spinnerMainEntrance2.visibility = View.GONE
-                                spinnerMainEntrance3.visibility = View.GONE
-                                spinnerMainEntrance4.visibility = View.GONE
-                                spinnerMainEntrance5.visibility = View.GONE
-                                spinnerMainEntrance5.visibility = View.GONE
-                                spinnerMainEntrance6.visibility = View.GONE
-                                spinnerMainEntrance7.visibility = View.GONE
-                                spinnerMainEntrance8.visibility = View.GONE
-                            }
-                        }
-                        // Pass the single selected URI to your API
-                        sendImagesToApi(selectedImageUris!!) // Call your API method here
-                    }
-                }
-            }
-        }
-    }
-
-    private fun sendImagesToApi(imageUris: List<Uri>) {
-        // Here, implement your API call using the list of URIs
-        for (uri in imageUris) {
-            Log.d("API_URI", uri.toString())
-            // Your API request logic here
-        }
-    }
 
 
     companion object {
@@ -1677,7 +1696,141 @@ class AddNewTranslatorServices : AppCompatActivity(), UploadRequestBody.UploadCa
     override fun onProgressUpdate(percentage: Int) {
 
     }
+    private fun openImageChooserSingle() {
+        Intent(Intent.ACTION_PICK).also {
+            it.type = "image/*"
+            (MediaStore.ACTION_IMAGE_CAPTURE)
+            val mimeTypes = arrayOf("image/jpeg", "image/png")
+            it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            startActivityForResult(it, AddNewTranslatorServices.REQUEST_CODE_IMAGE)
+//
+//        val pdfIntent = Intent(Intent.ACTION_GET_CONTENT)
+//        pdfIntent.type = "application/pdf"
+//        pdfIntent.addCategory(Intent.CATEGORY_OPENABLE)
+//        startActivityForResult(pdfIntent, REQUEST_CODE_IMAGE)
 
+        }
+    }
+
+    private fun openImageChooser() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            val mimeTypes = arrayOf("image/jpeg", "image/png")
+            putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+        }
+
+        startActivityForResult(Intent.createChooser(intent, "Select Pictures"), AddNewTranslatorServices.REQUEST_CODE_IMAGE)
+    }
+
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                AddNewTranslatorServices.REQUEST_CODE_IMAGE -> {
+                    val imageUris = mutableListOf<Uri>() // Create a list to hold the URIs
+                    if (data?.clipData != null) {
+                        // Multiple images selected
+                        val count = data.clipData!!.itemCount
+                        if (count>7){
+                            myToast(context,"you can select only 7 images")
+                        }else {
+                            for (i in 0 until count) {
+                                val uri = data.clipData!!.getItemAt(i).uri
+                                imageUris.add(uri) // Add each URI to the list
+
+                                // Set the images to the corresponding ImageViews
+                                when (i) {
+                                    0 -> {
+                                        binding.layoutMainaentrance1.visibility = View.VISIBLE
+                                        binding.imageView1.setImageURI(uri)
+                                    }
+
+                                    1 -> {
+                                        binding.layoutMainaentrance2.visibility = View.VISIBLE
+                                        binding.imageView2.setImageURI(uri)
+                                    }
+
+                                    2 -> {
+                                        binding.layoutMainaentrance3.visibility = View.VISIBLE
+                                        binding.imageView3.setImageURI(uri)
+                                    }
+
+                                    3 -> {
+                                        binding.layoutMainaentrance4.visibility = View.VISIBLE
+                                        binding.imageView4.setImageURI(uri)
+                                    }
+
+                                    4 -> {
+                                        binding.layoutMainaentrance5.visibility = View.VISIBLE
+                                        binding.imageView5.setImageURI(uri)
+                                    }
+
+                                    5 -> {
+                                        binding.layoutMainaentrance6.visibility = View.VISIBLE
+                                        binding.imageView6.setImageURI(uri)
+                                    }
+
+                                    6 -> {
+                                        binding.layoutMainaentrance7.visibility = View.VISIBLE
+                                        binding.imageView7.setImageURI(uri)
+                                    }
+
+                                    7 -> {
+                                        binding.layoutMainaentrance8.visibility = View.VISIBLE
+                                        binding.imageView8.setImageURI(uri)
+                                    }
+                                }
+                            }
+                            if (sessionManager.usertype == "translator" || sessionManager.usertype == "car") {
+                                with(binding) {
+                                    spinnerMainEntrance1.visibility = View.GONE
+                                    spinnerMainEntrance2.visibility = View.GONE
+                                    spinnerMainEntrance3.visibility = View.GONE
+                                    spinnerMainEntrance4.visibility = View.GONE
+                                    spinnerMainEntrance5.visibility = View.GONE
+                                    spinnerMainEntrance5.visibility = View.GONE
+                                    spinnerMainEntrance6.visibility = View.GONE
+                                    spinnerMainEntrance7.visibility = View.GONE
+                                    spinnerMainEntrance8.visibility = View.GONE
+                                }
+                            }
+                            // Now you can use the imageUris list to pass the URIs to your API
+                            selectedImageUris = imageUris // Store the list of URIs
+                        }
+
+                    } else if (data?.data != null) {
+                        if (sessionManager.usertype == "translator" || sessionManager.usertype == "car") {
+                            with(binding) {
+                                spinnerMainEntrance1.visibility = View.GONE
+                                spinnerMainEntrance2.visibility = View.GONE
+                                spinnerMainEntrance3.visibility = View.GONE
+                                spinnerMainEntrance4.visibility = View.GONE
+                                spinnerMainEntrance5.visibility = View.GONE
+                                spinnerMainEntrance5.visibility = View.GONE
+                                spinnerMainEntrance6.visibility = View.GONE
+                                spinnerMainEntrance7.visibility = View.GONE
+                                spinnerMainEntrance8.visibility = View.GONE
+                            }
+                        }
+                        // Single image selected
+                        selectedImageUris = listOf(data.data!!) // Wrap it in a list
+                        binding.layoutMainaentrance1.visibility = View.VISIBLE
+                        binding.imageView1.setImageURI(selectedImageUris!![0]) // Display the single image
+
+                      }
+                }
+            }
+        }
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Dashboard.back=true
+
+    }
     override fun onDestroy() {
         super.onDestroy()
         Dashboard.refreshLanNew=true

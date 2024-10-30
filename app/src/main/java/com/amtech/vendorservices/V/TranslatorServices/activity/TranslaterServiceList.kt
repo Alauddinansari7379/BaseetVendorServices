@@ -1,6 +1,8 @@
 package com.amtech.vendorservices.V.TranslatorServices.activity
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,30 +13,51 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Dashboard.Dashboard
+import com.amtech.vendorservices.V.Dashboard.Dashboard.Companion.back
 import com.amtech.vendorservices.V.Dashboard.model.ModelSpinner
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.myToast
+import com.amtech.vendorservices.V.Order.Model.ModelChange.ModelChange
 import com.amtech.vendorservices.V.TranslatorServices.activity.adapter.AdapterServiceList
 import com.amtech.vendorservices.V.TranslatorServices.activity.adapter.AdapterServiceListCar
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.ModelGetListCar
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelServiceList
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.Product
 import com.amtech.vendorservices.V.retrofit.ApiClient
-import com.amtech.vendorservices.databinding.ActivityTranslaterServiceListBinding
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
+import com.amtech.vendorservices.databinding.ActivityTranslaterServiceListBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TranslaterServiceList : AppCompatActivity() {
+class TranslaterServiceList : AppCompatActivity(),AdapterServiceList.Active,AdapterServiceListCar.Active{
     private val binding by lazy {
         ActivityTranslaterServiceListBinding.inflate(layoutInflater)
     }
     var count = 0
-    private var statisticsList = ArrayList<ModelSpinner>()
+    var count5 = 0
+    var dialog:Dialog?=null
 
     private lateinit var mainData: ArrayList<Product>
     private lateinit var mainDataCar: ArrayList<com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.Product>
+    //Lists
+    private var statisticsList = ArrayList<ModelSpinner>()
+    private var zoneList = ArrayList<ModelSpinner>()
+    private var carTypeList = ArrayList<ModelSpinner>()
+    private var carModelList = ArrayList<ModelSpinner>()
+    private var travellingList = ArrayList<ModelSpinner>()
+    private var serviceHour = ArrayList<ModelSpinner>()
+    private var scenicList = ArrayList<ModelSpinner>()
+    private var bathroomList = ArrayList<ModelSpinner>()
+    private var essentialsList = ArrayList<ModelSpinner>()
+    private var clothesStorageList = ArrayList<ModelSpinner>()
+    private var privateBBQGrillList = ArrayList<ModelSpinner>()
+    private var utilitiesList = ArrayList<ModelSpinner>()
+    private var homeTypeList = ArrayList<ModelSpinner>()
+    private var ammentiesData = ArrayList<ModelSpinner>()
+    private var ammentiesData1 = ArrayList<ModelSpinner>()
+    private var mainEntranceList = ArrayList<ModelSpinner>()
+    private var multipleSelectedDate = StringBuilder()
 
     val context = this@TranslaterServiceList
     lateinit var sessionManager: SessionManager
@@ -83,18 +106,21 @@ class TranslaterServiceList : AppCompatActivity() {
                 apiCallServiceList()
             }
 
+            btnAddNew.setOnClickListener {
+                startActivity(Intent(context,AddNewTranslatorServices::class.java))
+            }
 
             when (sessionManager.usertype) {
                 "car" -> {
                     binding.tvTitle.text = resources.getString(R.string.Car_Rental_List)
-                    binding.btnAddNew.text = resources.getString(R.string.Add_New_Item)
-                    binding.tvList.text = resources.getString(R.string.Item_List)
+                    binding.btnAddNew.text = resources.getString(R.string.add_new_service)
+                    binding.tvList.text = resources.getString(R.string.service_list)
                 }
 
                 "home" -> {
                     binding.tvTitle.text = resources.getString(R.string.Home_Rental_List)
-                    binding.btnAddNew.text = resources.getString(R.string.Add_New_Item)
-                    binding.tvList.text = resources.getString(R.string.Item_List)
+                    binding.btnAddNew.text = resources.getString(R.string.add_new_service)
+                    binding.tvList.text = resources.getString(R.string.service_list)
                 }
 //                "translator"->{
 //                    binding.includedrawar1.tvService.text="Translator Service"
@@ -154,6 +180,14 @@ class TranslaterServiceList : AppCompatActivity() {
 
                     }
                 }
+        }
+    }
+    override fun onResume() {
+        super.onResume()
+        apiCallServiceList()
+        if (back){
+            back=false
+            apiCallServiceList()
         }
     }
     private fun apiCallServiceList() {
@@ -266,7 +300,7 @@ class TranslaterServiceList : AppCompatActivity() {
     }
     private fun setRecyclerViewAdapter(data: ArrayList<Product>) {
         binding.recyclerView.apply {
-            adapter = AdapterServiceList(context, data)
+            adapter = AdapterServiceList(context, data,this@TranslaterServiceList)
             AppProgressBar.hideLoaderDialog()
 
         }
@@ -274,7 +308,7 @@ class TranslaterServiceList : AppCompatActivity() {
 
     private fun setRecyclerViewAdapterCar(data: ArrayList<com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.Product>) {
         binding.recyclerView.apply {
-            adapter = AdapterServiceListCar(context, data)
+            adapter = AdapterServiceListCar(context, data,this@TranslaterServiceList)
             AppProgressBar.hideLoaderDialog()
 
         }
@@ -283,4 +317,60 @@ class TranslaterServiceList : AppCompatActivity() {
         super.onDestroy()
         Dashboard.refreshLanNew=true
     }
-}
+
+    override fun active(id: String,statues: String) {
+        AppProgressBar.showLoaderDialog(context)
+        ApiClient.apiService.active(
+            sessionManager.idToken.toString(),
+            id, statues
+        )
+            .enqueue(object : Callback<ModelServiceList> {
+                @SuppressLint("LogNotTimber", "SetTextI18n")
+                override fun onResponse(
+                    call: Call<ModelServiceList>, response: Response<ModelServiceList>
+                ) {
+                    try {
+                        if (response.code() == 404) {
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
+
+                        } else if (response.code() == 500) {
+                            myToast(context, resources.getString(R.string.Server_Error))
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else {
+                            count5 = 0
+                            myToast(context, response.body()!!.msg)
+                            AppProgressBar.hideLoaderDialog()
+                            dialog?.dismiss()
+                            refresh()
+
+
+                        }
+                    } catch (e: Exception) {
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
+                        e.printStackTrace()
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                }
+
+
+                override fun onFailure(call: Call<ModelServiceList>, t: Throwable) {
+                    myToast(context, t.message.toString())
+                    AppProgressBar.hideLoaderDialog()
+                    count5++
+                    if (count5 <= 3) {
+                        Log.e("count", count5.toString())
+                        active(id,statues)
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                    AppProgressBar.hideLoaderDialog()
+                }
+
+            })
+
+    }
+    }

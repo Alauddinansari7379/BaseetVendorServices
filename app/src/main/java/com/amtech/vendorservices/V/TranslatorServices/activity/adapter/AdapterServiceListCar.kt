@@ -2,11 +2,14 @@ package com.amtech.vendorservices.V.TranslatorServices.activity.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amtech.vendorservices.R
+import com.amtech.vendorservices.V.TranslatorServices.activity.UpdateServices
+import com.amtech.vendorservices.V.TranslatorServices.activity.adapter.AdapterServiceList.Active
 import com.amtech.vendorservices.databinding.SingleRowServiceListBinding
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import com.squareup.picasso.Picasso
@@ -15,7 +18,9 @@ import com.squareup.picasso.Picasso
 class AdapterServiceListCar(
     val context: Context,
     var list: ArrayList<com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.Product>,
- ) : RecyclerView.Adapter<AdapterServiceListCar.ViewHolder>() {
+    val active: Active
+
+) : RecyclerView.Adapter<AdapterServiceListCar.ViewHolder>() {
     lateinit var sessionManager: SessionManager
 
     inner class ViewHolder(val binding: SingleRowServiceListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -38,7 +43,7 @@ class AdapterServiceListCar(
                     binding.tvName.text = name
                       binding.tvType.text = sessionManager.usertype+context.resources.getString(R.string.Service)
                      binding.tvPrice.text = "$price$"
-                    if (status==1){
+                    if (isActive == "0" || isActive == null) {
                         binding.switchStatus.isChecked=true
                     }else{
                         binding.switchStatus.isChecked=false
@@ -52,8 +57,20 @@ class AdapterServiceListCar(
                     Log.i("ImgrURL",sessionManager.imageURL+list[position].image)
 
                 }
-
-
+                    binding.switchStatus.setOnClickListener {
+                        var statues = "0"
+                        if (isActive=="0"|| isActive==null) {
+                            statues = "1"
+                        }
+                        active.active(id.toString(), statues)
+                    }
+                    binding.layoutEdit.setOnClickListener {
+                        val i = Intent(context, UpdateServices::class.java)
+//                            .putExtra("callFrom", "Home")
+//                            .putExtra("statues", binding.tvRequested.text.toString())
+                            .putExtra("id", id.toString())
+                        context.startActivity(i)
+                    }
 
                 }
             }
@@ -61,7 +78,7 @@ class AdapterServiceListCar(
             e.printStackTrace()
         }
     }
-//    interface Cart{
-//        fun addToCart(toString: String)
-//    }
+    interface Active {
+        fun active(id: String, statues: String)
+    }
 }

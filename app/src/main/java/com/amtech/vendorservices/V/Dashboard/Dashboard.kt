@@ -36,6 +36,7 @@ import com.amtech.vendorservices.R
 import com.amtech.vendorservices.V.Dashboard.model.ModelDashTra.ModelDashTra
 import com.amtech.vendorservices.V.Dashboard.model.ModelDashboard
 import com.amtech.vendorservices.V.Dashboard.model.ModelSpinner
+import com.amtech.vendorservices.V.Dashboard.model.modelStatic.ModelStatics
 import com.amtech.vendorservices.V.Helper.AppProgressBar
 import com.amtech.vendorservices.V.Helper.isOnline
 import com.amtech.vendorservices.V.Helper.myToast
@@ -97,6 +98,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
     private val REQUEST_CODE = 100
     private var count = 1
     private var count1 = 1
+    private var count2 = 1
     private var currentAddress = ""
     private var postalCodeNew = ""
     val commission = ArrayList<Int>()
@@ -606,6 +608,17 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                 ) {
                     if (statisticsList.size > 0) {
                         val statusChange = statisticsList[i].value
+                        when (statusChange) {
+                            "Overall Statistics" -> {
+                                apiCallGetStatistics("overall")
+                            }
+                            "Today's Statistics" -> {
+                                apiCallGetStatistics("today")
+                            }
+                            "This Month's Statistics" -> {
+                                apiCallGetStatistics("this_month")
+                            }
+                        }
                     }
                 }
 
@@ -631,6 +644,63 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         }
     }
 
+    private fun apiCallGetStatistics(filter: String) {
+      //  AppProgressBar.showLoaderDialog(context)
+        ApiClient.apiService.getStatistics(
+            sessionManager.idToken.toString(), filter
+        )
+            .enqueue(object : Callback<ModelStatics> {
+                @SuppressLint("LogNotTimber", "SetTextI18n")
+                override fun onResponse(
+                    call: Call<ModelStatics>, response: Response<ModelStatics>
+                ) {
+                    try {
+                        if (response.code() == 404) {
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else if (response.code() == 500) {
+                            myToast(context, resources.getString(R.string.Server_Error))
+                            AppProgressBar.hideLoaderDialog()
+
+                        }  else {
+                            with(binding){
+                                tvTotalSer.text=response.body()!!.total_service.toString()
+                                tvOrderedSer.text=response.body()!!.total_orders.toString()
+                                tvCompletedSer.text=response.body()!!.completed_orders.toString()
+                                tvRejectedSer.text=response.body()!!.rejected_service_requests.toString()
+                            }
+                            AppProgressBar.hideLoaderDialog()
+
+
+                        }
+                    } catch (e: Exception) {
+                        myToast(context, resources.getString(R.string.Server_Error))
+                        e.printStackTrace()
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                }
+
+
+                override fun onFailure(call: Call<ModelStatics>, t: Throwable) {
+                    myToast(context, t.message.toString())
+                    AppProgressBar.hideLoaderDialog()
+                    count2++
+                    if (count2 <= 3) {
+                        Log.e("count", count2.toString())
+                        apiCallGetStatistics(filter)
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                    AppProgressBar.hideLoaderDialog()
+                }
+
+            })
+
+    }
     private fun apiCallAllOrderCount() {
         ApiClient.apiService.allOrders(
             sessionManager.idToken.toString(),
@@ -1166,12 +1236,18 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                             commissionsSum += commissionObject.getDouble(key)
                         }
 
-                        // Print the sums
-                        println("Sum of earnings: $earningsSum")
-                        println("Sum of commissions: $commissionsSum")
+                        // Format the sums to 2 decimal places
+                        val earningsFormatted = String.format("%.2f", earningsSum)
+                        val commissionsFormatted = String.format("%.2f", commissionsSum)
 
-                        binding.totalEarning.text = earningsSum.toString() + " $"
-                        binding.commission.text = commissionsSum.toString() + " $"
+                        // Print the sums
+                        println("Sum of earnings: $earningsFormatted")
+                        println("Sum of commissions: $commissionsFormatted")
+
+                        // Set the formatted values in the TextViews
+                        binding.totalEarning.text = "$earningsFormatted $"
+                        binding.commission.text = "$commissionsFormatted $"
+
 
                         AppProgressBar.hideLoaderDialog()
                         // binding.tvRejectedSer

@@ -1,8 +1,14 @@
 package com.amtech.vendorservices.V.Order.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.ContentResolver
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
@@ -15,13 +21,20 @@ import com.amtech.vendorservices.V.Helper.myToast
 import com.amtech.vendorservices.V.Order.Model.DeliveryAddress
 import com.amtech.vendorservices.V.Order.Model.ModelOrderDet.ModelOrderDet
 import com.amtech.vendorservices.V.Order.Model.ModelSendSer.ModelSendSer
+import com.amtech.vendorservices.V.TranslatorServices.activity.AddNewTranslatorServices.Companion.REQUEST_CODE_IMAGE
+import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelServiceList
 import com.amtech.vendorservices.V.retrofit.ApiClient
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import com.amtech.vendorservices.databinding.ActivityOrderDetailsBinding
+import com.example.hhfoundation.Helper.ImageUploadClass.UploadRequestBody
 import com.google.gson.Gson
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -29,7 +42,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
-class OrderDetails : AppCompatActivity() {
+class OrderDetails : AppCompatActivity(), UploadRequestBody.UploadCallback  {
     private val binding by lazy {
         ActivityOrderDetailsBinding.inflate(layoutInflater)
     }
@@ -37,11 +50,14 @@ class OrderDetails : AppCompatActivity() {
     var orderStatus = ""
     var date = ""
     var type = ""
+    var typeUpload = ""
     var currentdate = ""
     var orderPayment = ""
     var serviceDateNew = ""
+    var imgId = ""
     var count = 0
     var count1 = 0
+    var selectedImageUri: Uri? = null
     var dateNew: LocalDateTime? = null
     var currentDateNew: LocalDateTime? = null
     private val context = this@OrderDetails
@@ -106,9 +122,16 @@ class OrderDetails : AppCompatActivity() {
         orderId = intent.getStringExtra("orderId").toString()
         orderStatus = intent.getStringExtra("orderStatus").toString()
         serviceDateNew = intent.getStringExtra("serDate").toString()
+        binding.btnUploadDoc.setOnClickListener {
+            apiCalUploadDoc()
+        }
         when (orderStatus) {
             "confirmed" -> {
                 binding.btnDeleverd.visibility = View.VISIBLE
+                if (typeUpload=="Doc"){
+                    binding.btnUploadDoc.visibility = View.VISIBLE
+                }
+
             }
 
             "pending" -> {
@@ -139,6 +162,9 @@ class OrderDetails : AppCompatActivity() {
 
         binding.btnDeleverd.setOnClickListener {
             if (orderPayment=="partial"){
+                if (typeUpload=="Doc"){
+                    myToast(context,"Please Upload Document first")
+                }
                 myToast(context,"Full payment not paid yet")
             }else{
                 apiCallStatuesChange(orderId, "delivered")
@@ -193,8 +219,13 @@ class OrderDetails : AppCompatActivity() {
                             }
                             binding.date.text=serviceDateNew
                             orderStatus = response.body()!!.order_status
-                            binding.tvTotal.text = response.body()!!.order_amount.toString() + " $"
+                            imgId = response.body()!!.id.toString()
 
+
+                            for (i in response.body()!!.servrequests) {
+                                 binding.tvTotal.text = i.price.toString() + " $"
+
+                            }
                             for (i in response.body()!!.data) {
                                 binding.tvHomeDays.text = i.food_details.home_days
 
@@ -237,15 +268,23 @@ class OrderDetails : AppCompatActivity() {
 //                                val trTo = jsonObject.getString("tr_to")
 //                                val trPerson = jsonObject.getString("trperson")
 //                                val drivType = jsonObject.optString("driv_type", "N/A")
+                                for (i in response.body()!!.servrequests) {
+                                    if (i.type!=null){
+                                        typeUpload= i.type.toString()
 
+                                    }
+                                }
 
+                            }
+                            if (sessionManager.usertype != "home"){
                                 for (i in response.body()!!.details) {
-                                    binding.tvTrFrom.text = resources.getString(R.string.From) +i.food_details.tr_from
-                                    binding.tvTraTo.text = resources.getString(R.string.To) +i.food_details.tr_to
+                                    binding.tvTrFrom.text =
+                                        resources.getString(R.string.From) + i.food_details.tr_from
+                                    binding.tvTraTo.text =
+                                        resources.getString(R.string.To) + i.food_details.tr_to
                                     binding.tvDrivingType.text = i.food_details.driv_type.toString()
                                 }
 
-                                val orderStatues = response.body()!!.order_status
 
 //
 //                                if (orderStatues == "delivered") {
@@ -258,6 +297,7 @@ class OrderDetails : AppCompatActivity() {
 
 
                             }
+                            val orderStatues = response.body()!!.order_status
 
                             binding.tvCusName.text =
                                 response.body()!!.customer.f_name + " " + response.body()!!.customer.l_name
@@ -431,6 +471,74 @@ class OrderDetails : AppCompatActivity() {
             })
 
     }
+    private fun apiCalUploadDoc() {
+        if (selectedImageUri == null) {
+            myToast(context, resources.getString(R.string.Select_an_Image_First))
+            return
+        }
+        AppProgressBar.showLoaderDialog(context)
+        val parcelFileDescriptor = contentResolver.openFileDescriptor(selectedImageUri!!, "r", null)
+
+        val inputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
+        val file = File(cacheDir, contentResolver.getFileName(selectedImageUri!!))
+        val outputStream = FileOutputStream(file)
+        inputStream.copyTo(outputStream)
+        val body = UploadRequestBody(file, "image", this)
+        ApiClient.apiService.docsUpload(
+            sessionManager.idToken.toString(),
+            imgId,
+            MultipartBody.Part.createFormData("image", file.name, body),
+            MultipartBody.Part.createFormData("image", " file.name", body),
+        ).enqueue(object : Callback<ModelServiceList> {
+            @SuppressLint("LogNotTimber")
+            override fun onResponse(
+                call: Call<ModelServiceList>, response: Response<ModelServiceList>
+            ) {
+                try {
+                    if (response.code() == 500) {
+                        myToast(context, resources.getString(R.string.Server_Error))
+                        AppProgressBar.hideLoaderDialog()
+
+                    } else if (response.code() == 404) {
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
+                        AppProgressBar.hideLoaderDialog()
+
+                    } else if (response.code() == 200) {
+                        myToast(context, "${response.body()!!.message}")
+                        AppProgressBar.hideLoaderDialog()
+                        typeUpload=""
+                      //  refresh()
+
+                    } else {
+                        myToast(context, "${response.body()!!.message}")
+                        AppProgressBar.hideLoaderDialog()
+                        onBackPressed()
+
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    myToast(context, resources.getString(R.string.Something_went_wrong))
+                    AppProgressBar.hideLoaderDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<ModelServiceList>, t: Throwable) {
+                count++
+                if (count <= 3) {
+                    Log.e("count", count.toString())
+                    apiCalUploadDoc()
+                } else {
+                    myToast(context, t.message.toString())
+                    AppProgressBar.hideLoaderDialog()
+
+                }
+                AppProgressBar.hideLoaderDialog()
+            }
+
+        })
+
+    }
 
     private fun apiCallStatuesChange(
         orderId: String,
@@ -449,6 +557,7 @@ class OrderDetails : AppCompatActivity() {
                     try {
                         if (response.code() == 404) {
                             myToast(context, resources.getString(R.string.Something_went_wrong))
+                            AppProgressBar.hideLoaderDialog()
 
                         } else if (response.code() == 500) {
                             myToast(context, resources.getString(R.string.Server_Error))
@@ -520,5 +629,54 @@ class OrderDetails : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Dashboard.refreshLanNew=true
+    }
+    private fun ContentResolver.getFileName(selectedImageUri: Uri): String {
+        var name = ""
+        val returnCursor = this.query(selectedImageUri, null, null, null, null)
+        if (returnCursor != null) {
+            val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            returnCursor.moveToFirst()
+            name = returnCursor.getString(nameIndex)
+            returnCursor.close()
+
+        }
+
+        return name
+    }
+
+    private fun openImageChooser() {
+        Intent(Intent.ACTION_PICK).also {
+            it.type = "image/*"
+            (MediaStore.ACTION_IMAGE_CAPTURE)
+            val mimeTypes = arrayOf("image/jpeg", "image/png")
+            it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            startActivityForResult(it, REQUEST_CODE_IMAGE)
+//
+//        val pdfIntent = Intent(Intent.ACTION_GET_CONTENT)
+//        pdfIntent.type = "application/pdf"
+//        pdfIntent.addCategory(Intent.CATEGORY_OPENABLE)
+//        startActivityForResult(pdfIntent, REQUEST_CODE_IMAGE)
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE_IMAGE -> {
+                    selectedImageUri = data?.data
+                    Log.e("data?.data", data?.data.toString())
+ //                    binding!!.tvChoice.setTextColor(Color.parseColor("#FF4CAF50"))
+//                    binding!!.tvChoice.text = "Image Selected"
+
+                    //binding.imageViewNew.visibility = View.VISIBLE
+                    // binding.imageView.setImageURI(selectedImageUri)
+                }
+            }
+        }
+    }
+    override fun onProgressUpdate(percentage: Int) {
+        TODO("Not yet implemented")
     }
 }

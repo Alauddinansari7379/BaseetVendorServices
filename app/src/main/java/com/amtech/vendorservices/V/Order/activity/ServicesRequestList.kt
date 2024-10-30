@@ -22,6 +22,7 @@ import com.amtech.vendorservices.V.Order.Adapter.AdapterSerRequestList
 import com.amtech.vendorservices.V.Order.Adapter.AdapterSerRequestList.Companion.requestIdNew
 import com.amtech.vendorservices.V.Order.Model.Data
 import com.amtech.vendorservices.V.Order.Model.ModeUpdatePrice.ModelUpdatePrice
+import com.amtech.vendorservices.V.Order.Model.ModelChange.ModelChange
 import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
 import com.amtech.vendorservices.V.Order.Model.ModelSendSer.ModelSendSer
 import com.amtech.vendorservices.V.Order.Model.ModelServiceReq
@@ -44,6 +45,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
     var count2=0
     var count3=0
     var count4=0
+    var count5 = 0
 
     private val context = this@ServicesRequestList
     private lateinit var sessionManager: SessionManager
@@ -583,6 +585,66 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
     }
 
+    private fun apiCallStatuesChange(
+        id: String,
+        restaurant_id: String?,
+        foodId: String,
+    ) {
+        AppProgressBar.showLoaderDialog(context)
+        ApiClient.apiService.changesStatus(
+            sessionManager.idToken.toString(),
+            id, restaurant_id.toString(), foodId, "accept"
+        )
+            .enqueue(object : Callback<ModelChange> {
+                @SuppressLint("LogNotTimber", "SetTextI18n")
+                override fun onResponse(
+                    call: Call<ModelChange>, response: Response<ModelChange>
+                ) {
+                    try {
+                        if (response.code() == 404) {
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
+
+                        } else if (response.code() == 500) {
+                            myToast(context, resources.getString(R.string.Server_Error))
+                            AppProgressBar.hideLoaderDialog()
+
+                        } else {
+                            count5 = 0
+                            myToast(context, response.body()!!.msg)
+                            AppProgressBar.hideLoaderDialog()
+                            dialog?.dismiss()
+                            refresh()
+
+
+                        }
+                    } catch (e: Exception) {
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
+                        e.printStackTrace()
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                }
+
+
+                override fun onFailure(call: Call<ModelChange>, t: Throwable) {
+                    myToast(context, t.message.toString())
+                    AppProgressBar.hideLoaderDialog()
+                    count5++
+                    if (count5 <= 3) {
+                        Log.e("count", count5.toString())
+                        apiCallStatuesChange(id,restaurant_id,foodId)
+                    } else {
+                        myToast(context, t.message.toString())
+                        AppProgressBar.hideLoaderDialog()
+
+                    }
+                    AppProgressBar.hideLoaderDialog()
+                }
+
+            })
+
+    }
+
     private fun apiCallUpdatePrice(
         foodId: String,
         price: String,
@@ -642,30 +704,28 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
     @SuppressLint("SetTextI18n")
     override fun accept(
-        id: String,
-        name: String,
-        price: String,
-        langFrom: String,
-        langTo: String,
-        tranServ: String,
+        id: String, venId: String, whchserv: String
     ) {
         requestId=id
-        when (sessionManager.usertype) {
-            "car" -> {
-                apiCallRelatedServiceCar(langFrom, langTo, tranServ, price)
-            }
-            "home" -> {
-                apiCallRelatedServiceHome(langFrom, langTo, tranServ, price)
-            }
-            else -> {
-                apiCallRelatedService(langFrom, langTo, tranServ, price)
+        apiCallStatuesChange(id, venId, whchserv)
 
-            }
-        }
+//        when (sessionManager.usertype) {
+//            "car" -> {
+//                apiCallRelatedServiceCar(langFrom, langTo, tranServ, price)
+//            }
+//            "home" -> {
+//                apiCallRelatedServiceHome(langFrom, langTo, tranServ, price)
+//            }
+//            else -> {
+//                apiCallRelatedService(langFrom, langTo, tranServ, price)
+//
+//            }
+//        }
 
 
         AppProgressBar.hideLoaderDialog()
     }
+
 
     @SuppressLint("MissingInflatedId")
     override fun viewDoc(url: String) {

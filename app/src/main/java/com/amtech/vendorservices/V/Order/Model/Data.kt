@@ -10,6 +10,7 @@ data class Data(
     val details: Any,
     val driv_type: String?,
     val end_time: String,
+    val from_ven_stts: String,
     val id: Int,
     val name: String?,
     val price: String?,

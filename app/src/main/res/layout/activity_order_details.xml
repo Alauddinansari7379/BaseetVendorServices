@@ -97,6 +97,33 @@
                 android:textStyle="bold">
 
             </androidx.appcompat.widget.AppCompatTextView>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnUploadDoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="end"
+                     android:layout_marginEnd="10dp"
+                    android:background="@drawable/corner"
+                    android:backgroundTint="@color/main_color"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="Upload Doc"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:visibility="gone">
+
+                </androidx.appcompat.widget.AppCompatButton>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 

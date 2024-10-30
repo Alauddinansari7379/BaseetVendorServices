@@ -5,5 +5,6 @@ data class ModelServiceList(
     val offset: Int,
     val products: ArrayList<Product>,
     val total_size: Int,
-    val message: String
+    val message: String,
+    val msg: String
 )

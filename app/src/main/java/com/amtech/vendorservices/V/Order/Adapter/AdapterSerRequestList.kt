@@ -15,8 +15,8 @@ import com.amtech.vendorservices.databinding.SingleRowSerRequestListBinding
 class AdapterSerRequestList(
     val context: Context,
     var list: ArrayList<Data>,
-    val accept: Accept
- ) : RecyclerView.Adapter<AdapterSerRequestList.ViewHolder>() {
+    val accept: Accept,
+  ) : RecyclerView.Adapter<AdapterSerRequestList.ViewHolder>() {
     lateinit var sessionManager: SessionManager
 
     inner class ViewHolder(val binding: SingleRowSerRequestListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -59,7 +59,7 @@ class AdapterSerRequestList(
 
                     }
 
-                    if (accept_by == "0") {
+                    if (from_ven_stts != "accept") {
                         binding.btnAccept.visibility = View.VISIBLE
                         binding.tvWatingFor.visibility = View.GONE
                     } else {
@@ -68,23 +68,26 @@ class AdapterSerRequestList(
 
                     }
                     binding.btnAccept.setOnClickListener {
-                        when (sessionManager.usertype) {
-                            "car" -> {
-                                requestIdNew=id.toString()
-                                accept.accept(id.toString(), name!!, price!!, driv_type.toString(), trperson!!, type!!)
-                            }
-                            "home" -> {
-                                requestIdNew=id.toString()
-                                accept.accept(id.toString(), name!!, price!!,
-                                    "driv_type", trperson!!, type!!
-                                )
-                            }
-                            else -> {
-                                requestIdNew=id.toString()
-                                accept.accept(id.toString(), name!!, price!!, tr_from!!, tr_to!!, type!!)
+                     //   accept.sendRequest(serv_id.toString())
+                        accept.accept(id.toString(),ven_id,whchserv)
 
-                            }
-                        }
+//                        when (sessionManager.usertype) {
+//                            "car" -> {
+//                                requestIdNew=id.toString()
+//                                accept.accept(id.toString(), name!!, price!!, driv_type.toString(), trperson!!, type!!)
+//                            }
+//                            "home" -> {
+//                                requestIdNew=id.toString()
+//                                accept.accept(id.toString(), name!!, price!!,
+//                                    "driv_type", trperson!!, type!!
+//                                )
+//                            }
+//                            else -> {
+//                                requestIdNew=id.toString()
+//                                accept.accept(id.toString(), name!!, price!!, tr_from!!, tr_to!!, type!!)
+//
+//                            }
+//                        }
                     }
                     if (type == "Doc") {
                         binding.tvViewDoc.visibility = View.VISIBLE
@@ -115,7 +118,8 @@ class AdapterSerRequestList(
         }
     }
     interface Accept{
-        fun accept(id: String,name:String,price:String,langFrom:String,langTo:String,tranServ:String)
+        fun accept(id: String,ven_id:String,whchserv:String)
+        fun sendRequest(id: String,)
         fun viewDoc(url: String)
     }
     companion object{

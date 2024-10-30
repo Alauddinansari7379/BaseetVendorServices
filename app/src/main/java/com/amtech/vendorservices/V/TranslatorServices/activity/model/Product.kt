@@ -35,6 +35,7 @@ data class Product(
     val name: String,
     val order_count: Int,
     val port_video: String,
+    val isActive: String?,
     val price: Double?,
     val qty: Int,
     val rating_count: Int,
