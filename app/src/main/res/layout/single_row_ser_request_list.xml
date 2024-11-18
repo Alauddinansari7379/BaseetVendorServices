@@ -290,29 +290,59 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight=".8">
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:text="@string/price_"
+                                    android:textColor="@color/text_color"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold">
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
-                                android:text="@string/price_"
-                                android:textColor="@color/text_color"
-                                android:textSize="12sp"
-                                android:textStyle="bold">
+                                </androidx.appcompat.widget.AppCompatTextView>
 
-                            </androidx.appcompat.widget.AppCompatTextView>
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvPrice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:text="@string/_00"
+                                    android:textColor="@color/text_color"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold">
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/tvPrice"
-                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_regular"
-                                android:text="@string/_00"
-                                android:textColor="@color/text_color"
-                                android:textSize="12sp"
-                                android:textStyle="bold">
+                                </androidx.appcompat.widget.AppCompatTextView>
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/etEditedPrice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="00"
+                                    android:textSize="12sp"
+                                    android:visibility="gone"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:inputType="number"/>
+                                <LinearLayout
+                                    android:id="@+id/layoutEdit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    >
 
-                            </androidx.appcompat.widget.AppCompatTextView>
+                                    <LinearLayout
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:background="@drawable/corner_new"
+                                        android:gravity="center">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                            android:layout_width="10dp"
+                                            android:layout_height="10dp"
+                                            android:background="@drawable/edit">
+
+                                        </androidx.appcompat.widget.AppCompatImageView>
+
+                                    </LinearLayout>
+                                </LinearLayout>
                         </LinearLayout>
 
 
@@ -484,6 +514,20 @@
                                 >
 
                             </com.google.android.material.button.MaterialButton>
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnUpdate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_marginStart="10dp"
+                                android:backgroundTint="#FF9800"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="@string/update_price"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="11sp"
+                                android:visibility="gone">
+
+                            </com.google.android.material.button.MaterialButton>
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvWatingFor"
                                 android:layout_width="wrap_content"
@@ -501,7 +545,35 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/layoutDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:background="?actionBarItemBackground"
+                        >
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="@string/view_detial"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold">
+
+                        </androidx.appcompat.widget.AppCompatTextView>
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="5dp"
+                            android:background="@drawable/baseline_arrow_circle_right_24">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

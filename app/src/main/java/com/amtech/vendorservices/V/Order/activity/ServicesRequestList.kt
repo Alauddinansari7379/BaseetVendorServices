@@ -6,9 +6,11 @@ import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -26,25 +28,30 @@ import com.amtech.vendorservices.V.Order.Model.ModelChange.ModelChange
 import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
 import com.amtech.vendorservices.V.Order.Model.ModelSendSer.ModelSendSer
 import com.amtech.vendorservices.V.Order.Model.ModelServiceReq
+import com.amtech.vendorservices.V.Order.modeldetails.ModelDetails
 import com.amtech.vendorservices.V.retrofit.ApiClient
 import com.amtech.vendorservices.V.sharedpreferences.SessionManager
 import com.amtech.vendorservices.databinding.ActivityServicesRequestListBinding
+import com.amtech.vendorservices.databinding.PopupServicDetailsBinding
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,AdapterRelatedServiceList.SendRequest {
+class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,
+    AdapterRelatedServiceList.SendRequest {
     private val binding by lazy {
         ActivityServicesRequestListBinding.inflate(layoutInflater)
     }
     var dialog: Dialog? = null
-    var requestId=""
-    var count=0
-    var count1=0
-    var count2=0
-    var count3=0
-    var count4=0
+    var requestId = ""
+    var count = 0
+    var count1 = 0
+    var count2 = 0
+    var count3 = 0
+    var count4 = 0
+    private var allServiceDetails: com.amtech.vendorservices.V.Order.modeldetails.Data? = null
     var count5 = 0
 
     private val context = this@ServicesRequestList
@@ -125,7 +132,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                         } else {
                             mainData = response.body()!!.data
-                           mainData.reverse()
+                            mainData.reverse()
 
                             setRecyclerViewAdapter(mainData)
                             AppProgressBar.hideLoaderDialog()
@@ -142,7 +149,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
 
                 override fun onFailure(call: Call<ModelServiceReq>, t: Throwable) {
-                     AppProgressBar.hideLoaderDialog()
+                    AppProgressBar.hideLoaderDialog()
                     count++
                     if (count <= 3) {
                         Log.e("count", count.toString())
@@ -199,7 +206,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                         } else {
                             val view = layoutInflater.inflate(R.layout.dialog_accepct_service, null)
                             dialog = Dialog(context)
-                            
+
                             /*     var nameTv = view!!.findViewById<TextView>(R.id.name)
                               val priceTv = view!!.findViewById<TextView>(R.id.price)
                               val fromLanTv = view!!.findViewById<TextView>(R.id.fromLan)
@@ -238,7 +245,11 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                             mainDataNew = response.body()!!.data
 
                             recyclerView.apply {
-                                adapter = AdapterRelatedServiceList(this@ServicesRequestList, mainDataNew,this@ServicesRequestList)
+                                adapter = AdapterRelatedServiceList(
+                                    this@ServicesRequestList,
+                                    mainDataNew,
+                                    this@ServicesRequestList
+                                )
                                 AppProgressBar.hideLoaderDialog()
                             }
 
@@ -356,7 +367,11 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                             mainDataNew = response.body()!!.data
 
                             recyclerView.apply {
-                                adapter = AdapterRelatedServiceList(this@ServicesRequestList, mainDataNew,this@ServicesRequestList)
+                                adapter = AdapterRelatedServiceList(
+                                    this@ServicesRequestList,
+                                    mainDataNew,
+                                    this@ServicesRequestList
+                                )
                                 AppProgressBar.hideLoaderDialog()
                             }
 
@@ -384,6 +399,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
                     }
                 }
+
                 override fun onFailure(call: Call<ModelServiceRet>, t: Throwable) {
                     AppProgressBar.hideLoaderDialog()
                     count2++
@@ -411,7 +427,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
         AppProgressBar.showLoaderDialog(context)
         ApiClient.apiService.getRelatedServiceHome(
             sessionManager.idToken.toString(),
-             tranServ,price
+            tranServ, price
         )
             .enqueue(object : Callback<ModelServiceRet> {
                 @SuppressLint("LogNotTimber", "SetTextI18n")
@@ -471,7 +487,11 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                             mainDataNew = response.body()!!.data
 
                             recyclerView.apply {
-                                adapter = AdapterRelatedServiceList(this@ServicesRequestList, mainDataNew,this@ServicesRequestList)
+                                adapter = AdapterRelatedServiceList(
+                                    this@ServicesRequestList,
+                                    mainDataNew,
+                                    this@ServicesRequestList
+                                )
                                 AppProgressBar.hideLoaderDialog()
                             }
 
@@ -502,8 +522,8 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
 
                 override fun onFailure(call: Call<ModelServiceRet>, t: Throwable) {
-                      myToast(context, t.message.toString())
-                   // myToast(context, "No Data Found")
+                    myToast(context, t.message.toString())
+                    // myToast(context, "No Data Found")
 
                     AppProgressBar.hideLoaderDialog()
                     count3++
@@ -524,11 +544,11 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
     private fun apiCallSendService(
         foodId: String,
-     ) {
+    ) {
         AppProgressBar.showLoaderDialog(context)
         ApiClient.apiService.sendService(
             sessionManager.idToken.toString(),
-            foodId,requestId
+            foodId, requestId
         )
             .enqueue(object : Callback<ModelSendSer> {
                 @SuppressLint("LogNotTimber", "SetTextI18n")
@@ -548,12 +568,10 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
-                            myToast(context,response.body()!!.data)
+                            myToast(context, response.body()!!.data)
                             AppProgressBar.hideLoaderDialog()
                             dialog?.dismiss()
                             refresh()
-
-
 
 
                         }
@@ -567,7 +585,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
 
 
                 override fun onFailure(call: Call<ModelSendSer>, t: Throwable) {
-                      myToast(context, t.message.toString())
+                    myToast(context, t.message.toString())
                     AppProgressBar.hideLoaderDialog()
                     count4++
                     if (count4 <= 3) {
@@ -632,7 +650,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                     count5++
                     if (count5 <= 3) {
                         Log.e("count", count5.toString())
-                        apiCallStatuesChange(id,restaurant_id,foodId)
+                        apiCallStatuesChange(id, restaurant_id, foodId)
                     } else {
                         myToast(context, t.message.toString())
                         AppProgressBar.hideLoaderDialog()
@@ -649,12 +667,12 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
         foodId: String,
         price: String,
 
-     ) {
+        ) {
         AppProgressBar.showLoaderDialog(context)
         ApiClient.apiService.updatePrice(
             sessionManager.idToken.toString(),
             foodId,
-            price,requestIdNew
+            price, requestIdNew
         )
             .enqueue(object : Callback<ModelUpdatePrice> {
                 @SuppressLint("LogNotTimber", "SetTextI18n")
@@ -670,7 +688,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                             AppProgressBar.hideLoaderDialog()
 
                         } else {
-                            myToast(context,response.body()!!.message)
+                            myToast(context, response.body()!!.message)
                             AppProgressBar.hideLoaderDialog()
                             dialog?.dismiss()
                             refresh()
@@ -684,7 +702,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
                 }
 
                 override fun onFailure(call: Call<ModelUpdatePrice>, t: Throwable) {
-                      myToast(context, t.message.toString())
+                    myToast(context, t.message.toString())
                     AppProgressBar.hideLoaderDialog()
                     count4++
                     if (count4 <= 3) {
@@ -706,7 +724,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
     override fun accept(
         id: String, venId: String, whchserv: String
     ) {
-        requestId=id
+        requestId = id
         apiCallStatuesChange(id, venId, whchserv)
 
 //        when (sessionManager.usertype) {
@@ -753,12 +771,20 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
         dialog.show()
     }
 
+    override fun showDetailsPopup(venId: String) {
+        apiCallGetDetails(venId)
+    }
+
+    override fun updatePricer(venId: String, price: String, position: Int) {
+        apiCallUpdatePriceNew(venId,price,position)
+    }
+
     override fun sendRequest(foodId: String) {
         apiCallSendService(foodId.toString())
-     }
+    }
 
-    override fun updatePrice(foodId: String,price:String) {
-         apiCallUpdatePrice(foodId,price)
+    override fun updatePrice(foodId: String, price: String) {
+        apiCallUpdatePrice(foodId, price)
 
     }
 
@@ -774,8 +800,152 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,Ad
         startActivity(intent)
         overridePendingTransition(0, 0)
     }
+
     override fun onDestroy() {
         super.onDestroy()
-        Dashboard.refreshLanNew=true
+        Dashboard.refreshLanNew = true
     }
+
+    fun apiCallGetDetails(id: String) {
+        AppProgressBar.showLoaderDialog(context)
+        ApiClient.apiService.getDetails(sessionManager.idToken.toString(), id)
+            .enqueue(object : Callback<ModelDetails> {
+
+                override fun onResponse(call: Call<ModelDetails>, response: Response<ModelDetails>) {
+                    try {
+                        if (response.code() == 404) {
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
+                            AppProgressBar.hideLoaderDialog()
+                        } else if (response.code() == 500) {
+                            myToast(context, resources.getString(R.string.Server_Error))
+                            AppProgressBar.hideLoaderDialog()
+                        } else {
+                            count = 0
+                            AppProgressBar.hideLoaderDialog()
+                            allServiceDetails = response.body()?.data
+
+                            val binding = PopupServicDetailsBinding.inflate(LayoutInflater.from(context))
+                            with(binding) {
+                                if (allServiceDetails != null) {
+                                    tvName.text = allServiceDetails!!.name
+                                    tvPrice.text = allServiceDetails!!.price.toString()
+                                    if (allServiceDetails!!.food_type == "translator") {
+                                        tvFrom.text = "Tr from : ${allServiceDetails!!.tr_from}"
+                                        tvTo.text = "Tr to : ${allServiceDetails!!.tr_to}"
+                                    } else {
+                                        tvTo.visibility = View.GONE
+                                        tvFrom.visibility = View.GONE
+                                    }
+
+                                    tvType.text = "Type :${allServiceDetails!!.food_type}"
+                                    tvDescription.text = allServiceDetails!!.description
+                                    tvTax.text = "Tax : ${allServiceDetails!!.tax}"
+                                    tvStatus.text = "Status : ${allServiceDetails!!.status}"
+                                    tvOrderCount.text = "Order count : ${allServiceDetails!!.order_count}"
+                                    tvAvgRating.text = "Avg rating : ${allServiceDetails!!.avg_rating}"
+                                    tvRatingCount.text = "Rating count : ${allServiceDetails!!.rating_count}"
+                                    tvQty.text = "Qty : ${allServiceDetails!!.qty}"
+
+                                    if (allServiceDetails!!.food_type == "car") {
+                                        tvCarType.text = allServiceDetails!!.car_type.toString()
+                                        tvTravlingPer.text = allServiceDetails!!.trperson.toString()
+                                        tvDatesN.text = "Dates : ${allServiceDetails!!.dates}"
+                                        tvHomeDays.text = "Home days : ${allServiceDetails!!.home_days}"
+                                    } else {
+                                        tvCarType.visibility = View.GONE
+                                        tvTravlingPer.visibility = View.GONE
+                                        tvDatesN.visibility = View.GONE
+                                        tvHomeDays.visibility = View.GONE
+                                        tvTravalPerson.visibility = View.GONE
+                                        tvCartypeHN.visibility = View.GONE
+                                    }
+
+                                    if (allServiceDetails!!.food_type == "home") {
+                                        tvHomeDetail.text = "Home details :${allServiceDetails!!.amenities}"
+                                        tvHomeType.text = "Home type :${allServiceDetails!!.car_type}"
+                                    } else {
+                                        tvHomeDetail.visibility = View.GONE
+                                        tvHomeType.visibility = View.GONE
+                                    }
+
+                                    Glide.with(context)
+                                        .load(allServiceDetails!!.appimage)
+                                        .into(ivImage)
+                                }
+
+                                val dialog = AlertDialog.Builder(context)
+                                    .setView(root)
+                                    .create()
+
+                                imgClose.setOnClickListener {
+                                    dialog.dismiss()
+                                }
+
+                                btnClose.setOnClickListener {
+                                    dialog.dismiss()
+                                }
+
+                                dialog.show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
+                        e.printStackTrace()
+                    }
+                }
+
+                override fun onFailure(call: Call<ModelDetails>, t: Throwable) {
+                    myToast(context, t.message.toString())
+                    AppProgressBar.hideLoaderDialog()
+                    count++
+                    if (count <= 3) {
+                        apiCallGetDetails(id)
+                    } else {
+                        myToast(context, t.message.toString())
+                    }
+                    AppProgressBar.hideLoaderDialog()
+                }
+            })
+    }
+    fun apiCallUpdatePriceNew(id: String, price: String,position: Int) {
+        AppProgressBar.showLoaderDialog(context)
+        ApiClient.apiService.updatePrice1(sessionManager.idToken.toString(), id,price)
+            .enqueue(object : Callback<ModelUpdatePrice> {
+
+                override fun onResponse(call: Call<ModelUpdatePrice>, response: Response<ModelUpdatePrice>) {
+                    try {
+                        if (response.code() == 404) {
+                            myToast(context, resources.getString(R.string.Something_went_wrong))
+                            AppProgressBar.hideLoaderDialog()
+                        } else if (response.code() == 500) {
+                            myToast(context, resources.getString(R.string.Server_Error))
+                            AppProgressBar.hideLoaderDialog()
+                        } else {
+                            if (response.isSuccessful)
+                            {
+                                myToast(context, "Price update successfully.")
+                                apiCallServiceReqList()
+//                                AdapterSerRequestList().notifyItemChanged(position)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        myToast(context, resources.getString(R.string.Something_went_wrong))
+                        e.printStackTrace()
+                    }
+                }
+
+                override fun onFailure(call: Call<ModelUpdatePrice>, t: Throwable) {
+                    myToast(context, t.message.toString())
+                    AppProgressBar.hideLoaderDialog()
+                    count++
+                    if (count <= 3) {
+                        apiCallUpdatePriceNew(id,price, position)
+                    } else {
+                        myToast(context, t.message.toString())
+                    }
+                    AppProgressBar.hideLoaderDialog()
+                }
+            })
+    }
+
 }

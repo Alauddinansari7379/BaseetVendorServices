@@ -27,10 +27,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.amtech.vendorservices" />
+                  <option name="mobileSdkAppId" value="1:12841086081:android:ad7391e418a0451143f180" />
+                  <option name="projectId" value="notificationmsg-574c6" />
+                  <option name="projectNumber" value="12841086081" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
