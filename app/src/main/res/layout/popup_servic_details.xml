@@ -209,6 +209,7 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/poppins_regular"
                                         android:text="Tax"
+                                        android:visibility="gone"
                                         android:layout_weight="1"
                                         android:textColor="@color/text_color"
                                         android:textSize="12sp"
@@ -221,6 +222,7 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/poppins_regular"
                                         android:text="Avg rating"
+                                        android:visibility="gone"
                                         android:layout_weight="1"
                                         android:textColor="@color/text_color"
                                         android:textSize="12sp"
@@ -255,6 +257,7 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/poppins_regular"
                                         android:text="Home days"
+                                        android:visibility="gone"
                                         android:layout_weight="1"
                                         android:textColor="@color/text_color"
                                         android:textSize="12sp"
@@ -467,11 +470,11 @@
 
                                     </androidx.appcompat.widget.AppCompatTextView>
                                     <androidx.appcompat.widget.AppCompatTextView
-                                        android:id="@+id/tvRatingCount"
+                                        android:id="@+id/tvServiceH"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/poppins_regular"
-                                        android:text="Rating count"
+                                        android:text="Service hours"
                                         android:layout_weight="1"
                                         android:textColor="@color/text_color"
                                         android:textSize="12sp"

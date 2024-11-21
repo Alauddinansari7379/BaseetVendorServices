@@ -545,7 +545,7 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <!--<LinearLayout
                         android:id="@+id/layoutDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -573,7 +573,17 @@
 
                         </androidx.appcompat.widget.AppCompatImageView>
 
-                    </LinearLayout>
+                    </LinearLayout>-->
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/layoutDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:text="@string/view"
+                        android:textAllCaps="false"
+                        android:padding="3dp"
+                        android:background="@drawable/view_background_round"
+                        android:drawableEnd="@drawable/baseline_remove_red_eye_24"/>
+
                 </LinearLayout>
             </LinearLayout>
 

@@ -185,6 +185,8 @@ class UpdateServices : AppCompatActivity(), UploadRequestBody.UploadCallback {
                     binding.layoutHomeType.visibility = View.GONE
                     binding.layoutUti.visibility = View.GONE
                     binding.layoutCarOption.visibility = View.GONE
+                    binding.serviceHeader.visibility = View.GONE
+                    binding.servicLower.visibility = View.GONE
 
                 }
 

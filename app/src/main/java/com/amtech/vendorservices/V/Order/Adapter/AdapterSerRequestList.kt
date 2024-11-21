@@ -95,7 +95,11 @@ class AdapterSerRequestList(
                             binding.etEditedPrice.requestFocus()
                             return@setOnClickListener
                         } else {
-                            accept.updatePricer(whchserv, binding.etEditedPrice.text.toString(),position)
+                            accept.updatePricer(
+                                whchserv,
+                                binding.etEditedPrice.text.toString(),
+                                position
+                            )
                         }
                     }
                     binding.btnAccept.setOnClickListener {
@@ -157,7 +161,7 @@ class AdapterSerRequestList(
         fun sendRequest(id: String)
         fun viewDoc(url: String)
         fun showDetailsPopup(venId: String)
-        fun updatePricer(venId: String, price: String,position: Int)
+        fun updatePricer(venId: String, price: String, position: Int)
     }
 
     companion object {

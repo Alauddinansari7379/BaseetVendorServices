@@ -843,7 +843,7 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,
                                     tvStatus.text = "Status : ${allServiceDetails!!.status}"
                                     tvOrderCount.text = "Order count : ${allServiceDetails!!.order_count}"
                                     tvAvgRating.text = "Avg rating : ${allServiceDetails!!.avg_rating}"
-                                    tvRatingCount.text = "Rating count : ${allServiceDetails!!.rating_count}"
+                                    tvServiceH.text = "Service hours : ${allServiceDetails!!.ser_hour}"
                                     tvQty.text = "Qty : ${allServiceDetails!!.qty}"
 
                                     if (allServiceDetails!!.food_type == "car") {
