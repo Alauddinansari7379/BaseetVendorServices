@@ -56,6 +56,8 @@ class AdapterSerRequestList(
                     binding.tvDrivingType.text = driv_type
 
                     if (sessionManager.usertype == "car") {
+                        binding.tvServiceDate.text = "Service date :"
+                        binding.llServiceH.visibility = View.GONE
                         binding.layoutDrivingType.visibility = View.VISIBLE
                         binding.layoutLangauge.visibility = View.GONE
                     } else if (sessionManager.usertype == "home") {

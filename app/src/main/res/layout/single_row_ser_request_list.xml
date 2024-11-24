@@ -141,6 +141,7 @@
                             android:layout_weight=".8">
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvServiceDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppins_regular"
@@ -203,6 +204,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/llServiceH"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -579,6 +581,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:text="@string/view"
+                        android:textColor="@color/white"
                         android:textAllCaps="false"
                         android:padding="3dp"
                         android:background="@drawable/view_background_round"

@@ -850,12 +850,12 @@ class ServicesRequestList : AppCompatActivity(), AdapterSerRequestList.Accept,
                                         tvCarType.text = allServiceDetails!!.car_type.toString()
                                         tvTravlingPer.text = allServiceDetails!!.trperson.toString()
                                         tvDatesN.text = "Dates : ${allServiceDetails!!.dates}"
-                                        tvHomeDays.text = "Home days : ${allServiceDetails!!.home_days}"
+                                        tvDrivingType.visibility = View.VISIBLE
+                                        tvDrivingType.text = "Driving type : ${allServiceDetails!!.driv_type}"
                                     } else {
                                         tvCarType.visibility = View.GONE
                                         tvTravlingPer.visibility = View.GONE
                                         tvDatesN.visibility = View.GONE
-                                        tvHomeDays.visibility = View.GONE
                                         tvTravalPerson.visibility = View.GONE
                                         tvCartypeHN.visibility = View.GONE
                                     }
