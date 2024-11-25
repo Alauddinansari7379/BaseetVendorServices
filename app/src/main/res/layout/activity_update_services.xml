@@ -1004,6 +1004,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/serviceHeader"
                          android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
@@ -1051,6 +1052,7 @@
                     android:layout_marginRight="10dp">
 
                     <LinearLayout
+                        android:id="@+id/servicLower"
                          android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"

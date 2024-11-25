@@ -48,6 +48,11 @@ class AdapterCompleteOrder(
                     }
                      binding.tvPaymentStatus.text = payment_status
                      binding.tvType.text = food_type
+                    if (food_type == "car")
+                    {
+//                        binding.llTrPDt.visibility = View.VISIBLE
+//                        binding.tvTravellingPersons.text = pe
+                    }
                     for (i in servrequests){
                         binding.tvTotal.text = "${i.price}$"
 

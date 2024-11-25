@@ -13,6 +13,7 @@ import com.amtech.vendorservices.V.Order.Model.ModelOrderDetail.ModelOrderDetail
 import com.amtech.vendorservices.V.Order.Model.ModelRelatedSer.ModelServiceRet
 import com.amtech.vendorservices.V.Order.Model.ModelSendSer.ModelSendSer
 import com.amtech.vendorservices.V.Order.Model.ModelServiceReq
+import com.amtech.vendorservices.V.Order.modeldetails.ModelDetails
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.ModelGetListCar
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelGetProdile.ModelGetProfile
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelServiceList
@@ -185,7 +186,7 @@ interface ApiInterface {
     fun addNewService(
         @Header("Authorization") authorization: String,
         @Query("food_type") food_type: String,
-         @Query("price") price: String,
+        @Query("price") price: String,
         @Query("port_video") port_video: String,
         @Query("ser_hour") ser_hour: String,
         @Query("name") name: String,
@@ -272,7 +273,8 @@ interface ApiInterface {
         @Part amenities: List<MultipartBody.Part>, // Updated to MultipartBody.Part for amenities
         @Part image: MutableList<MultipartBody.Part>,
     ): Call<ModelServiceList>
-//
+
+    //
 //
 //    @GET("viewmedicalinfo")
 //    fun viewMedicalInfo(
@@ -298,6 +300,17 @@ interface ApiInterface {
 //        @Query("profile") profile: String,
 //        @Part img_url: MultipartBody.Part,
 //    ): Call<ModelNewAppoint>
+    @POST("vendor/product/serviceById")
+    fun getDetails(
+        @Header("Authorization") authorization: String,
+        @Query("id") id: String
+    ): Call<ModelDetails>
 
+    @POST("vendor/update-price")
+    fun updatePrice1(
+        @Header("Authorization") authorization: String,
+        @Query("food_id") id: String,
+        @Query("price") price: String,
+    ): Call<ModelUpdatePrice>
 
 }
