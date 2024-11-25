@@ -160,6 +160,7 @@ class OrderDetails : AppCompatActivity(), UploadRequestBody.UploadCallback  {
             apiCallStatuesChange(orderId, "canceled")
         }
 
+
         binding.btnDeleverd.setOnClickListener {
             if (orderPayment=="partial"){
                 if (typeUpload=="Doc"){

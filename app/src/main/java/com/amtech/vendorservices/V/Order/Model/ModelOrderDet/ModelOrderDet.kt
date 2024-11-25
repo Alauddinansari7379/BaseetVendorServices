@@ -27,7 +27,7 @@ data class ModelOrderDet(
     val handover: Any,
     val help_note: Any,
     val id: Int,
-    val order_amount: Int,
+    val order_amount: Double,
     val order_note: Any,
     val order_payment: String,
     val order_status: String,

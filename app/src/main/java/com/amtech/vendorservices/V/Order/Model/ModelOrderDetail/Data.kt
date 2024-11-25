@@ -28,7 +28,7 @@ data class Data(
     val handover: Any,
     val help_note: Any,
     val id: Int,
-    val order_amount: Int,
+    val order_amount: Double,
     val servrequests: List<Servrequest>,
     val order_note: Any,
     val order_payment: String,
