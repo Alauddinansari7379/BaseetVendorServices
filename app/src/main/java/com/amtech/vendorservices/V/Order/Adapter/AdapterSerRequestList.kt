@@ -47,7 +47,7 @@ class AdapterSerRequestList(
                     binding.tvSNo.text = id.toString()
                     binding.tvName.text = name
                     binding.tvPrice.text = "$price$"
-                    binding.tvServiceD.text = serv_date
+                    binding.tvServiceD.text = ": $serv_date"
                     binding.tvServiceH.text = serv_hour
                     binding.tvType.text = type
                     binding.tvToLang.text = tr_to
@@ -56,14 +56,14 @@ class AdapterSerRequestList(
                     binding.tvDrivingType.text = driv_type
 
                     if (sessionManager.usertype == "car") {
-                        binding.tvServiceDate.text = "Service date :"
                         binding.llServiceH.visibility = View.GONE
                         binding.layoutDrivingType.visibility = View.VISIBLE
                         binding.layoutLangauge.visibility = View.GONE
                     } else if (sessionManager.usertype == "home") {
-                        binding.tvTypeTv.text = context.resources.getString(R.string.Home_Type)
+                        binding.tvTypeTv.text = context.resources.getString(R.string.Type)+" Home"
                         binding.layoutDrivingType.visibility = View.GONE
                         binding.layoutLangauge.visibility = View.GONE
+                        binding.llServiceH.visibility = View.GONE
 
                     } else {
                         binding.layoutDrivingType.visibility = View.GONE
