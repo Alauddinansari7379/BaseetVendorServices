@@ -17,6 +17,8 @@ import com.amtech.vendorservices.V.Order.modeldetails.ModelDetails
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModeCar.ModelGetListCar
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelGetProdile.ModelGetProfile
 import com.amtech.vendorservices.V.TranslatorServices.activity.model.ModelServiceList
+import com.amtech.vendorservices.V.activity.model.WithdrawList
+import com.amtech.vendorservices.V.activity.model.withdrawrequest.ModelWithdrawRequest
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.GET
@@ -312,5 +314,16 @@ interface ApiInterface {
         @Query("food_id") id: String,
         @Query("price") price: String,
     ): Call<ModelUpdatePrice>
+
+    @GET("vendor/get-withdraw-list")
+    fun getWithdrawList(
+        @Header("Authorization") authorization: String
+    ): Call<WithdrawList>
+
+    @POST("vendor/request-withdraw")
+    fun withdrawRequest(
+        @Header("Authorization") authorization: String,
+        @Query("amount") amount: String
+    ): Call<ModelWithdrawRequest>
 
 }

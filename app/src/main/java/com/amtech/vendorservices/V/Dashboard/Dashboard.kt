@@ -111,7 +111,6 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -1099,7 +1098,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         val commissionObject = jsonObject.getJSONObject("commission")
 
                         // Calculate sum of earnings
-                        var earningsSum = 0.0
+
                         for (key in earningObject.keys()) {
                             earningsSum += earningObject.getDouble(key)
                         }
@@ -1226,7 +1225,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
                         val commissionObject = jsonObject.getJSONObject("commission")
 
                         // Calculate sum of earnings
-                        var earningsSum = 0.0
+//                        var earningsSum = 0.0
                         for (key in earningObject.keys()) {
                             earningsSum += earningObject.getDouble(key)
                         }
@@ -1378,6 +1377,7 @@ class Dashboard : AppCompatActivity(), Listener, LocationData.AddressCallBack {
         var refreshLan = true
         var back = false
         var refreshLanNew = true
+        var earningsSum: Double = 0.0
     }
 
     fun languageSetting(context: Context, languageCode: String) {
